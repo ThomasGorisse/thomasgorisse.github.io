@@ -299,10 +299,12 @@
       background: var(--accent-dim);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
       margin-bottom: 1.1rem;
+      flex-shrink: 0;
+      color: var(--accent);
     }
-    .exp-card.green .exp-icon { background: var(--green-dim); }
+    .exp-icon svg { width: 20px; height: 20px; }
+    .exp-card.green .exp-icon { background: var(--green-dim); color: var(--green); }
 
     .exp-title {
       font-size: 1rem;
@@ -452,7 +454,15 @@
     @media (max-width: 720px) { .proj-card.span2 { grid-column: auto; grid-template-columns: 1fr; } }
 
     .proj-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
-    .proj-icon { font-size: 1.6rem; }
+    .proj-icon {
+      width: 36px; height: 36px;
+      background: var(--surface);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .proj-icon svg { width: 18px; height: 18px; }
     .proj-star {
       display: flex; align-items: center; gap: 0.3rem;
       font-size: 0.75rem;
@@ -670,7 +680,7 @@
       <div class="expertise-grid">
 
         <div class="exp-card reveal d1">
-          <div class="exp-icon">📱</div>
+          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5S11 23.33 11 22.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zm-2.5-10C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84 1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg></div>
           <div class="exp-title">Android Engineering</div>
           <div class="exp-desc">10+ years building production apps across retail, finance, healthcare, and social — serving millions of users. Kotlin, Jetpack Compose, and architecture patterns that keep codebases maintainable as products and teams scale.</div>
           <div class="exp-tags">
@@ -683,7 +693,7 @@
         </div>
 
         <div class="exp-card reveal d2">
-          <div class="exp-icon">🥽</div>
+          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
           <div class="exp-title">3D & Spatial Computing</div>
           <div class="exp-desc">Creator of SceneView, contributor to Google Filament, and years of shipping AR into real apps — from room-scanning experiences to 3D model viewers in production. Started as an exploration, became a genuine specialisation.</div>
           <div class="exp-tags">
@@ -696,7 +706,7 @@
         </div>
 
         <div class="exp-card reveal d3">
-          <div class="exp-icon">🤖</div>
+          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4M19 17v4M3 5h4M17 19h4"/></svg></div>
           <div class="exp-title">Building with AI</div>
           <div class="exp-desc">Built IntelliClaude — an Android Studio plugin for Claude — because I needed better tooling, not because it seemed interesting. I use it daily for architecture review, spec generation, and accelerating delivery on Flutter and React Native alongside my Android core.</div>
           <div class="exp-tags">
@@ -708,7 +718,7 @@
         </div>
 
         <div class="exp-card reveal d4">
-          <div class="exp-icon">🌐</div>
+          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
           <div class="exp-title">Cross-Platform Delivery</div>
           <div class="exp-desc">Extending Android-native expertise to Flutter, React Native, and Kotlin Multiplatform. Knowing the trade-offs of each approach, and choosing the right tool for each team and product context.</div>
           <div class="exp-tags">
@@ -720,7 +730,7 @@
         </div>
 
         <div class="exp-card reveal d5 green">
-          <div class="exp-icon">⚡</div>
+          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <div class="exp-title">Performance & Quality</div>
           <div class="exp-desc">Deep understanding of the Android rendering pipeline, Compose performance, and memory management. Building apps that feel fast, not just measure fast — and stay that way as the codebase grows.</div>
           <div class="exp-tags">
@@ -732,7 +742,7 @@
         </div>
 
         <div class="exp-card reveal d6">
-          <div class="exp-icon">🔓</div>
+          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></div>
           <div class="exp-title">Open Source Leadership</div>
           <div class="exp-desc">Maintaining libraries used in production by hundreds of teams worldwide. Contributor to Google Filament. Understanding what it means to build public API surfaces that others depend on.</div>
           <div class="exp-tags">
@@ -857,7 +867,7 @@
         <div class="proj-card span2 reveal">
           <div>
             <div class="proj-header">
-              <div class="proj-icon">🌐</div>
+              <div class="proj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
               <div class="proj-star">★ 1.1k</div>
             </div>
             <div class="proj-name">SceneView Android</div>
@@ -878,7 +888,7 @@
 
         <a class="proj-card reveal d1" href="https://github.com/ThomasGorisse/SceneformMaintained" target="_blank" rel="noopener">
           <div class="proj-header">
-            <div class="proj-icon">📦</div>
+            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
             <div class="proj-star">★ 679</div>
           </div>
           <div class="proj-name">SceneForm Maintained</div>
@@ -891,7 +901,7 @@
 
         <a class="proj-card reveal d2" href="https://github.com/ThomasGorisse/intelli-claude" target="_blank" rel="noopener">
           <div class="proj-header">
-            <div class="proj-icon">🧩</div>
+            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
             <div class="proj-star">★ 3</div>
           </div>
           <div class="proj-name">IntelliClaude</div>
@@ -904,7 +914,7 @@
 
         <a class="proj-card reveal d3" href="https://github.com/google/filament" target="_blank" rel="noopener">
           <div class="proj-header">
-            <div class="proj-icon">🔥</div>
+            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
             <div class="proj-star">★ 19.9k</div>
           </div>
           <div class="proj-name">Google Filament Contributor</div>
@@ -917,7 +927,7 @@
 
         <a class="proj-card reveal d4" href="https://github.com/ThomasGorisse/kotlin-math" target="_blank" rel="noopener">
           <div class="proj-header">
-            <div class="proj-icon">📐</div>
+            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.623 9.958 12 3h6.623v6.958zM12 3 0 16.042V3h12zM0 21l12-12 6.623 6.958L12 21H0z"/></svg></div>
             <div class="proj-star">★ 882</div>
           </div>
           <div class="proj-name">kotlin-math</div>
