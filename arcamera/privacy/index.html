@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AR Model Viewer</title>
+  <meta name="description" content="Privacy Policy for the AR Model Viewer (3D & AI) Android app by Thomas Gorisse. No account, local-first, HTTPS everywhere." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/privacy/" />
+  <style>
+    :root {
+      --bg: #ffffff; --surface: #f6f8fc; --border: #e4e9f2;
+      --text: #1c2536; --text-2: #4a5670; --muted: #7b879e;
+      --accent: #2f6fe0; --accent-soft: #eaf1fd;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --radius: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1120; --surface: #131c2e; --border: rgba(255,255,255,0.09);
+        --text: #e6ecf7; --text-2: #a9b6ce; --muted: #6f7d97;
+        --accent: #5c94f5; --accent-soft: rgba(92,148,245,0.12);
+      }
+    }
+    * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      padding: 0 20px; overflow-x: hidden;
+    }
+    .wrap { max-width: 780px; margin: 0 auto; padding: 56px 0 80px; }
+    header.masthead { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 8px; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+    h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 800; line-height: 1.15; margin: 10px 0 6px; letter-spacing: -0.02em; }
+    .sub { color: var(--text-2); font-size: 16px; }
+    .updated { color: var(--muted); font-size: 14px; margin-top: 12px; }
+    h2 { font-size: 21px; font-weight: 700; margin: 40px 0 12px; letter-spacing: -0.01em; }
+    h3 { font-size: 16px; font-weight: 700; margin: 22px 0 6px; color: var(--text); }
+    p { color: var(--text-2); margin: 12px 0; }
+    ul { margin: 12px 0 12px 4px; padding-left: 22px; color: var(--text-2); }
+    li { margin: 7px 0; }
+    strong { color: var(--text); font-weight: 650; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .callout {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin: 20px 0;
+    }
+    .callout.accent { background: var(--accent-soft); border-color: transparent; }
+    .tldr { font-size: 15px; }
+    .tldr li { color: var(--text); }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; display: block; overflow-x: auto; }
+    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text); font-weight: 650; white-space: nowrap; }
+    td { color: var(--text-2); }
+    .contact { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin: 28px 0; }
+    footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13.5px; }
+    footer a { color: var(--muted); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="eyebrow">Privacy Policy</div>
+      <h1>AR Model Viewer</h1>
+      <p class="sub">3D &amp; AI model viewer for Android · <code>com.gorisse.thomas.arcamera</code></p>
+      <p class="updated">Last updated: July 8, 2026</p>
+    </header>
+
+    <div class="callout accent tldr">
+      <strong>The short version</strong>
+      <ul>
+        <li>AR Model Viewer has <strong>no user account</strong> — we never ask for your name, email, or a password.</li>
+        <li>Your models, captures, and settings stay <strong>on your device</strong>. Uninstalling the app erases them.</li>
+        <li>A photo or text prompt is sent off your device <strong>only when you choose to generate a 3D model</strong> — and only to the AI service that fulfils that request.</li>
+        <li>We use Google Firebase for <strong>crash reports and anonymous usage analytics</strong> to keep the app stable.</li>
+        <li>All network traffic is <strong>encrypted (HTTPS)</strong>. We show no ads and use no location data.</li>
+      </ul>
+    </div>
+
+    <p>This Privacy Policy explains what information the <strong>AR Model Viewer — 3D &amp; AI</strong>
+    mobile application (the "App") handles, why, and with whom. The App is published by
+    <strong>Thomas Gorisse</strong> ("we", "our", "us"). By using the App you agree to this policy.</p>
+
+    <h2>1. No account, local-first by design</h2>
+    <p>The App has <strong>no sign-in, no user account, and no profile</strong>. We do not collect your
+    name, email address, phone number, or any similar personal identifier. Models you download, files
+    you import, photos you capture, your purchases, and your settings are stored <strong>locally on your
+    device</strong>. If you uninstall the App, that local data is removed with it.</p>
+
+    <h2>2. Information handled when you use the App</h2>
+
+    <h3>Camera and photos</h3>
+    <p>The App uses your device camera for <strong>augmented-reality placement</strong> and to let you
+    <strong>capture photos</strong> of models in your space. AR camera frames and photos you capture are
+    processed <strong>on your device</strong> and are not sent anywhere — unless you explicitly use the
+    <strong>AI "image → 3D" feature</strong> (see below).</p>
+
+    <h3>AI 3D generation (optional)</h3>
+    <p>When — and only when — you choose to generate a 3D model, the App sends your input to our
+    generation service:</p>
+    <ul>
+      <li><strong>Text → 3D:</strong> the <strong>text prompt</strong> you type is sent.</li>
+      <li><strong>Image → 3D:</strong> the <strong>photo</strong> you select or capture is sent.</li>
+    </ul>
+    <p>The request goes over HTTPS to our processing endpoint (a Cloudflare Worker at
+    <code>arcamera-api.mcp-tools-lab.workers.dev</code>), which forwards it to our third-party AI
+    provider, <strong>Tripo3D</strong> (<a href="https://www.tripo3d.ai/privacy" target="_blank" rel="noopener">tripo3d.ai/privacy</a>),
+    to produce the 3D model. <strong>No account identifier, device identifier, or other personal data is
+    attached to a generation request</strong> — only the prompt or image needed to create the model.
+    Our endpoint is <strong>stateless</strong>: it does not store your prompts, photos, or generated
+    models. Tripo3D processes the input to return your model; its handling of that input is governed by
+    Tripo3D's own privacy policy, linked above. Do not include personal or sensitive content in prompts
+    or photos you submit for generation.</p>
+
+    <h3>3D model catalog (Sketchfab)</h3>
+    <p>Browsing and downloading catalog models sends your <strong>search terms and the public model
+    identifier</strong> through the same HTTPS endpoint to the <strong>Sketchfab</strong> community API.
+    No personal data is sent — this is an anonymous catalog request.</p>
+
+    <h3>Crash reports and analytics (Firebase)</h3>
+    <p>The App uses <strong>Google Firebase Crashlytics</strong> and <strong>Firebase Analytics</strong>
+    to understand stability and general usage. These collect:</p>
+    <ul>
+      <li><strong>Crash logs and diagnostics</strong> — e.g. stack traces, performance data — if the App crashes or misbehaves.</li>
+      <li><strong>Anonymous app-interaction events</strong> — e.g. app opens, screen views, session length (collected automatically by the SDK).</li>
+      <li>A <strong>Firebase installation ID</strong> — a random per-install identifier. It is not your name or account, and it resets if you reinstall the App.</li>
+    </ul>
+    <p>This data is collected via Google acting as our data processor and is used only to operate and
+    improve the App. It is not sold and not used for advertising. See
+    <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's privacy information</a>.</p>
+
+    <h3>Purchases (Google Play Billing)</h3>
+    <p>Subscriptions and one-time purchases are handled entirely by <strong>Google Play's billing
+    system</strong>. The App unlocks features by checking your purchase <strong>on your device</strong> —
+    it never receives your payment details and never sends your purchase history to any server of ours.
+    Google's handling of the transaction is governed by
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
+
+    <h2>3. Data we collect and share — at a glance</h2>
+    <table>
+      <thead>
+        <tr><th>Data</th><th>Why</th><th>Leaves device?</th><th>Shared with</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
+        <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
+        <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
+        <tr><td>Anonymous usage events</td><td>Understand feature usage</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
+        <tr><td>Firebase installation ID</td><td>Group analytics/crashes per install</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
+        <tr><td>Downloaded / imported models, captures, settings, purchases</td><td>Core app features</td><td>No — stays on device</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p>We do <strong>not</strong> collect location, contacts, calendar, messages, microphone/audio, health,
+    or web-browsing data. We show <strong>no advertising</strong>.</p>
+
+    <h2>4. Children</h2>
+    <p>The App is not directed to children under 13 and does not knowingly collect personal data from
+    them. Because there is no account, we do not knowingly hold such data.</p>
+
+    <h2>5. Your choices and data deletion</h2>
+    <ul>
+      <li><strong>All app data is local.</strong> You can remove everything the App holds by uninstalling it.</li>
+      <li><strong>Analytics.</strong> You can limit Google-level data collection through your device's Google settings.</li>
+      <li><strong>AI generation is opt-in.</strong> If you never use text/image → 3D, no prompt or photo ever leaves your device through the App.</li>
+      <li><strong>Requests.</strong> For any privacy question or deletion request, email us (below). Since we operate no user account and store no server-side personal data, there is generally nothing on our side to delete beyond the transient, unlinked processing described above.</li>
+    </ul>
+
+    <h2>6. Changes to this policy</h2>
+    <p>We may update this policy as the App evolves (for example, if the AI generation feature changes).
+    Material changes will be reflected here with a new "Last updated" date.</p>
+
+    <div class="contact">
+      <h3 style="margin-top:0">Contact</h3>
+      <p style="margin-bottom:0">Questions or requests about this policy or your data:<br />
+      <strong>Email:</strong> <a href="mailto:thomas.gorisse@gmail.com">thomas.gorisse@gmail.com</a></p>
+    </div>
+
+    <footer>
+      AR Model Viewer — 3D &amp; AI · Published by Thomas Gorisse ·
+      <a href="https://thomasgorisse.github.io/">thomasgorisse.github.io</a>
+    </footer>
+  </div>
+</body>
+</html>
