@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Will It Fit</title>
-  <meta name="description" content="Privacy Policy for the Will It Fit (formerly AR Model Viewer) Android and iOS app by Thomas Gorisse. No account, local-first, HTTPS everywhere." />
+  <meta name="description" content="Privacy Policy for the Will It Fit (formerly AR Model Viewer) Android and iOS app by Thomas Gorisse. Local-first, optional account, in-app account deletion, HTTPS everywhere." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/privacy/" />
   <style>
@@ -64,13 +64,15 @@
       <div class="eyebrow">Privacy Policy</div>
       <h1>Will It Fit</h1>
       <p class="sub">3D &amp; AI model viewer for Android · <code>com.gorisse.thomas.arcamera</code></p>
-      <p class="updated">Last updated: July 8, 2026</p>
+      <p class="updated">Last updated: September 2, 2026</p>
     </header>
 
     <div class="callout accent tldr">
       <strong>The short version</strong>
       <ul>
-        <li>Will It Fit has <strong>no user account</strong> — we never ask for your name, email, or a password.</li>
+        <li>An account is <strong>optional</strong>. Everything works without signing in — we never ask for a password.</li>
+        <li>If you <strong>sign in with Google</strong>, we store your Google user ID, the email address Google gives us, and a hashed session credential — so your credits survive a change of phone.</li>
+        <li>You can <strong>delete your account inside the app</strong>, in one tap: <em>Account → Delete account</em>. Or email us and we do it for you.</li>
         <li>Your models, captures, and settings stay <strong>on your device</strong>. Uninstalling the app erases them.</li>
         <li>A photo or text prompt is sent off your device <strong>only when you choose to generate a 3D model</strong> — and only to the AI service that fulfils that request.</li>
         <li>We use Google Firebase for <strong>crash reports and anonymous usage analytics</strong> to keep the app stable.</li>
@@ -82,13 +84,47 @@
     mobile application (the "App") handles, why, and with whom. The App is published by
     <strong>Thomas Gorisse</strong> ("we", "our", "us"). By using the App you agree to this policy.</p>
 
-    <h2>1. No account, local-first by design</h2>
-    <p>The App has <strong>no sign-in, no user account, and no profile</strong>. We do not collect your
-    name, email address, phone number, or any similar personal identifier. Models you download, files
-    you import, photos you capture, your purchases, and your settings are stored <strong>locally on your
-    device</strong>. If you uninstall the App, that local data is removed with it.</p>
+    <h2>1. Local-first by design, with an optional account</h2>
+    <p>Models you download, files you import, photos you capture, and your settings are stored
+    <strong>locally on your device</strong>. If you uninstall the App, that local data is removed with
+    it. You can use every feature of the App <strong>without an account</strong>.</p>
+    <p>The App also offers an <strong>optional</strong> "Sign in with Google". Its only purpose is to
+    attach your generation credits to an account rather than to a handset, so they survive a new phone
+    or a reinstall. Signing in is never required, we never ask you to create a password, and we never
+    ask for your name, phone number, or postal address. What signing in stores on our side, and how to
+    delete it, is described in <a href="#account">section 2 — Account and sign-in</a> and
+    <a href="#deletion">section 5 — Your choices and data deletion</a>.</p>
+    <p><strong>Sign-in is offered in the Android app only.</strong> The iOS app has no sign-in and no
+    account: it creates no account, and there is therefore nothing to delete on our side for iOS users.</p>
 
     <h2>2. Information handled when you use the App</h2>
+
+    <h3 id="account">Account and sign-in (optional, Android)</h3>
+    <p>If — and only if — you tap <strong>Sign in with Google</strong>, Google returns a signed identity
+    token to the App, which sends it to our endpoint. We verify it and store, in our own database, the
+    following:</p>
+    <ul>
+      <li>Your <strong>Google user ID</strong> (the stable <code>sub</code> identifier Google issues for
+      our app). This is the identity — nothing else identifies you to us.</li>
+      <li>Your <strong>email address</strong>, when Google includes one in that token. We use it to
+      recognise the account and to answer you if you write to us; we never send you marketing.</li>
+      <li>A <strong>hashed session credential</strong> — we keep only a SHA-256 fingerprint of the
+      session token your device holds, never the token itself, plus its expiry date. Sessions expire
+      <strong>90 days</strong> after they are issued and are renewed silently while you keep using the
+      App.</li>
+      <li>Your <strong>credit balance and credit history</strong>, and a record of each store purchase
+      that was verified for that account (product, store transaction identifier, dates, status). These
+      are accounting records, not a profile.</li>
+    </ul>
+    <p>We <strong>never</strong> store the Google identity token itself, your Google password, your
+    profile picture, your contacts, or anything else Google may hold about you. This data lives in a
+    <strong>Cloudflare D1</strong> database operated by us on Cloudflare's infrastructure, provisioned
+    in Cloudflare's <strong>Western Europe (WEUR)</strong> region, reachable only by our own endpoint
+    over HTTPS. It is not sold, not shared with advertisers, and not used for advertising or profiling.</p>
+    <p>We keep it for as long as the account exists. <strong>You can delete the account from inside the
+    App at any time</strong> — see <a href="#deletion">section 5</a>. Signing out (without deleting) simply
+    forgets the session on that device; your credits stay on the account and come back when you sign in
+    again.</p>
 
     <h3>Camera and photos</h3>
     <p>The App uses your device camera for <strong>augmented-reality placement</strong> and to let you
@@ -106,10 +142,13 @@
     <p>The request goes over HTTPS to our processing endpoint (a Cloudflare Worker at
     <code>arcamera-api.mcp-tools-lab.workers.dev</code>), which forwards it to our third-party AI
     provider, <strong>Tripo3D</strong> (<a href="https://www.tripo3d.ai/privacy" target="_blank" rel="noopener">tripo3d.ai/privacy</a>),
-    to produce the 3D model. <strong>No account identifier, device identifier, or other personal data is
-    attached to a generation request</strong> — only the prompt or image needed to create the model.
-    Our endpoint is <strong>stateless</strong>: it does not store your prompts, photos, or generated
-    models. Tripo3D processes the input to return your model; its handling of that input is governed by
+    to produce the 3D model. <strong>Nothing that identifies you is ever forwarded to Tripo3D</strong> —
+    it receives only the prompt or the image needed to create the model, never your account, your email
+    or a device identifier. Our own endpoint <strong>does not store your prompts, your photos, or the
+    generated models</strong>; when credits are counted on our side, a generation request additionally
+    carries your session credential and/or a random per-install identifier so the credit is debited from
+    the right account, and what we keep of it is a ledger line (a date, a cost, the generation's
+    reference), not your content. Tripo3D processes the input to return your model; its handling of that input is governed by
     Tripo3D's own privacy policy, linked above. Do not include personal or sensitive content in prompts
     or photos you submit for generation.</p>
 
@@ -132,8 +171,12 @@
 
     <h3>Purchases (Google Play Billing)</h3>
     <p>Subscriptions and one-time purchases are handled entirely by <strong>Google Play's billing
-    system</strong>. The App unlocks features by checking your purchase <strong>on your device</strong> —
-    it never receives your payment details and never sends your purchase history to any server of ours.
+    system</strong> (and by <strong>Apple's App Store</strong> on iOS). <strong>We never see your card
+    or payment details.</strong> The App unlocks features by checking your purchase <strong>on your
+    device</strong>. When credits are counted on our side, the App additionally sends the
+    <strong>purchase token issued by the store</strong> to our endpoint, which asks Google (or Apple) to
+    confirm it and then credits the corresponding account; we keep a record of that verified purchase —
+    the product, the store's transaction identifier, the dates and the status — as an accounting record.
     Google's handling of the transaction is governed by
     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
 
@@ -143,12 +186,16 @@
         <tr><th>Data</th><th>Why</th><th>Leaves device?</th><th>Shared with</th></tr>
       </thead>
       <tbody>
+        <tr><td>Google user ID</td><td>Identify your optional account so credits follow you</td><td>Only if you sign in</td><td>— (stored by us)</td></tr>
+        <tr><td>Email address (from Google)</td><td>Recognise the account, answer your requests</td><td>Only if you sign in</td><td>— (stored by us)</td></tr>
+        <tr><td>Hashed session credential</td><td>Keep you signed in securely for up to 90 days</td><td>Only if you sign in</td><td>— (stored by us)</td></tr>
+        <tr><td>Credit balance, credit history, verified purchases</td><td>Run the credit system, accounting</td><td>Only if credits are counted server-side</td><td>— (stored by us)</td></tr>
         <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
         <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
         <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Anonymous usage events</td><td>Understand feature usage</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Firebase installation ID</td><td>Group analytics/crashes per install</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
-        <tr><td>Downloaded / imported models, captures, settings, purchases</td><td>Core app features</td><td>No — stays on device</td><td>—</td></tr>
+        <tr><td>Downloaded / imported models, captures, settings</td><td>Core app features</td><td>No — stays on device</td><td>—</td></tr>
       </tbody>
     </table>
     <p>We do <strong>not</strong> collect location, contacts, calendar, messages, microphone/audio, health,
@@ -156,19 +203,55 @@
 
     <h2>4. Children</h2>
     <p>The App is not directed to children under 13 and does not knowingly collect personal data from
-    them. Because there is no account, we do not knowingly hold such data.</p>
+    them. Signing in requires an existing Google account, which Google itself gates by age. If you
+    believe a child has signed in, email us and we will delete the account.</p>
 
-    <h2>5. Your choices and data deletion</h2>
+    <h2 id="deletion">5. Your choices and data deletion</h2>
+
+    <h3>Deleting your account and the data attached to it</h3>
+    <p>If you signed in, you can <strong>delete your account from inside the App</strong>, with no need
+    to write to anyone:</p>
     <ul>
-      <li><strong>All app data is local.</strong> You can remove everything the App holds by uninstalling it.</li>
+      <li><strong>Android:</strong> open the <strong>Account</strong> section, tap <strong>Delete
+      account</strong>, and confirm.</li>
+      <li><strong>iOS:</strong> the iOS app has no sign-in and creates no account, so there is nothing
+      to delete on our side.</li>
+    </ul>
+    <p>Deleting the account is immediate and cannot be undone. It <strong>erases the personal data we
+    hold about you</strong>: your Google user ID and your email address are deleted from our database,
+    every session is revoked (you are signed out on every device), and the link between the account and
+    your installs is removed.</p>
+    <p>What we <strong>keep</strong>, and why: the credit history, the credit balances and the record of
+    verified purchases attached to that account are retained as <strong>financial and accounting
+    records</strong>, which we are required to keep for tax and audit purposes and to handle refunds and
+    chargebacks. Once your identity is deleted they no longer point at a person — they are kept against
+    an anonymous account identifier that we can no longer connect back to you or to any Google account.
+    Any credits left on the account stay with it: they are not refunded and do not return to your phone.
+    The App tells you this before you confirm.</p>
+    <p><strong>Deletion by request.</strong> If you cannot use the in-app path — for example you have
+    lost access to the phone or to the Google account — email
+    <a href="mailto:thomas.gorisse@gmail.com">thomas.gorisse@gmail.com</a> from the address attached to
+    the account and we will delete it for you. We answer deletion requests within 30 days.</p>
+
+    <h3>Your other choices</h3>
+    <ul>
+      <li><strong>The account is optional.</strong> If you never sign in, we hold no account, no email address and no user ID for you at all.</li>
+      <li><strong>Signing out is not deletion.</strong> Sign out to forget the session on a device while keeping the account and its credits; delete the account to erase it.</li>
+      <li><strong>App data is local.</strong> You can remove everything the App holds on the device by uninstalling it.</li>
       <li><strong>Analytics.</strong> You can limit Google-level data collection through your device's Google settings.</li>
       <li><strong>AI generation is opt-in.</strong> If you never use text/image → 3D, no prompt or photo ever leaves your device through the App.</li>
-      <li><strong>Requests.</strong> For any privacy question or deletion request, email us (below). Since we operate no user account and store no server-side personal data, there is generally nothing on our side to delete beyond the transient, unlinked processing described above.</li>
+      <li><strong>Any other request.</strong> For access, correction, portability or any privacy question, email us at the address below.</li>
     </ul>
 
     <h2>6. Changes to this policy</h2>
     <p>We may update this policy as the App evolves (for example, if the AI generation feature changes).
     Material changes will be reflected here with a new "Last updated" date.</p>
+    <ul>
+      <li><strong>September 2, 2026</strong> — the App gained an optional "Sign in with Google" and in-app
+      account deletion. Added section 2 "Account and sign-in", rewrote section 1 and section 5, and listed
+      the account data in the section 3 table. The previous version stated the App had no account.</li>
+      <li><strong>July 8, 2026</strong> — first publication of this dedicated page.</li>
+    </ul>
 
     <div class="contact">
       <h3 style="margin-top:0">Contact</h3>
