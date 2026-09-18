@@ -64,7 +64,7 @@
       <div class="eyebrow">Privacy Policy</div>
       <h1>Will It Fit</h1>
       <p class="sub">3D &amp; AI model viewer for Android · <code>com.gorisse.thomas.arcamera</code></p>
-      <p class="updated">Last updated: September 2, 2026</p>
+      <p class="updated">Last updated: September 19, 2026</p>
     </header>
 
     <div class="callout accent tldr">
@@ -156,6 +156,19 @@
     <p>Browsing and downloading catalog models sends your <strong>search terms and the public model
     identifier</strong> through the same HTTPS endpoint to the <strong>Sketchfab</strong> community API.
     No personal data is sent — this is an anonymous catalog request.</p>
+    <p>We also <strong>keep an anonymous record of the catalog search terms themselves</strong>, so that
+    we can see what people are looking for, notice searches that come back empty, and decide which
+    models to add next. Each stored line contains the words searched for, how many results they
+    returned, whether the search succeeded, the platform (Android or iOS) and app version the request
+    came from, the two-letter country code of the request, and the date and time.
+    <strong>It contains nothing that identifies you</strong>: no account, no email address, no device or
+    installation identifier, no IP address and no session — there is no field that ties a search to you,
+    or one search to another. These lines are stored in a <strong>separate Cloudflare D1 database</strong>
+    (<strong>Western Europe, WEUR</strong>) that holds no account data, are
+    <strong>deleted automatically after 180 days</strong>, and are never sold, never shared with
+    advertisers, and never used for advertising or profiling. This applies to catalog search terms only —
+    as stated above, we still do not store your AI generation prompts, your photos, or the generated
+    models.</p>
 
     <h3>Crash reports and analytics (Firebase)</h3>
     <p>The App uses <strong>Google Firebase Crashlytics</strong> and <strong>Firebase Analytics</strong>
@@ -192,6 +205,7 @@
         <tr><td>Credit balance, credit history, verified purchases</td><td>Run the credit system, accounting</td><td>Only if credits are counted server-side</td><td>— (stored by us)</td></tr>
         <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
         <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
+        <tr><td>Catalog search terms</td><td>Return catalog results; understand what people look for and which models to add</td><td>Yes, on each search</td><td>Sketchfab (to run the search) — anonymous copy kept by us, deleted after 180 days</td></tr>
         <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Anonymous usage events</td><td>Understand feature usage</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Firebase installation ID</td><td>Group analytics/crashes per install</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
@@ -247,6 +261,9 @@
     <p>We may update this policy as the App evolves (for example, if the AI generation feature changes).
     Material changes will be reflected here with a new "Last updated" date.</p>
     <ul>
+      <li><strong>September 19, 2026</strong> — we now keep an anonymous record of catalog search terms,
+      deleted after 180 days, to decide which models to add. Updated section 2 "3D model catalog" and
+      added a row to the section 3 table. AI generation prompts and photos are still not stored.</li>
       <li><strong>September 2, 2026</strong> — the App gained an optional "Sign in with Google" and in-app
       account deletion. Added section 2 "Account and sign-in", rewrote section 1 and section 5, and listed
       the account data in the section 3 table. The previous version stated the App had no account.</li>
