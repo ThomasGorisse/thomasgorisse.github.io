@@ -1,1023 +1,537 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thomas Gorisse — Senior Android Engineer · Open Source · Building with AI</title>
-  <meta name="description" content="Senior Android Engineer · Open Source · Building with AI. Expert in Kotlin, Jetpack Compose, Clean Architecture, 3D/AR. Extending across iOS, Flutter, and React Native through AI-augmented development. Based in Nantes, France." />
-  <meta property="og:title" content="Thomas Gorisse — Senior Android Engineer · Open Source · Building with AI" />
-  <meta property="og:description" content="Senior Android Engineer · Open Source · Building with AI." />
-  <meta property="og:url" content="https://thomasgorisse.github.io" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thomas Gorisse — Lead Software Engineer, creator of SceneView</title>
+  <meta name="description" content="Lead Software Engineer. I build mobile SDKs with AI agents, and the agent systems that build them. Creator of SceneView, the open-source 3D &amp; AR SDK for Compose, SwiftUI and the web.">
+  <meta name="author" content="Thomas Gorisse">
+  <link rel="canonical" href="https://thomasgorisse.github.io/">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfaf8">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e0d0c">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Thomas Gorisse">
+  <meta property="og:url" content="https://thomasgorisse.github.io/">
+  <meta property="og:title" content="Thomas Gorisse — Lead Software Engineer, creator of SceneView">
+  <meta property="og:description" content="I build mobile SDKs with AI agents, and the agent systems that build them. Creator of SceneView, open-source 3D &amp; AR for Compose, SwiftUI and the web.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Thomas Gorisse — Lead Software Engineer · AI agents for software delivery · Creator of SceneView">
+  <meta property="profile:first_name" content="Thomas">
+  <meta property="profile:last_name" content="Gorisse">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@thomas_gorisse">
+  <meta name="twitter:creator" content="@thomas_gorisse">
+  <meta name="twitter:title" content="Thomas Gorisse — Lead Software Engineer, creator of SceneView">
+  <meta name="twitter:description" content="I build mobile SDKs with AI agents, and the agent systems that build them. Creator of SceneView.">
+  <meta name="twitter:image" content="https://thomasgorisse.github.io/og.png">
+  <meta name="twitter:image:alt" content="Thomas Gorisse — Lead Software Engineer · AI agents for software delivery · Creator of SceneView">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Thomas Gorisse",
+    "jobTitle": "Lead Software Engineer",
+    "url": "https://thomasgorisse.github.io/",
+    "image": "https://thomasgorisse.github.io/assets/avatar.webp",
+    "address": { "@type": "PostalAddress", "addressLocality": "Nantes", "addressCountry": "FR" },
+    "sameAs": [
+      "https://github.com/ThomasGorisse",
+      "https://www.linkedin.com/in/thomas-gorisse/",
+      "https://x.com/thomas_gorisse",
+      "https://www.youtube.com/@thomasgorisse"
+    ]
+  }
+  </script>
+
+  <script>
+    // Apply a stored theme choice before first paint. No choice = follow the OS.
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 
   <style>
-    /* ─── Reset ──────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:          #0b1120;
-      --bg-2:        #101827;
-      --bg-3:        #162033;
-      --surface:     #1c2a42;
-      --surface-2:   #243250;
-      --border:      rgba(255,255,255,0.08);
-      --border-hover:rgba(255,255,255,0.16);
-      --accent:      #4f8ef7;
-      --accent-dim:  rgba(79,142,247,0.1);
-      --accent-glow: rgba(79,142,247,0.2);
-      --green:       #34d399;
-      --green-dim:   rgba(52,211,153,0.1);
-      --text:        #e2e8f4;
-      --text-2:      #8fa3bf;
-      --text-3:      #566780;
-      --sans:        'Inter', system-ui, -apple-system, sans-serif;
-      --radius-sm:   8px;
-      --radius:      14px;
-      --radius-lg:   20px;
-      --ease:        cubic-bezier(0.4, 0, 0.2, 1);
-      --t:           0.22s;
+      color-scheme: light dark;
+      --bg:        light-dark(#fbfaf8, #0e0d0c);
+      --surface:   light-dark(#ffffff, #161413);
+      --surface-2: light-dark(#f4f1ed, #1c1917);
+      --text:      light-dark(#1a1714, #f3f0ec);
+      --muted:     light-dark(#5b534c, #a79f97);
+      --faint:     light-dark(#716861, #8f877f);
+      --line:      light-dark(#e7e2dc, #272320);
+      --accent:    light-dark(#c2410c, #fb923c);
+      --code-bg:   light-dark(#f6f3ef, #131110);
+      --k:         light-dark(#9a3412, #fdba74);
+      --s:         light-dark(#166534, #86efac);
+      --c:         light-dark(#1e40af, #93c5fd);
+
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+      --wrap: 1160px;
+      --gutter: clamp(20px, 5vw, 48px);
+      --radius: 14px;
     }
+    :root[data-theme="light"] { color-scheme: light; }
+    :root[data-theme="dark"]  { color-scheme: dark; }
 
-    html { scroll-behavior: smooth; }
-
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
     body {
-      font-family: var(--sans);
+      margin: 0;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
-      overflow-x: hidden;
+      font: 400 1.0625rem/1.65 var(--sans);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+    a:hover { text-decoration-color: currentColor; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    p { margin: 0 0 1em; }
+    h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; }
+    ul, ol, dl, dd, figure { margin: 0; padding: 0; }
+    ul, ol { list-style: none; }
+    code { font-family: var(--mono); font-size: 0.875em; }
+    .skip { position: absolute; left: 12px; top: -48px; z-index: 10; padding: 8px 14px; background: var(--text); color: var(--bg); border-radius: 8px; text-decoration: none; font-size: 0.875rem; }
+    .skip:focus { top: 12px; }
 
-    /* ─── Scrollbar ──────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+    .icon { width: 1em; height: 1em; fill: currentColor; flex: none; }
 
-    /* ─── Subtle mesh bg ─────────────────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(79,142,247,0.05) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(52,211,153,0.04) 0%, transparent 60%);
+    /* Header */
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; }
+    .brand { font-weight: 600; letter-spacing: -0.01em; text-decoration: none; font-size: 0.975rem; }
+    .top nav { display: flex; align-items: center; gap: 4px; }
+    .top nav a { padding: 6px 10px; border-radius: 8px; color: var(--muted); text-decoration: none; font-size: 0.9375rem; }
+    .top nav a:hover { color: var(--text); background: var(--surface-2); }
+    .theme-toggle {
+      display: inline-grid; place-items: center; width: 38px; height: 38px; margin-left: 6px;
+      border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer;
     }
+    .theme-toggle:hover { color: var(--text); background: var(--surface-2); }
+    .theme-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .theme-toggle .moon { display: none; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-toggle .sun { display: none; } :root:not([data-theme="light"]) .theme-toggle .moon { display: block; } }
+    :root[data-theme="dark"] .theme-toggle .sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: block; }
+    @media (max-width: 640px) { .top nav a { display: none; } }
 
-    /* ─── NAV ────────────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 64px;
-      background: rgba(11, 17, 32, 0.85);
-      backdrop-filter: blur(16px) saturate(1.4);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-brand {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-    .nav-brand span { color: var(--accent); }
-
-    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
-    .nav-links a {
-      color: var(--text-2);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color var(--t) var(--ease);
-    }
-    .nav-links a:hover { color: var(--text); }
-
-    .nav-cta {
-      background: var(--accent);
-      color: #fff;
-      padding: 0.45rem 1.1rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity var(--t) var(--ease), transform var(--t) var(--ease);
-    }
-    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
-
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      nav { padding: 0 1.25rem; }
-    }
-
-    /* ─── HERO ───────────────────────────────────────────────── */
+    /* Hero */
     .hero {
-      position: relative; z-index: 1;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: flex-start;
-      padding: 8rem 2.5rem 5rem;
-      max-width: 1160px;
-      margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 24px 40px; align-items: center;
+      padding-block: clamp(40px, 8vw, 96px) clamp(56px, 8vw, 96px);
+    }
+    .viewer { margin: 0; }
+    .stage { position: relative; aspect-ratio: 1 / 1; }
+    .stage::before {
+      content: ""; position: absolute; inset: 8% 6% 4%; border-radius: 50%;
+      background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 14%, transparent), transparent);
+      filter: blur(8px);
+    }
+    .stage img, .stage model-viewer { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .stage model-viewer { --poster-color: transparent; background: transparent; opacity: 0; transition: opacity .6s ease; }
+    .stage model-viewer.ready { opacity: 1; }
+    .stage model-viewer::part(default-progress-bar) { display: none; }
+    .stage img { transition: opacity .6s ease; }
+    .stage.live img { opacity: 0; }
+    .viewer figcaption { margin-top: 4px; text-align: center; font-size: 0.8125rem; line-height: 1.5; color: var(--faint); }
+    .viewer figcaption a { color: var(--muted); }
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .viewer { width: min(100%, 380px); justify-self: center; }
+    }
+    .who { display: flex; align-items: center; gap: 14px; margin-bottom: clamp(28px, 4vw, 40px); }
+    .who img { width: 56px; height: 56px; border-radius: 50%; background: var(--surface-2); }
+    .who h1 { font-size: 1.0625rem; letter-spacing: -0.01em; line-height: 1.3; }
+    .who p { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+    .lead {
+      max-width: 19ch; margin: 0 0 clamp(24px, 3vw, 32px);
+      font-size: clamp(2.125rem, 1.3rem + 3.2vw, 3.5rem); line-height: 1.04; font-weight: 600; letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+    .lead span { color: var(--faint); }
+    .intro { max-width: 60ch; color: var(--muted); font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem); }
+    .intro strong { color: var(--text); font-weight: 500; }
+    .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;
+      border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+      text-decoration: none; font-size: 0.9375rem; color: var(--text);
+    }
+    .links a:hover { border-color: color-mix(in srgb, var(--text) 30%, transparent); }
+    .links .icon { width: 15px; height: 15px; color: var(--muted); }
+
+    /* Sections */
+    .section { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 16px 40px; padding-block: clamp(56px, 8vw, 96px); border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+    .label { font: 500 0.75rem/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); padding-top: 0.7em; margin: 0; }
+    .section h2 { font-size: clamp(1.625rem, 1.2rem + 1.5vw, 2.25rem); line-height: 1.12; letter-spacing: -0.03em; margin-bottom: 20px; text-wrap: balance; }
+    .prose { max-width: 62ch; }
+    .prose p { color: var(--muted); }
+    .prose p strong { color: var(--text); font-weight: 500; }
+    @media (max-width: 820px) {
+      .section { grid-template-columns: minmax(0, 1fr); }
+      .label { padding-top: 0; }
     }
 
-    .hero-label {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.75rem;
-      opacity: 0; animation: slideUp 0.5s 0.1s var(--ease) forwards;
+    /* Now */
+    .role { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin-bottom: 20px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 0.9375rem; }
+    .role b { font-weight: 600; }
+    .role span { color: var(--muted); }
+    .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 32px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .rules li { background: var(--surface); padding: 22px 24px; }
+    .rules h3 { font-size: 1rem; letter-spacing: -0.01em; margin-bottom: 6px; display: flex; gap: 10px; align-items: baseline; }
+    .rules h3 i { font: 500 0.75rem var(--mono); font-style: normal; color: var(--accent); }
+    .rules p { margin: 0; color: var(--muted); font-size: 0.96875rem; line-height: 1.55; }
+    @media (max-width: 640px) { .rules { grid-template-columns: minmax(0, 1fr); } .rules li { padding: 18px 20px; } }
+
+    /* SceneView */
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 28px 0 32px; }
+    .stats div { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .stats dt { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .stats dd { color: var(--muted); font-size: 0.875rem; line-height: 1.4; margin-top: 6px; }
+    .sv-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; margin-bottom: 28px; }
+    .platforms { border-top: 1px solid var(--line); }
+    .platforms li { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 0.9375rem; }
+    .platforms b { font-weight: 500; }
+    .platforms span { color: var(--muted); }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-size: 0.9375rem; font-weight: 500; border: 1px solid var(--line); background: var(--surface); }
+    .btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .btn.primary:hover { background: color-mix(in srgb, var(--text) 86%, var(--bg)); }
+    .btn:not(.primary):hover { border-color: color-mix(in srgb, var(--text) 30%, transparent); }
+    .btn .icon { width: 16px; height: 16px; }
+    .stars { font-variant-numeric: tabular-nums; }
+    .support { margin: 20px 0 0; font-size: 0.875rem; color: var(--faint); }
+    .support a { color: var(--muted); }
+    pre.code {
+      margin: 0; padding: 18px 20px; overflow-x: auto;
+      background: var(--code-bg); border: 1px solid var(--line); border-radius: 12px;
+      font: 0.8125rem/1.7 var(--mono); color: var(--text); tab-size: 4;
     }
-    .hero-label::before {
-      content: '';
-      display: block; width: 24px; height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
+    pre.code code { font-size: inherit; }
+    pre.code .k { color: var(--k); } pre.code .s { color: var(--s); } pre.code .c { color: var(--c); } pre.code .m { color: var(--faint); }
+    @media (max-width: 480px) {
+      .stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .stats div:last-child { grid-column: 1 / -1; }
+      .platforms li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+      pre.code { padding: 16px; font-size: 0.75rem; }
     }
 
-    .hero h1 {
-      font-size: clamp(2.8rem, 6.5vw, 5.2rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.07;
-      margin-bottom: 1.5rem;
-      max-width: 14ch;
-      opacity: 0; animation: slideUp 0.5s 0.2s var(--ease) forwards;
-    }
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(120deg, var(--accent) 0%, #82b4ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-desc {
-      font-size: clamp(1rem, 1.8vw, 1.15rem);
-      color: var(--text-2);
-      max-width: 52ch;
-      line-height: 1.8;
-      margin-bottom: 2.5rem;
-      font-weight: 400;
-      opacity: 0; animation: slideUp 0.5s 0.3s var(--ease) forwards;
-    }
-    .hero-desc strong { color: var(--text); font-weight: 600; }
-
-    .hero-ctas {
-      display: flex; gap: 0.875rem; flex-wrap: wrap;
-      opacity: 0; animation: slideUp 0.5s 0.4s var(--ease) forwards;
-    }
-    .cta-primary {
-      background: var(--accent);
-      color: #fff;
-      padding: 0.75rem 1.75rem;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: opacity var(--t), transform var(--t);
-    }
-    .cta-primary:hover { opacity: 0.85; transform: translateY(-2px); }
-    .cta-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border-hover);
-      padding: 0.75rem 1.75rem;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: border-color var(--t), color var(--t), transform var(--t);
-    }
-    .cta-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-    /* Metrics row */
-    .hero-metrics {
-      display: flex; gap: 2.5rem; flex-wrap: wrap;
-      margin-top: 4rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--border);
-      width: 100%;
-      opacity: 0; animation: slideUp 0.5s 0.5s var(--ease) forwards;
-    }
-    .metric { }
-    .metric-val {
-      font-size: 1.85rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      line-height: 1;
-    }
-    .metric-val span { color: var(--accent); }
-    .metric-label {
-      font-size: 0.78rem;
-      color: var(--text-3);
-      margin-top: 0.3rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    /* Work */
+    .work { border-top: 1px solid var(--line); }
+    .work li { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 6px 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .work .when { font: 0.8125rem/1.9 var(--mono); color: var(--faint); font-variant-numeric: tabular-nums; }
+    .work h3 { font-size: 1.0625rem; letter-spacing: -0.01em; }
+    .work h3 a { text-decoration: none; }
+    .work h3 a:hover { text-decoration: underline; }
+    .work h3 small { font-weight: 400; color: var(--muted); font-size: 0.9375rem; margin-left: 4px; }
+    .work p { margin: 4px 0 0; color: var(--muted); font-size: 0.96875rem; line-height: 1.55; max-width: 60ch; }
+    .work .meta { display: inline-flex; align-items: center; gap: 6px; align-self: start; font: 0.8125rem/1.9 var(--mono); color: var(--muted); white-space: nowrap; justify-self: end; }
+    .work .meta .icon { width: 13px; height: 13px; color: var(--accent); }
+    .work .meta a { text-decoration: none; }
+    .work .meta a:hover { text-decoration: underline; }
+    .long { margin-top: 32px; }
+    @media (max-width: 640px) {
+      .work li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+      .work .meta { justify-self: start; margin-top: 6px; }
     }
 
-    /* Social strip */
-    .hero-social {
-      display: flex; gap: 1.25rem; align-items: center;
-      margin-top: 2rem;
-      opacity: 0; animation: slideUp 0.5s 0.55s var(--ease) forwards;
+    /* Contact */
+    .contact { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+    .contact a {
+      display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+      border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none;
     }
-    .soc {
-      display: flex; align-items: center; gap: 0.4rem;
-      color: var(--text-3);
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      transition: color var(--t);
-    }
-    .soc svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
-    .soc:hover { color: var(--text-2); }
+    .contact a:hover { border-color: color-mix(in srgb, var(--text) 30%, transparent); }
+    .contact .icon { width: 20px; height: 20px; }
+    .contact b { display: block; font-weight: 500; font-size: 0.96875rem; line-height: 1.4; }
+    .contact span { display: block; color: var(--muted); font-size: 0.875rem; line-height: 1.4; overflow-wrap: anywhere; }
+    .contact .arr { margin-left: auto; color: var(--faint); }
+    @media (max-width: 560px) { .contact { grid-template-columns: minmax(0, 1fr); } }
 
-    /* ─── Section base ───────────────────────────────────────── */
-    .section { position: relative; z-index: 1; }
-    .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 6rem 2.5rem;
-    }
-    @media (max-width: 640px) { .inner { padding: 4rem 1.25rem; } }
-
-    .sec-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-    .sec-title {
-      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.18;
-      margin-bottom: 1.25rem;
-      color: var(--text);
-    }
-    .sec-desc {
-      font-size: 1rem;
-      color: var(--text-2);
-      max-width: 56ch;
-      line-height: 1.85;
-    }
-
-    /* ─── EXPERTISE ──────────────────────────────────────────── */
-    .expertise-section { background: var(--bg-2); }
-
-    .expertise-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 3rem;
-    }
-    @media (max-width: 900px) { .expertise-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 560px) { .expertise-grid { grid-template-columns: 1fr; } }
-
-    .exp-card {
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      transition: border-color var(--t) var(--ease), transform var(--t) var(--ease);
-    }
-    .exp-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
-
-    .exp-icon {
-      width: 42px; height: 42px;
-      background: var(--accent-dim);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.1rem;
-      flex-shrink: 0;
-      color: var(--accent);
-    }
-    .exp-icon svg { width: 20px; height: 20px; }
-    .exp-card.green .exp-icon { background: var(--green-dim); color: var(--green); }
-
-    .exp-title {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-    .exp-desc {
-      font-size: 0.85rem;
-      color: var(--text-2);
-      line-height: 1.75;
-    }
-
-    .exp-tags {
-      display: flex; flex-wrap: wrap; gap: 0.4rem;
-      margin-top: 1.2rem;
-    }
-    .tag {
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.25rem 0.6rem;
-      border-radius: 5px;
-      background: var(--surface);
-      color: var(--text-2);
-      border: 1px solid var(--border);
-      letter-spacing: 0.01em;
-    }
-    .tag.hi {
-      background: var(--accent-dim);
-      color: var(--accent);
-      border-color: rgba(79,142,247,0.25);
-    }
-    .tag.gr {
-      background: var(--green-dim);
-      color: var(--green);
-      border-color: rgba(52,211,153,0.25);
-    }
-
-    /* ─── APPROACH ───────────────────────────────────────────── */
-    .approach-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      margin-top: 3.5rem;
-    }
-    @media (max-width: 800px) { .approach-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-    .approach-text p {
-      font-size: 0.95rem;
-      color: var(--text-2);
-      line-height: 1.9;
-      margin-bottom: 1.1rem;
-    }
-    .approach-text p strong { color: var(--text); font-weight: 600; }
-    .approach-text p .hl { color: var(--accent); font-weight: 600; }
-
-    .approach-steps { display: flex; flex-direction: column; gap: 0; }
-    .step {
-      display: flex; gap: 1.25rem; align-items: flex-start;
-      padding: 1.25rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .step:last-child { border-bottom: none; }
-    .step-num {
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid rgba(79,142,247,0.2);
-      width: 28px; height: 28px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      letter-spacing: 0.02em;
-    }
-    .step-body { }
-    .step-title { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.2rem; }
-    .step-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.65; }
-
-    /* ─── PLATFORMS ──────────────────────────────────────────── */
-    .platforms-section { background: var(--bg-2); }
-
-    .platforms-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-      margin-top: 3rem;
-    }
-    @media (max-width: 900px) { .platforms-list { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 500px)  { .platforms-list { grid-template-columns: 1fr; } }
-
-    .platform-card {
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem 1.4rem;
-      transition: border-color var(--t), transform var(--t);
-      position: relative;
-    }
-    .platform-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
-    .platform-card.core {
-      border-color: rgba(79,142,247,0.25);
-      background: linear-gradient(135deg, rgba(79,142,247,0.06), var(--bg-3));
-    }
-
-    .platform-badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-    }
-    .badge-core { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(79,142,247,0.25); }
-    .badge-ai   { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(52,211,153,0.25); }
-    .badge-xp   { background: rgba(168,85,247,0.1); color: #c084fc; border: 1px solid rgba(168,85,247,0.2); }
-
-    .platform-name { font-weight: 800; font-size: 1.05rem; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
-    .platform-desc { font-size: 0.82rem; color: var(--text-2); line-height: 1.7; }
-
-    /* ─── PROJECTS ───────────────────────────────────────────── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      margin-top: 3rem;
-    }
-    @media (max-width: 720px) { .projects-grid { grid-template-columns: 1fr; } }
-
-    .proj-card {
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      display: flex; flex-direction: column;
-      gap: 0;
-      transition: border-color var(--t), transform var(--t);
-      text-decoration: none;
-      color: inherit;
-    }
-    .proj-card:hover { border-color: var(--border-hover); transform: translateY(-3px); }
-    .proj-card.span2 { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    @media (max-width: 720px) { .proj-card.span2 { grid-column: auto; grid-template-columns: 1fr; } }
-
-    .proj-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; }
-    .proj-icon {
-      width: 36px; height: 36px;
-      background: var(--surface);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .proj-icon svg { width: 18px; height: 18px; }
-    .proj-star {
-      display: flex; align-items: center; gap: 0.3rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #f59e0b;
-      background: rgba(245,158,11,0.08);
-      border: 1px solid rgba(245,158,11,0.18);
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
-    }
-    .proj-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem; letter-spacing: -0.015em; }
-    .proj-desc { font-size: 0.85rem; color: var(--text-2); line-height: 1.75; flex: 1; }
-    .proj-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 1.25rem; }
-    .proj-lang { font-size: 0.75rem; color: var(--text-3); font-weight: 500; }
-    .proj-link { font-size: 0.8rem; font-weight: 600; color: var(--accent); text-decoration: none; }
-
-    /* AR Visual */
-    .proj-visual {
-      background: var(--surface);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      min-height: 180px;
-      overflow: hidden;
-    }
-    .ar-scene {
-      width: 100%; height: 180px;
-      display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(ellipse at 50% 50%, rgba(79,142,247,0.12), var(--bg) 70%);
-      position: relative;
-    }
-    .ar-orb {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(79,142,247,0.8), rgba(52,211,153,0.5));
-      box-shadow: 0 0 40px rgba(79,142,247,0.3);
-      animation: levitate 5s ease-in-out infinite;
-    }
-    @keyframes levitate {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-16px); }
-    }
-
-    /* ─── EXPERIENCE / APPS ──────────────────────────────────── */
-    .apps-section { background: var(--bg-2); }
-
-    .apps-track {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-      margin-top: 2.5rem;
-    }
-    .app-pill {
-      padding: 0.55rem 1.1rem;
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text-2);
-      text-decoration: none;
-      transition: border-color var(--t), color var(--t);
-    }
-    .app-pill:hover { border-color: var(--border-hover); color: var(--text); }
-
-    /* ─── DIVIDER ────────────────────────────────────────────── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, var(--border) 30%, var(--border) 70%, transparent 100%);
-    }
-
-    /* ─── CONTACT ────────────────────────────────────────────── */
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-    @media (max-width: 720px) { .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-    .contact-text .sec-title { margin-bottom: 1rem; }
-    .contact-text p { font-size: 0.95rem; color: var(--text-2); line-height: 1.85; }
-
-    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
-    .contact-link {
-      display: flex; align-items: center; gap: 0.9rem;
-      padding: 1rem 1.25rem;
-      background: var(--bg-3);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      transition: border-color var(--t), transform var(--t);
-    }
-    .contact-link:hover { border-color: var(--border-hover); transform: translateX(4px); }
-    .cl-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .cl-icon svg { width: 16px; height: 16px; fill: white; }
-    .cl-gh  { background: #24292f; }
-    .cl-li  { background: #0a66c2; }
-    .cl-yt  { background: #ff0000; }
-    .cl-label { font-weight: 700; font-size: 0.9rem; color: var(--text); }
-    .cl-sub   { font-size: 0.78rem; color: var(--text-3); }
-    .cl-arr   { margin-left: auto; color: var(--text-3); font-size: 1rem; }
-
-    /* ─── FOOTER ─────────────────────────────────────────────── */
-    footer {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    }
-    .foot-left { font-size: 0.78rem; color: var(--text-3); }
-    .foot-right { display: flex; gap: 1.5rem; }
-    .foot-right a { font-size: 0.78rem; color: var(--text-3); text-decoration: none; transition: color var(--t); }
-    .foot-right a:hover { color: var(--text-2); }
-
-    /* ─── Animations ─────────────────────────────────────────── */
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
-    }
-    .reveal.on { opacity: 1; transform: none; }
-    .reveal.d1 { transition-delay: 0.08s; }
-    .reveal.d2 { transition-delay: 0.16s; }
-    .reveal.d3 { transition-delay: 0.24s; }
-    .reveal.d4 { transition-delay: 0.32s; }
-    .reveal.d5 { transition-delay: 0.40s; }
-    .reveal.d6 { transition-delay: 0.48s; }
+    footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--faint); font-size: 0.875rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+    footer a { color: var(--muted); }
   </style>
 </head>
-
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-gh" viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.41z"/></symbol>
+    <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55L2.48 9.42l6.58-.96L12 2.5z"/></symbol>
+  </svg>
 
-  <!-- ── NAV ───────────────────────────────────────────────────── -->
-  <nav>
-    <a class="nav-brand" href="#">Thomas <span>Gorisse</span></a>
-    <ul class="nav-links">
-      <li><a href="#expertise">Expertise</a></li>
-      <li><a href="#platforms">Platforms</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a class="nav-cta" href="https://www.linkedin.com/in/thomas-gorisse/" target="_blank" rel="noopener">Get in touch</a>
-  </nav>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <!-- ── HERO ──────────────────────────────────────────────────── -->
-  <section class="section">
-    <div class="hero">
+  <header class="wrap top">
+    <a class="brand" href="/">Thomas Gorisse</a>
+    <nav aria-label="Sections">
+      <a href="#now">Now</a>
+      <a href="#sceneview">SceneView</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
+      </button>
+    </nav>
+  </header>
 
-      <div class="hero-label">Senior Android Engineer · Open Source · Building with AI</div>
-
-      <h1>
-        Android at core.<br />
-        <em>Mobile</em> at<br />
-        heart.
-      </h1>
-
-      <p class="hero-desc">
-        Senior Android Engineer with 10+ years building <strong>production-grade mobile apps</strong>. Deep expertise in Kotlin, Jetpack Compose, Clean Architecture, and 3D/AR. Actively expanding across iOS, Flutter, and React Native — accelerated by <strong>AI-augmented development</strong>.
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="name">
+      <div class="hero-text">
+      <div class="who">
+        <img src="/assets/avatar.webp" width="56" height="56" alt="Portrait of Thomas Gorisse">
+        <div>
+          <h1 id="name">Thomas Gorisse</h1>
+          <p>Lead Software Engineer · Nantes, France</p>
+        </div>
+      </div>
+      <p class="lead">I build mobile SDKs with AI agents, <span>and the agent systems that build them.</span></p>
+      <p class="intro">
+        I work on <strong>AI agents for software delivery</strong> with Claude Code, and on <strong>cross-platform mobile SDKs</strong>.
+        In the open, I created <strong>SceneView</strong>, the 3D &amp; AR SDK for Jetpack Compose, SwiftUI and the web.
+        Twenty-odd years of mobile, and still happiest turning a hard platform feature into a small API.
       </p>
-
-      <div class="hero-ctas">
-        <a class="cta-primary" href="#projects">See my work</a>
-        <a class="cta-secondary" href="https://www.linkedin.com/in/thomas-gorisse/" target="_blank" rel="noopener">LinkedIn Profile</a>
+      <div class="links">
+        <a href="https://github.com/ThomasGorisse"><svg class="icon" aria-hidden="true"><use href="#i-gh"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/thomas-gorisse/"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg>LinkedIn</a>
+        <a href="https://x.com/thomas_gorisse"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>X</a>
+        <a href="https://www.youtube.com/@thomasgorisse"><svg class="icon" aria-hidden="true"><use href="#i-yt"/></svg>YouTube</a>
       </div>
-
-      <div class="hero-social">
-        <a class="soc" href="https://github.com/ThomasGorisse" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a class="soc" href="https://www.youtube.com/@thomasgorisse" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          YouTube
-        </a>
       </div>
+      <figure class="viewer">
+        <div class="stage" id="stage">
+          <img src="/assets/sheen-chair.webp" width="960" height="960" alt="An orange velvet lounge chair on wooden legs, rendered in 3D" fetchpriority="low" decoding="async">
+        </div>
+        <figcaption>A SceneView demo model, live in your browser. Drag to orbit.<br><a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/SheenChair">Sheen Chair</a> by Wayfair, CC0.</figcaption>
+      </figure>
+    </section>
 
-      <div class="hero-metrics">
-        <div class="metric">
-          <div class="metric-val">10<span>+</span></div>
-          <div class="metric-label">Years in Mobile</div>
+    <section id="now" class="wrap section" aria-labelledby="now-title">
+      <p class="label">Now</p>
+      <div>
+        <h2 id="now-title">Agentic engineering, in production</h2>
+        <p class="role"><b>Lead Software Engineer</b><span>AI workflows &amp; mobile SDKs</span></p>
+        <div class="prose">
+          <p>I lead the engineering of cross-platform mobile SDKs, and I design the AI-native way they get built, tested and shipped.</p>
+          <p><strong>Agents implement, test and review. I own the architecture, the contracts and the quality gates, and I say no a lot.</strong></p>
         </div>
-        <div class="metric">
-          <div class="metric-val">1.8<span>k</span></div>
-          <div class="metric-label">OSS GitHub Stars</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">12<span>+</span></div>
-          <div class="metric-label">Production Apps</div>
-        </div>
-        <div class="metric">
-          <div class="metric-val">4</div>
-          <div class="metric-label">Mobile Platforms</div>
-        </div>
+        <ul class="rules">
+          <li><h3><i>01</i>Multi-agent workflows</h3><p>Claude Code runs the work, and each task is routed to the model and effort it actually needs.</p></li>
+          <li><h3><i>02</i>Independent review</h3><p>The agent that writes a diff never approves it. Review is a separate agent with its own brief.</p></li>
+          <li><h3><i>03</i>Hard gates</h3><p>Binary-compatibility checks on public APIs, screenshot tests, automated on-device QA and CI on every PR.</p></li>
+          <li><h3><i>04</i>Assistant-ready SDKs</h3><p>MCP servers, <code>AGENTS.md</code> and <code>llms.txt</code>, so an assistant writes correct integration code on the first try.</p></li>
+        </ul>
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── EXPERTISE ─────────────────────────────────────────────── -->
-  <section id="expertise" class="section expertise-section">
-    <div class="inner">
-
-      <p class="sec-label reveal">Expertise</p>
-      <h2 class="sec-title reveal">Deep Android. Growing<br />mobile horizon.</h2>
-      <p class="sec-desc reveal">My foundation is Android — architecture, performance, and delivery at scale. I'm actively broadening that into the wider mobile ecosystem, using AI tooling to extend my reach without pretending expertise I haven't earned yet.</p>
-
-      <div class="expertise-grid">
-
-        <div class="exp-card reveal d1">
-          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5S11 23.33 11 22.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zm-2.5-10C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84 1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg></div>
-          <div class="exp-title">Android Engineering</div>
-          <div class="exp-desc">10+ years building production apps across retail, finance, healthcare, and social — serving millions of users. Kotlin, Jetpack Compose, and architecture patterns that keep codebases maintainable as products and teams scale.</div>
-          <div class="exp-tags">
-            <span class="tag hi">Jetpack Compose</span>
-            <span class="tag hi">Kotlin</span>
-            <span class="tag">Clean Architecture</span>
-            <span class="tag">MVI / MVVM</span>
-            <span class="tag">Multi-module</span>
-          </div>
+    <section id="sceneview" class="wrap section" aria-labelledby="sv-title">
+      <p class="label">Open source</p>
+      <div>
+        <h2 id="sv-title">SceneView: 3D &amp; AR in a few lines of UI code</h2>
+        <div class="prose">
+          <p>I created SceneView after Google stopped Sceneform. On Android it is Compose-first, on top of <strong>Filament</strong> and <strong>ARCore</strong>. On Apple platforms it is SwiftUI on <strong>RealityKit</strong>. It reaches the web, Flutter and React Native too.</p>
         </div>
+        <dl class="stats">
+          <div><dt>~2M</dt><dd>downloads a year on Maven Central</dd></div>
+          <div><dt>1,100+</dt><dd>companies downloading it</dd></div>
+          <div><dt><span class="stars" data-stars="sceneview/sceneview">1,329</span></dt><dd>GitHub stars, live count</dd></div>
+        </dl>
+        <div class="sv-grid">
+          <ul class="platforms" aria-label="Platforms">
+            <li><b>Android</b><span>Jetpack Compose · Filament · ARCore</span></li>
+            <li><b>Apple</b><span>SwiftUI · RealityKit · iOS, macOS, visionOS</span></li>
+            <li><b>Web</b><span>Kotlin/JS · Filament.js on WebGL2</span></li>
+            <li><b>Flutter, React Native</b><span>Native bridges to both renderers</span></li>
+          </ul>
+<pre class="code" aria-label="Kotlin: the chair above, in a Compose screen"><code><span class="m">// The chair above, in a Compose screen</span>
+<span class="k">val</span> engine = <span class="c">rememberEngine</span>()
+<span class="k">val</span> modelLoader = <span class="c">rememberModelLoader</span>(engine)
 
-        <div class="exp-card reveal d2">
-          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-          <div class="exp-title">3D & Spatial Computing</div>
-          <div class="exp-desc">Creator of SceneView, contributor to Google Filament, and years of shipping AR into real apps — from room-scanning experiences to 3D model viewers in production. Now the SDK an AI assistant reaches for: an llms.txt API contract, an MCP server, and a plugin for ChatGPT and Codex. Started as an exploration, became a genuine specialisation.</div>
-          <div class="exp-tags">
-            <span class="tag hi">SceneView</span>
-            <span class="tag hi">ARCore</span>
-            <span class="tag">Filament</span>
-            <span class="tag">RealityKit</span>
-            <span class="tag">glTF · 3MF</span>
-          </div>
+<span class="c">SceneView</span>(engine = engine, modelLoader = modelLoader) {
+    <span class="c">rememberModelInstance</span>(modelLoader, <span class="s">"chair.glb"</span>)?.<span class="c">let</span> {
+        <span class="c">ModelNode</span>(modelInstance = it, scaleToUnits = <span class="k">1f</span>)
+    }
+}</code></pre>
         </div>
-
-        <div class="exp-card reveal d3">
-          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg></div>
-          <div class="exp-title">Building with AI</div>
-          <div class="exp-desc">Built tooling to fill gaps in my own workflow — not as side projects, but as essential engineering infrastructure. Using AI for architecture review, spec generation, and accelerating cross-platform delivery, and designing public APIs so an assistant emits code that compiles first try. Engineering judgment stays in the loop, always.</div>
-          <div class="exp-tags">
-            <span class="tag hi">MCP</span>
-            <span class="tag">llms.txt</span>
-            <span class="tag">Spec-driven dev</span>
-            <span class="tag">Gemini Nano</span>
-          </div>
+        <div class="prose">
+          <p>It is written for AI assistants as much as for people: the repo ships an MCP server, <code>AGENTS.md</code> and <code>llms.txt</code>. In 2026 it was accepted into Anthropic’s Claude for Open Source Program.</p>
         </div>
-
-        <div class="exp-card reveal d4">
-          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-          <div class="exp-title">Cross-Platform Delivery</div>
-          <div class="exp-desc">Extending Android-native expertise to Flutter, React Native, and Kotlin Multiplatform. Knowing the trade-offs of each approach, and choosing the right tool for each team and product context.</div>
-          <div class="exp-tags">
-            <span class="tag">Flutter</span>
-            <span class="tag">React Native</span>
-            <span class="tag hi">KMP</span>
-            <span class="tag">Compose Multiplatform</span>
-          </div>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/sceneview/sceneview"><svg class="icon" aria-hidden="true"><use href="#i-gh"/></svg>sceneview/sceneview</a>
+          <a class="btn" href="https://sceneview.github.io/">Docs &amp; live demos</a>
         </div>
-
-        <div class="exp-card reveal d5 green">
-          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-          <div class="exp-title">Performance & Quality</div>
-          <div class="exp-desc">Deep understanding of the Android rendering pipeline, Compose performance, and memory management. Building apps that feel fast, not just measure fast — and stay that way as the codebase grows.</div>
-          <div class="exp-tags">
-            <span class="tag gr">Profiling</span>
-            <span class="tag gr">Baseline Profiles</span>
-            <span class="tag">Macrobenchmark</span>
-            <span class="tag">CI/CD</span>
-          </div>
-        </div>
-
-        <div class="exp-card reveal d6">
-          <div class="exp-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></div>
-          <div class="exp-title">Open Source Leadership</div>
-          <div class="exp-desc">Maintaining libraries used in production by hundreds of teams worldwide. Contributor to Google Filament. Understanding what it means to build public API surfaces that others depend on.</div>
-          <div class="exp-tags">
-            <span class="tag hi">SceneView 1.3k⭐</span>
-            <span class="tag">Apache 2.0</span>
-            <span class="tag">API Design</span>
-            <span class="tag">Semver</span>
-          </div>
-        </div>
-
+        <p class="support">SceneView is community-funded: <a href="https://opencollective.com/sceneview">Open Collective</a> or <a href="https://github.com/sponsors/sceneview">GitHub Sponsors</a>.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="divider"></div>
-
-  <!-- ── APPROACH ───────────────────────────────────────────────── -->
-  <section id="approach" class="section">
-    <div class="inner">
-
-      <p class="sec-label reveal">How I work</p>
-      <h2 class="sec-title reveal">Senior Android instincts,<br />modern tooling</h2>
-
-      <div class="approach-grid">
-        <div class="approach-text reveal">
-          <p>
-            I've been building Android applications since the J2ME era. That long view matters: I've seen what <strong>scales and what doesn't</strong>, which patterns survive product pivots, and where teams accumulate technical debt.
-          </p>
-          <p>
-            Today, I work with <span class="hl">AI-augmented development</span> — using Claude to pressure-test architectural decisions, review code, and take on delivery in ecosystems I'm actively learning. I even built my own Android Studio plugin to make this a natural part of my daily workflow.
-          </p>
-          <p>
-            This is <strong>not about outsourcing engineering judgment to AI</strong>. It's about a senior engineer using every tool available — and being honest about what they know deeply versus what they're building toward.
-          </p>
-          <p>
-            Right now, that means <span class="hl">senior-level Android</span> and a genuine, fast-moving expansion into iOS, Flutter, and cross-platform — grounded in architecture principles that transfer across any stack.
-          </p>
-        </div>
-
-        <div class="approach-steps reveal d2">
-          <div class="step">
-            <div class="step-num">01</div>
-            <div class="step-body">
-              <div class="step-title">Architecture before code</div>
-              <div class="step-desc">Every project starts with a clear technical spec — domain model, data flow, modularity boundaries. AI helps stress-test edge cases before a line is written.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">02</div>
-            <div class="step-body">
-              <div class="step-title">Platform-native quality</div>
-              <div class="step-desc">No generic cross-platform compromises. Whether Android, iOS, or Flutter — the UX respects platform conventions and the code uses idiomatic patterns.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">03</div>
-            <div class="step-body">
-              <div class="step-title">AI-reviewed, human-validated</div>
-              <div class="step-desc">Every significant change is reviewed by AI for anti-patterns, performance issues, and coverage gaps — then validated by an engineer who understands what it does.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">04</div>
-            <div class="step-body">
-              <div class="step-title">Production-minded always</div>
-              <div class="step-desc">Crash rates, startup time, accessibility, observability. These aren't afterthoughts — they're constraints that shape every architectural decision from the start.</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── PLATFORMS ──────────────────────────────────────────────── -->
-  <section id="platforms" class="section platforms-section">
-    <div class="inner">
-
-      <p class="sec-label reveal">Platform reach</p>
-      <h2 class="sec-title reveal">Android is home.<br />Mobile is the direction.</h2>
-      <p class="sec-desc reveal">I'm a Senior Android Engineer at my core. The work I'm doing with AI tooling is actively pushing that expertise into the broader mobile ecosystem — not as a claim, but as a trajectory.</p>
-
-      <div class="platforms-list">
-        <div class="platform-card core reveal d1">
-          <div class="platform-badge badge-core">Senior expertise</div>
-          <div class="platform-name">Android</div>
-          <div class="platform-desc">10+ years. Jetpack Compose, Kotlin, Architecture Components, custom rendering, AR. From startup MVPs to multi-million user production apps. This is where I go deepest.</div>
-        </div>
-        <div class="platform-card reveal d2">
-          <div class="platform-badge badge-ai">Expanding</div>
-          <div class="platform-name">iOS</div>
-          <div class="platform-desc">Strong mobile architecture instincts translate directly. AI-augmented tooling lets me work in Swift and SwiftUI with proper validation — a capability I'm actively building on top of deep Android foundations.</div>
-        </div>
-        <div class="platform-card reveal d3">
-          <div class="platform-badge badge-ai">Expanding</div>
-          <div class="platform-name">Flutter</div>
-          <div class="platform-desc">Cross-platform delivery with the same architecture discipline I apply on Android. Flutter's model suits teams that want a single codebase without sacrificing quality — I'm developing real fluency here.</div>
-        </div>
-        <div class="platform-card reveal d4">
-          <div class="platform-badge badge-xp">Natural fit</div>
-          <div class="platform-name">Kotlin Multiplatform</div>
-          <div class="platform-desc">Sharing business logic across Android and iOS with KMP is the most natural extension of Kotlin expertise. Native UIs, shared domain and data layers — the right call for Kotlin-first teams.</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── PROJECTS ───────────────────────────────────────────────── -->
-  <section id="projects" class="section">
-    <div class="inner">
-
-      <p class="sec-label reveal">Open Source</p>
-      <h2 class="sec-title reveal">Building the foundation<br />others ship on</h2>
-      <p class="sec-desc reveal">The best proof of architectural thinking is software that other engineers choose to depend on.</p>
-
-      <div class="projects-grid">
-
-        <!-- Featured SceneView -->
-        <div class="proj-card span2 reveal">
-          <div>
-            <div class="proj-header">
-              <div class="proj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-              <div class="proj-star">★ 1.3k</div>
-            </div>
-            <div class="proj-name">SceneView</div>
-            <div class="proj-desc">
-              The production library for 3D and AR — Jetpack Compose on Android, SwiftUI on Apple, Filament.js on the web. Powered by Google Filament, ARCore and RealityKit. Used by hundreds of teams shipping real spatial experiences without touching the low-level rendering complexity.
-              <br/><br/>
-              Designed to be readable by machines as well as people: an llms.txt API contract, an MCP server, and a plugin for ChatGPT and Codex. It reads glTF, USDZ, and the .3mf that AI print flows emit — the file nothing else on Android opens in 3D or AR.
-            </div>
-            <div class="proj-meta">
-              <span class="proj-lang">Kotlin · Apache 2.0</span>
-              <a class="proj-link" href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener">View on GitHub →</a>
-            </div>
-          </div>
-          <div class="proj-visual">
-            <div class="ar-scene"><div class="ar-orb"></div></div>
-          </div>
-        </div>
-
-        <a class="proj-card reveal d1" href="https://github.com/ThomasGorisse/SceneformMaintained" target="_blank" rel="noopener">
-          <div class="proj-header">
-            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-            <div class="proj-star">★ 679</div>
-          </div>
-          <div class="proj-name">SceneForm Maintained</div>
-          <div class="proj-desc">Maintained fork of Google's Sceneform SDK — keeping the ARCore Android SDK alive with active bug fixes, Kotlin upgrades, and Filament as the rendering engine.</div>
-          <div class="proj-meta">
-            <span class="proj-lang">Kotlin</span>
-            <span class="proj-link">View →</span>
-          </div>
-        </a>
-
-        <a class="proj-card reveal d2" href="https://github.com/google/filament" target="_blank" rel="noopener">
-          <div class="proj-header">
-            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg></div>
-            <div class="proj-star">★ 19.9k</div>
-          </div>
-          <div class="proj-name">Google Filament Contributor</div>
-          <div class="proj-desc">Active contributor to Google's physically-based real-time rendering engine — the technology at the core of SceneView, used by Google and hundreds of major products worldwide.</div>
-          <div class="proj-meta">
-            <span class="proj-lang">C++ · Kotlin</span>
-            <span class="proj-link">View →</span>
-          </div>
-        </a>
-
-        <a class="proj-card reveal d3" href="https://github.com/ThomasGorisse/kotlin-math" target="_blank" rel="noopener">
-          <div class="proj-header">
-            <div class="proj-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.623 9.958 12 3h6.623v6.958zM12 3 0 16.042V3h12zM0 21l12-12 6.623 6.958L12 21H0z"/></svg></div>
-            <div class="proj-star">★ 882</div>
-          </div>
-          <div class="proj-name">kotlin-math</div>
-          <div class="proj-desc">Kotlin APIs for graphics math — vectors, matrices, and quaternions in idiomatic Kotlin. The piece that was missing for 3D development without verbose Java boilerplate.</div>
-          <div class="proj-meta">
-            <span class="proj-lang">Kotlin · Apache 2.0</span>
-            <span class="proj-link">View →</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── PRODUCTION APPS ────────────────────────────────────────── -->
-  <section id="work" class="section apps-section">
-    <div class="inner">
-      <p class="sec-label reveal">Production work</p>
-      <h2 class="sec-title reveal">Shipped to millions of users</h2>
-      <p class="sec-desc reveal">Professional Android contributions across retail, finance, healthcare, social, and spatial computing — from architecture to delivery.</p>
-      <div class="apps-track reveal">
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.infomil.bill" target="_blank" rel="noopener">Mon E.Leclerc</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.fortuneo.android" target="_blank" rel="noopener">Fortuneo</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.octopuscommunity.app" target="_blank" rel="noopener">Octopus Community</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.yembo.scanmyhome.onsite" target="_blank" rel="noopener">ScanMyHome</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.digitalmate.radiorestos" target="_blank" rel="noopener">Radio Restos</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.fdi.smartble" target="_blank" rel="noopener">2VOICE Manager</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.rebaze.sanolib" target="_blank" rel="noopener">SANOLINK</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.snpl.app2" target="_blank" rel="noopener">SNPL</a>
-        <a class="app-pill" href="https://play.google.com/store/apps/details?id=com.sujewan.mv" target="_blank" rel="noopener">AR Model Viewer</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ── CONTACT ────────────────────────────────────────────────── -->
-  <section id="contact" class="section">
-    <div class="inner">
-      <div class="contact-wrap">
-
-        <div class="contact-text reveal">
-          <p class="sec-label">Contact</p>
-          <h2 class="sec-title">Let's build<br/>something great</h2>
-          <p>Whether you're starting a new product, scaling an existing Android codebase, or looking to extend your mobile platform reach — I'm open to meaningful conversations about the work.</p>
-        </div>
-
-        <div class="contact-links reveal d2">
-          <a class="contact-link" href="https://github.com/ThomasGorisse" target="_blank" rel="noopener">
-            <div class="cl-icon cl-gh">
-              <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            </div>
+    <section id="work" class="wrap section" aria-labelledby="work-title">
+      <p class="label">Work</p>
+      <div>
+        <h2 id="work-title">Open source, before and around SceneView</h2>
+        <ol class="work">
+          <li>
+            <span class="when">2021 →</span>
             <div>
-              <div class="cl-label">GitHub</div>
-              <div class="cl-sub">github.com/ThomasGorisse</div>
+              <h3><a href="https://github.com/sceneview/sceneview">SceneView</a><small>creator, maintainer</small></h3>
+              <p>A declarative 3D &amp; AR SDK that grew from one Android library into five platforms.</p>
             </div>
-            <span class="cl-arr">→</span>
-          </a>
-          <a class="contact-link" href="https://www.linkedin.com/in/thomas-gorisse/" target="_blank" rel="noopener">
-            <div class="cl-icon cl-li">
-              <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </div>
+            <span class="meta"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg><span class="stars" data-stars="sceneview/sceneview">1,329</span></span>
+          </li>
+          <li>
+            <span class="when">2020</span>
             <div>
-              <div class="cl-label">LinkedIn</div>
-              <div class="cl-sub">thomas-gorisse</div>
+              <h3><a href="https://github.com/sceneview/sceneform-android">Sceneform Maintained</a><small>creator</small></h3>
+              <p>When Google archived Sceneform, I kept it alive: Filament as the renderer, ARCore kept current, releases teams could keep shipping on. It became the base of SceneView and is now archived.</p>
             </div>
-            <span class="cl-arr">→</span>
-          </a>
-          <a class="contact-link" href="https://www.youtube.com/@thomasgorisse" target="_blank" rel="noopener">
-            <div class="cl-icon cl-yt">
-              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </div>
+            <span class="meta"><svg class="icon" aria-hidden="true"><use href="#i-star"/></svg><span class="stars" data-stars="sceneview/sceneform-android">676</span></span>
+          </li>
+          <li>
+            <span class="when">2021–22</span>
             <div>
-              <div class="cl-label">YouTube</div>
-              <div class="cl-sub">@thomasgorisse</div>
+              <h3><a href="https://github.com/google/filament">Filament</a><small>contributor</small></h3>
+              <p>Fixes and JNI APIs upstream in Google’s real-time PBR renderer, such as transform-hierarchy access from Java, found while building SceneView on top of it.</p>
             </div>
-            <span class="cl-arr">→</span>
-          </a>
+            <span class="meta"><a href="https://github.com/google/filament/pulls?q=is%3Apr+is%3Amerged+author%3AThomasGorisse">4 merged PRs</a></span>
+          </li>
+          <li>
+            <span class="when">2022–24</span>
+            <div>
+              <h3><a href="https://github.com/romainguy/kotlin-math">kotlin-math</a><small>contributor</small></h3>
+              <p>Quaternions from vectors, interpolation, angle helpers and epsilon comparisons for Romain Guy’s graphics math library, which SceneView depends on.</p>
+            </div>
+            <span class="meta"><a href="https://github.com/romainguy/kotlin-math/pulls?q=is%3Apr+is%3Amerged+author%3AThomasGorisse">11 merged PRs</a></span>
+          </li>
+        </ol>
+        <div class="prose long">
+          <p><strong>20+ years of mobile</strong>, from Java ME and BlackBerry to Jetpack Compose, AR and on-device AI. The constant has been the same job: take a hard platform feature and turn it into a small, stable API other developers can trust.</p>
         </div>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+    <section id="contact" class="wrap section" aria-labelledby="contact-title">
+      <p class="label">Contact</p>
+      <div>
+        <h2 id="contact-title">Say hello</h2>
+        <div class="prose">
+          <p>LinkedIn is the quickest way to reach me. For SceneView questions, open an issue or a discussion on GitHub, so the answer helps the next person too.</p>
+        </div>
+        <div class="contact">
+          <a href="https://github.com/ThomasGorisse"><svg class="icon" aria-hidden="true"><use href="#i-gh"/></svg><div><b>GitHub</b><span>ThomasGorisse</span></div><span class="arr" aria-hidden="true">↗</span></a>
+          <a href="https://www.linkedin.com/in/thomas-gorisse/"><svg class="icon" aria-hidden="true"><use href="#i-in"/></svg><div><b>LinkedIn</b><span>in/thomas-gorisse</span></div><span class="arr" aria-hidden="true">↗</span></a>
+          <a href="https://x.com/thomas_gorisse"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg><div><b>X</b><span>@thomas_gorisse</span></div><span class="arr" aria-hidden="true">↗</span></a>
+          <a href="https://www.youtube.com/@thomasgorisse"><svg class="icon" aria-hidden="true"><use href="#i-yt"/></svg><div><b>YouTube</b><span>@thomasgorisse</span></div><span class="arr" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <footer>
-    <div class="foot-left">© 2026 Thomas Gorisse · Nantes, France</div>
-    <div class="foot-right">
-      <a href="https://github.com/ThomasGorisse" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener">SceneView</a>
-      <a href="https://www.linkedin.com/in/thomas-gorisse/" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="wrap">
+      <span>© 2026 Thomas Gorisse · Nantes, France</span>
+      <span>Plain HTML and CSS, no build step · <a href="https://github.com/ThomasGorisse/thomasgorisse.github.io">Source</a></span>
     </div>
   </footer>
 
   <script>
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-  </script>
+  (function () {
+    var root = document.documentElement;
 
+    // Theme toggle: flips whatever is showing now, and remembers the choice.
+    var toggle = document.querySelector('.theme-toggle');
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    function isDark() { return root.dataset.theme ? root.dataset.theme === 'dark' : mq.matches; }
+    function sync() {
+      var dark = isDark();
+      toggle.setAttribute('aria-pressed', String(dark));
+      toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    toggle.addEventListener('click', function () {
+      root.dataset.theme = isDark() ? 'light' : 'dark';
+      try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      sync();
+    });
+    if (mq.addEventListener) mq.addEventListener('change', sync);
+    sync();
+
+    // Live GitHub star counts. The numbers written in the HTML are the fallback.
+    function paint(repo, n) {
+      document.querySelectorAll('[data-stars="' + repo + '"]').forEach(function (el) { el.textContent = n.toLocaleString('en-US'); });
+    }
+    function loadStars() {
+      var repos = {};
+      document.querySelectorAll('[data-stars]').forEach(function (el) { repos[el.dataset.stars] = 1; });
+      Object.keys(repos).forEach(function (repo) {
+        var key = 'stars:' + repo, cached = null;
+        try { cached = JSON.parse(sessionStorage.getItem(key)); } catch (e) {}
+        if (typeof cached === 'number') return paint(repo, cached);
+        fetch('https://api.github.com/repos/' + repo)
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (d) {
+            if (!d || typeof d.stargazers_count !== 'number') return;
+            paint(repo, d.stargazers_count);
+            try { sessionStorage.setItem(key, d.stargazers_count); } catch (e) {}
+          })
+          .catch(function () {});
+      });
+    }
+    if ('requestIdleCallback' in window) requestIdleCallback(loadStars, { timeout: 3000 });
+    else setTimeout(loadStars, 1200);
+
+    // The 3D chair: model-viewer loads after the page, only once the stage is on screen,
+    // never with Save-Data on, and it does not spin for reduced-motion users.
+    var stage = document.getElementById('stage');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    function loadViewer() {
+      var s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js';
+      document.head.appendChild(s);
+      var mv = document.createElement('model-viewer');
+      var attrs = {
+        src: '/assets/sheen-chair.glb',
+        alt: 'An orange velvet lounge chair on wooden legs. Drag to orbit.',
+        'camera-controls': '', 'disable-zoom': '', 'disable-pan': '', 'touch-action': 'pan-y',
+        'interaction-prompt': 'none', 'camera-orbit': '32deg 76deg auto', 'field-of-view': '30deg',
+        'environment-image': 'neutral', 'shadow-intensity': '1', 'shadow-softness': '0.9',
+        'rotation-per-second': '14deg', 'auto-rotate-delay': '0'
+      };
+      if (!reduce) attrs['auto-rotate'] = '';
+      Object.keys(attrs).forEach(function (k) { mv.setAttribute(k, attrs[k]); });
+      mv.addEventListener('load', function () { mv.classList.add('ready'); stage.classList.add('live'); });
+      stage.appendChild(mv);
+    }
+    function watch() {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); loadViewer(); }
+      }, { threshold: 0.35 });
+      io.observe(stage);
+    }
+    // Wide screens with a mouse see the chair next to the headline, so it starts after load.
+    // Phones and tablets wait for the first scroll or touch: the poster holds the spot, and
+    // the page itself stays light on a slow CPU.
+    function start() {
+      if (window.matchMedia('(min-width: 961px) and (pointer: fine)').matches) { watch(); return; }
+      var evs = ['scroll', 'touchstart', 'pointerdown', 'keydown', 'wheel'];
+      function go() { evs.forEach(function (e) { window.removeEventListener(e, go); }); watch(); }
+      evs.forEach(function (e) { window.addEventListener(e, go, { passive: true }); });
+    }
+    if (stage && !saveData && 'IntersectionObserver' in window) {
+      if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
+    }
+  })();
+  </script>
 </body>
 </html>
