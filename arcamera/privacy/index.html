@@ -64,7 +64,7 @@
       <div class="eyebrow">Privacy Policy</div>
       <h1>Will It Fit</h1>
       <p class="sub">3D &amp; AI model viewer for Android · <code>com.gorisse.thomas.arcamera</code></p>
-      <p class="updated">Last updated: September 19, 2026</p>
+      <p class="updated">Last updated: October 16, 2026</p>
     </header>
 
     <div class="callout accent tldr">
@@ -152,6 +152,20 @@
     Tripo3D's own privacy policy, linked above. Do not include personal or sensitive content in prompts
     or photos you submit for generation.</p>
 
+    <h3>AI assistant (Anthropic Claude)</h3>
+    <p>Some features let you ask an AI assistant to work on your scene, for example to describe, arrange
+    or reconstruct it. When — and only when — you use one of them, the App sends what that request needs:
+    the <strong>text you type</strong>, a <strong>description of the scene</strong> (object names, sizes
+    and positions, room measurements) and, when the feature uses one, the <strong>photos</strong> you take
+    or select. The request goes over HTTPS to our processing endpoint, which forwards it to
+    <strong>Anthropic</strong>, the provider of the Claude models
+    (<a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">anthropic.com/legal/privacy</a>),
+    and returns the answer to the App. <strong>Nothing that identifies you is ever forwarded to
+    Anthropic</strong>. Our endpoint <strong>does not store or log your prompts, your photos or the
+    answers</strong>; it keeps only the number of tokens used and the credits debited, so the cost lands on
+    the right account. Anthropic's handling of that input is governed by its own privacy policy, linked
+    above. Do not include personal or sensitive content in what you send to the assistant.</p>
+
     <h3>3D model catalog (Sketchfab)</h3>
     <p>Browsing and downloading catalog models sends your <strong>search terms and the public model
     identifier</strong> through the same HTTPS endpoint to the <strong>Sketchfab</strong> community API.
@@ -205,6 +219,7 @@
         <tr><td>Credit balance, credit history, verified purchases</td><td>Run the credit system, accounting</td><td>Only if credits are counted server-side</td><td>— (stored by us)</td></tr>
         <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
         <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
+        <tr><td>Text, scene description and photos sent to the AI assistant</td><td>Answer the AI request you made</td><td>Only on that action</td><td>Anthropic (AI provider)</td></tr>
         <tr><td>Catalog search terms</td><td>Return catalog results; understand what people look for and which models to add</td><td>Yes, on each search</td><td>Sketchfab (to run the search) — anonymous copy kept by us, deleted after 180 days</td></tr>
         <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Anonymous usage events</td><td>Understand feature usage</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
