@@ -64,7 +64,7 @@
       <div class="eyebrow">Privacy Policy</div>
       <h1>Will It Fit</h1>
       <p class="sub">3D &amp; AI model viewer for Android · <code>com.gorisse.thomas.arcamera</code></p>
-      <p class="updated">Last updated: October 16, 2026</p>
+      <p class="updated">Last updated: November 4, 2026</p>
     </header>
 
     <div class="callout accent tldr">
@@ -75,6 +75,7 @@
         <li>You can <strong>delete your account inside the app</strong>, in one tap: <em>Account → Delete account</em>. Or email us and we do it for you.</li>
         <li>Your models, captures, and settings stay <strong>on your device</strong>. Uninstalling the app erases them.</li>
         <li>A photo or text prompt is sent off your device <strong>only when you choose to generate a 3D model</strong> — and only to the AI service that fulfils that request.</li>
+        <li>We keep an <strong>anonymous, cleaned copy of the text prompts</strong> people type to generate a model, for <strong>90 days</strong>, to improve the models we propose. It is never linked to you, and we never keep your photos.</li>
         <li>We use Google Firebase for <strong>crash reports and anonymous usage analytics</strong> to keep the app stable.</li>
         <li>All network traffic is <strong>encrypted (HTTPS)</strong>. We show no ads and use no location data.</li>
       </ul>
@@ -144,13 +145,27 @@
     provider, <strong>Tripo3D</strong> (<a href="https://www.tripo3d.ai/privacy" target="_blank" rel="noopener">tripo3d.ai/privacy</a>),
     to produce the 3D model. <strong>Nothing that identifies you is ever forwarded to Tripo3D</strong> —
     it receives only the prompt or the image needed to create the model, never your account, your email
-    or a device identifier. Our own endpoint <strong>does not store your prompts, your photos, or the
-    generated models</strong>; when credits are counted on our side, a generation request additionally
+    or a device identifier. Our own endpoint <strong>does not store your photos or the generated models</strong>, and keeps
+    only the anonymous, cleaned record of text prompts described just below; when credits are counted on our side, a generation request additionally
     carries your session credential and/or a random per-install identifier so the credit is debited from
     the right account, and what we keep of it is a ledger line (a date, a cost, the generation's
     reference), not your content. Tripo3D processes the input to return your model; its handling of that input is governed by
     Tripo3D's own privacy policy, linked above. Do not include personal or sensitive content in prompts
     or photos you submit for generation.</p>
+    <p>We also <strong>keep an anonymous record of what people ask to generate</strong>, so that we can
+    see which kinds of models people want and improve the ones the App proposes. Before a line is
+    written, the text prompt is <strong>cleaned</strong>: email addresses, phone numbers, @handles, web
+    links and any run of more than six digits are replaced by a placeholder, and the text is cut to 200 characters. Each
+    stored line contains that cleaned text (for image → 3D, no text and no image at all — only the fact
+    that one was requested), whether the request started, was refused by our safety checks (stored as a
+    short reason code, never the refused text) or failed, the platform (Android or iOS) and app version,
+    the two-letter country code of the request, and the day (not the time).
+    <strong>It contains nothing that identifies you</strong>: no account, no email address, no device or
+    installation identifier, no IP address and no session — there is no field that ties a prompt to you,
+    or one prompt to another. These lines live in the same separate database as catalog searches (below),
+    are <strong>deleted automatically after 90 days</strong>, are only ever looked at as totals and as
+    prompts that at least three requests share, and are never sold, never shared with advertisers, and never used for advertising or
+    profiling.</p>
 
     <h3>AI assistant (Anthropic Claude)</h3>
     <p>Some features let you ask an AI assistant to work on your scene, for example to describe, arrange
@@ -180,9 +195,9 @@
     or one search to another. These lines are stored in a <strong>separate Cloudflare D1 database</strong>
     (<strong>Western Europe, WEUR</strong>) that holds no account data, are
     <strong>deleted automatically after 180 days</strong>, and are never sold, never shared with
-    advertisers, and never used for advertising or profiling. This applies to catalog search terms only —
-    as stated above, we still do not store your AI generation prompts, your photos, or the generated
-    models.</p>
+    advertisers, and never used for advertising or profiling. Catalog search terms are kept for 180 days; AI generation
+    prompts follow the shorter 90-day rule described under "AI 3D generation" above, and photos and
+    generated models are never stored.</p>
 
     <h3>Crash reports and analytics (Firebase)</h3>
     <p>The App uses <strong>Google Firebase Crashlytics</strong> and <strong>Firebase Analytics</strong>
@@ -218,7 +233,7 @@
         <tr><td>Hashed session credential</td><td>Keep you signed in securely for up to 90 days</td><td>Only if you sign in</td><td>— (stored by us)</td></tr>
         <tr><td>Credit balance, credit history, verified purchases</td><td>Run the credit system, accounting</td><td>Only if credits are counted server-side</td><td>— (stored by us)</td></tr>
         <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
-        <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
+        <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for; understand what people want to create</td><td>Only on that action</td><td>Tripo3D (AI provider) — anonymous cleaned copy kept by us, deleted after 90 days</td></tr>
         <tr><td>Text, scene description and photos sent to the AI assistant</td><td>Answer the AI request you made</td><td>Only on that action</td><td>Anthropic (AI provider)</td></tr>
         <tr><td>Catalog search terms</td><td>Return catalog results; understand what people look for and which models to add</td><td>Yes, on each search</td><td>Sketchfab (to run the search) — anonymous copy kept by us, deleted after 180 days</td></tr>
         <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
@@ -276,6 +291,10 @@
     <p>We may update this policy as the App evolves (for example, if the AI generation feature changes).
     Material changes will be reflected here with a new "Last updated" date.</p>
     <ul>
+      <li><strong>November 4, 2026</strong> — we now keep an anonymous, cleaned record of AI generation
+      text prompts, deleted after 90 days, to improve the models the App proposes. Updated the summary,
+      section 2 "AI 3D generation" and "3D model catalog", and the section 3 table. Photos and generated
+      models are still not stored.</li>
       <li><strong>September 19, 2026</strong> — we now keep an anonymous record of catalog search terms,
       deleted after 180 days, to decide which models to add. Updated section 2 "3D model catalog" and
       added a row to the section 3 table. AI generation prompts and photos are still not stored.</li>
