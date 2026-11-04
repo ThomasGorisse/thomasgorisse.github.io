@@ -174,9 +174,11 @@
     see which kinds of models people want and improve the ones the App proposes. Before a line is
     written, the text prompt is <strong>cleaned</strong>: email addresses, phone numbers, @handles, web
     links and any run of more than six digits are replaced by a placeholder, and the text is cut to 200 characters. Each
-    stored line contains that cleaned text (for image → 3D, no text and no image at all — only the fact
-    that one was requested), whether the request started, was refused by our safety checks (stored as a
-    short reason code, never the refused text) or failed, the platform (Android or iOS) and app version,
+    stored line contains that cleaned text (when a request starts, the clearer prompt our rewriting step
+    produced from what you typed; for image → 3D, no text and no image at all — only the fact that one
+    was requested), whether the request started, was refused by our safety checks (stored as a short
+    reason code such as "weapons", with the cleaned text that was refused, never the message shown to
+    you) or failed, the platform (Android or iOS) and app version,
     the two-letter country code of the request, and the day (not the time).
     <strong>It contains nothing that identifies you</strong>: no account, no email address, no device or
     installation identifier, no IP address and no session — there is no field that ties a prompt to you,
