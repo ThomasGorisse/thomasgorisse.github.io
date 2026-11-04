@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — Will It Fit</title>
-  <meta name="description" content="Privacy Policy for the Will It Fit (formerly AR Model Viewer) Android and iOS app by Thomas Gorisse. Local-first, optional account, in-app account deletion, HTTPS everywhere." />
+  <title>Privacy Policy — 3D AR Viewer</title>
+  <meta name="description" content="Privacy Policy for the 3D AR Viewer (formerly Will It Fit and AR Model Viewer) Android and iOS app by Thomas Gorisse. Local-first, optional account, in-app account deletion, HTTPS everywhere." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/privacy/" />
   <style>
@@ -62,8 +62,8 @@
   <div class="wrap">
     <header class="masthead">
       <div class="eyebrow">Privacy Policy</div>
-      <h1>Will It Fit</h1>
-      <p class="sub">3D &amp; AI model viewer for Android · <code>com.gorisse.thomas.arcamera</code></p>
+      <h1>3D AR Viewer</h1>
+      <p class="sub">3D &amp; AI model viewer for Android and iOS · <code>com.gorisse.thomas.arcamera</code></p>
       <p class="updated">Last updated: November 4, 2026</p>
     </header>
 
@@ -81,7 +81,7 @@
       </ul>
     </div>
 
-    <p>This Privacy Policy explains what information the <strong>Will It Fit</strong> (formerly <em>AR Model Viewer — 3D &amp; AI</em>)
+    <p>This Privacy Policy explains what information the <strong>3D AR Viewer</strong> (formerly <em>Will It Fit</em> and <em>AR Model Viewer — 3D &amp; AI</em>)
     mobile application (the "App") handles, why, and with whom. The App is published by
     <strong>Thomas Gorisse</strong> ("we", "our", "us"). By using the App you agree to this policy.</p>
 
@@ -141,17 +141,35 @@
       <li><strong>Image → 3D:</strong> the <strong>photo</strong> you select or capture is sent.</li>
     </ul>
     <p>The request goes over HTTPS to our processing endpoint (a Cloudflare Worker at
-    <code>arcamera-api.mcp-tools-lab.workers.dev</code>), which forwards it to our third-party AI
-    provider, <strong>Tripo3D</strong> (<a href="https://www.tripo3d.ai/privacy" target="_blank" rel="noopener">tripo3d.ai/privacy</a>),
-    to produce the 3D model. <strong>Nothing that identifies you is ever forwarded to Tripo3D</strong> —
-    it receives only the prompt or the image needed to create the model, never your account, your email
-    or a device identifier. Our own endpoint <strong>does not store your photos or the generated models</strong>, and keeps
-    only the anonymous, cleaned record of text prompts described just below; when credits are counted on our side, a generation request additionally
-    carries your session credential and/or a random per-install identifier so the credit is debited from
-    the right account, and what we keep of it is a ledger line (a date, a cost, the generation's
-    reference), not your content. Tripo3D processes the input to return your model; its handling of that input is governed by
-    Tripo3D's own privacy policy, linked above. Do not include personal or sensitive content in prompts
-    or photos you submit for generation.</p>
+    <code>ar.sceneview.dev</code>; older versions of the App use
+    <code>arcamera-api.mcp-tools-lab.workers.dev</code>), which forwards to third-party AI providers
+    only what each step needs:</p>
+    <ul>
+      <li><strong>OpenAI</strong> (<a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener">openai.com/policies/privacy-policy</a>)
+      receives the <strong>text you type</strong>, to rewrite it into a clear generation prompt and
+      estimate the object's real-world size, and, when you pick its image engine, that prompt (and the
+      image being edited) to draw a preview image.</li>
+      <li><strong>Tripo3D</strong> (<a href="https://www.tripo3d.ai/privacy" target="_blank" rel="noopener">tripo3d.ai/privacy</a>)
+      receives the <strong>prompt</strong> and/or the <strong>image</strong> (your photo or the preview
+      image), to draw the preview image and to build the 3D model.</li>
+      <li><strong>fal.ai</strong> (<a href="https://fal.ai/legal/privacy-policy" target="_blank" rel="noopener">fal.ai/legal/privacy-policy</a>),
+      which runs the TRELLIS and Hunyuan3D models, receives <strong>only the image</strong>, when it
+      builds the 3D model instead of Tripo3D.</li>
+      <li><strong>Anthropic</strong>, when you generate a full scene, receives the prompt to plan that
+      scene — see "AI assistant" below.</li>
+    </ul>
+    <p>Earlier versions of this policy also listed Google Gemini for preview images; it is no longer
+    used for that since November 3, 2026.
+    <strong>Nothing that identifies you is ever forwarded to these providers</strong> — they receive
+    only the text or the image needed for their step, never your account, your email or a device
+    identifier. Our own endpoint <strong>does not store your photos or the generated models</strong>,
+    and keeps only the anonymous, cleaned record of text prompts described just below; when credits
+    are counted on our side, a generation request additionally carries your session credential and/or
+    a random per-install identifier so the credit is debited from the right account, and what we keep
+    of it is a ledger line (a date, a cost, the generation's reference), not your content. Each
+    provider processes the input to return its result; its handling of that input is governed by its
+    own privacy policy, linked above. Do not include personal or sensitive content in prompts or
+    photos you submit for generation.</p>
     <p>We also <strong>keep an anonymous record of what people ask to generate</strong>, so that we can
     see which kinds of models people want and improve the ones the App proposes. Before a line is
     written, the text prompt is <strong>cleaned</strong>: email addresses, phone numbers, @handles, web
@@ -232,8 +250,8 @@
         <tr><td>Email address (from Google)</td><td>Recognise the account, answer your requests</td><td>Only if you sign in</td><td>— (stored by us)</td></tr>
         <tr><td>Hashed session credential</td><td>Keep you signed in securely for up to 90 days</td><td>Only if you sign in</td><td>— (stored by us)</td></tr>
         <tr><td>Credit balance, credit history, verified purchases</td><td>Run the credit system, accounting</td><td>Only if credits are counted server-side</td><td>— (stored by us)</td></tr>
-        <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D (AI provider)</td></tr>
-        <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for; understand what people want to create</td><td>Only on that action</td><td>Tripo3D (AI provider) — anonymous cleaned copy kept by us, deleted after 90 days</td></tr>
+        <tr><td>Photo (for image → 3D)</td><td>Generate a 3D model you asked for</td><td>Only on that action</td><td>Tripo3D or fal.ai (AI providers); OpenAI when you edit an image with its engine</td></tr>
+        <tr><td>Text prompt (for text → 3D)</td><td>Generate a 3D model you asked for; understand what people want to create</td><td>Only on that action</td><td>OpenAI and Tripo3D (AI providers) — anonymous cleaned copy kept by us, deleted after 90 days</td></tr>
         <tr><td>Text, scene description and photos sent to the AI assistant</td><td>Answer the AI request you made</td><td>Only on that action</td><td>Anthropic (AI provider)</td></tr>
         <tr><td>Catalog search terms</td><td>Return catalog results; understand what people look for and which models to add</td><td>Yes, on each search</td><td>Sketchfab (to run the search) — anonymous copy kept by us, deleted after 180 days</td></tr>
         <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
@@ -294,7 +312,8 @@
       <li><strong>November 4, 2026</strong> — we now keep an anonymous, cleaned record of AI generation
       text prompts, deleted after 90 days, to improve the models the App proposes. Updated the summary,
       section 2 "AI 3D generation" and "3D model catalog", and the section 3 table. Photos and generated
-      models are still not stored.</li>
+      models are still not stored. Renamed the App to 3D AR Viewer, and listed every AI provider that
+      receives a prompt or an image (OpenAI, Tripo3D, fal.ai, and Anthropic for full scenes); the previous version named Tripo3D only.</li>
       <li><strong>September 19, 2026</strong> — we now keep an anonymous record of catalog search terms,
       deleted after 180 days, to decide which models to add. Updated section 2 "3D model catalog" and
       added a row to the section 3 table. AI generation prompts and photos are still not stored.</li>
@@ -311,7 +330,7 @@
     </div>
 
     <footer>
-      Will It Fit · Published by Thomas Gorisse ·
+      3D AR Viewer · Published by Thomas Gorisse ·
       <a href="https://thomasgorisse.github.io/">thomasgorisse.github.io</a>
     </footer>
   </div>
