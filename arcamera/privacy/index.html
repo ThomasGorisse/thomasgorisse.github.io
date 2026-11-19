@@ -64,7 +64,7 @@
       <div class="eyebrow">Privacy Policy</div>
       <h1>3D AR Viewer</h1>
       <p class="sub">3D &amp; AI model viewer for Android and iOS · <code>com.gorisse.thomas.arcamera</code></p>
-      <p class="updated">Last updated: November 12, 2026</p>
+      <p class="updated">Last updated: November 19, 2026</p>
     </header>
 
     <div class="callout accent tldr">
@@ -253,6 +253,19 @@
     Google's handling of the transaction is governed by
     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</p>
 
+    <h3>Augmented reality on Android (Google Play Services for AR)</h3>
+    <p>On Android, this application runs on <strong>Google Play Services for AR (ARCore)</strong>, which is
+    provided by Google and governed by the
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.
+    Whenever AR is used, Google collects, for its own analytics and to keep AR working well: your Google
+    account identifier if you are signed in to Google on the phone, or a device identifier if you are not;
+    performance and diagnostic data (for example frame rate, loading time, battery); and which ARCore
+    functions the App calls. Google states that it does not share this data with third parties and encrypts
+    it in transit. This collection is required by ARCore. The App does not use Cloud Anchors or the
+    Geospatial API, so no location or camera video is sent for AR. See
+    <a href="https://support.google.com/ar/answer/12148145" target="_blank" rel="noopener">how Google Play
+    Services for AR handles your data</a>. On iPhone, AR runs on Apple's ARKit, on the device.</p>
+
     <h2>3. Data we collect and share — at a glance</h2>
     <table>
       <thead>
@@ -270,6 +283,7 @@
         <tr><td>Crash logs &amp; diagnostics</td><td>Keep the App stable</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Anonymous usage events</td><td>Understand feature usage</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
         <tr><td>Firebase installation ID</td><td>Group analytics/crashes per install</td><td>Yes</td><td>Google Firebase (processor)</td></tr>
+        <tr><td>Account or device identifier, AR performance and ARCore usage (Android)</td><td>Collected by Google for ARCore's analytics and quality, not by us</td><td>Yes, while AR is used</td><td>Google (Google Play Services for AR)</td></tr>
         <tr><td>Downloaded / imported models, captures, settings</td><td>Core app features</td><td>No — stays on device</td><td>—</td></tr>
       </tbody>
     </table>
@@ -322,6 +336,9 @@
     <p>We may update this policy as the App evolves (for example, if the AI generation feature changes).
     Material changes will be reflected here with a new "Last updated" date.</p>
     <ul>
+      <li><strong>November 19, 2026</strong> — added section 2 "Augmented reality on Android" and a row to the
+      section 3 table: what Google Play Services for AR (ARCore) collects, in Google's own terms. Nothing changed in
+      what we collect.</li>
       <li><strong>November 10, 2026</strong> — added Runware to the AI providers of section 2 and of the
       section 3 table: it receives the image when it builds a Quick or Standard 3D model.</li>
       <li><strong>November 4, 2026</strong> — we now keep an anonymous, cleaned record of AI generation
