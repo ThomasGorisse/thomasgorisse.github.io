@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Will It Fit</title>
+  <meta name="description" content="Privacy Policy for the Will It Fit Android app by Thomas Gorisse: no account, no internet access, nothing collected." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/privacy/" />
+  <style>
+    :root {
+      --bg: #ffffff; --surface: #f6f8fc; --border: #e4e9f2;
+      --text: #1c2536; --text-2: #4a5670; --muted: #7b879e;
+      --accent: #2f6fe0; --accent-soft: #eaf1fd;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --radius: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1120; --surface: #131c2e; --border: rgba(255,255,255,0.09);
+        --text: #e6ecf7; --text-2: #a9b6ce; --muted: #6f7d97;
+        --accent: #5c94f5; --accent-soft: rgba(92,148,245,0.12);
+      }
+    }
+    * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--text);
+      line-height: 1.7; -webkit-font-smoothing: antialiased;
+      padding: 0 20px; overflow-x: hidden;
+    }
+    .wrap { max-width: 780px; margin: 0 auto; padding: 56px 0 80px; }
+    header.masthead { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 8px; }
+    .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+    h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 800; line-height: 1.15; margin: 10px 0 6px; letter-spacing: -0.02em; }
+    .sub { color: var(--text-2); font-size: 16px; }
+    .updated { color: var(--muted); font-size: 14px; margin-top: 12px; }
+    h2 { font-size: 21px; font-weight: 700; margin: 40px 0 12px; letter-spacing: -0.01em; }
+    h3 { font-size: 16px; font-weight: 700; margin: 22px 0 6px; color: var(--text); }
+    p { color: var(--text-2); margin: 12px 0; }
+    ul { margin: 12px 0 12px 4px; padding-left: 22px; color: var(--text-2); }
+    li { margin: 7px 0; }
+    strong { color: var(--text); font-weight: 650; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .callout {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin: 20px 0;
+    }
+    .callout.accent { background: var(--accent-soft); border-color: transparent; }
+    .tldr { font-size: 15px; }
+    .tldr li { color: var(--text); }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; display: block; overflow-x: auto; }
+    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--text); font-weight: 650; white-space: nowrap; }
+    td { color: var(--text-2); }
+    .contact { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin: 28px 0; }
+    footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13.5px; }
+    footer a { color: var(--muted); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="eyebrow">Will It Fit</div>
+      <h1>Privacy Policy</h1>
+      <p class="sub">Will It Fit measures whether an object fits in your room, on your phone. The app itself collects nothing; Google's AR service collects a few technical details, described below.</p>
+      <p class="updated">Last updated: 19 November 2026 · applies to Will It Fit 3.0 and later (Android, <code>com.gorisse.thomas.willitfit</code>)</p>
+    </header>
+
+    <h2>What the app collects</h2>
+    <p><strong>Nothing, for our part.</strong> The app has no account, no ads, no analytics and no crash reporting. It
+    does not have the Android <code>INTERNET</code> permission, so it cannot send anything to us or to anyone else.
+    We never receive any data about you.</p>
+
+    <h2>What stays on your phone</h2>
+    <ul>
+      <li>The last dimensions you entered and your unit (centimetres or inches), so the app opens where you left it.
+      They are stored in the app's private storage and removed when you clear the app's data or uninstall it.</li>
+      <li>The camera image is used live to place the object in augmented reality. The app does not record,
+      store or send camera frames.</li>
+    </ul>
+
+    <h2>Google services the app relies on</h2>
+    <ul>
+      <li><strong>Google Play Services for AR (ARCore)</strong> provides augmented reality on supported phones. This
+      application runs on Google Play Services for AR (ARCore), which is provided by Google and governed by the
+      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Whenever AR is used, Google collects,
+      for its own analytics and to keep AR working well: your Google account identifier if you are signed in, or a
+      device identifier if you are not; performance and diagnostic data (for example frame rate, loading time,
+      battery); and which ARCore functions the app calls. Google says it does not share this data with third
+      parties and encrypts it in transit. This collection is required by ARCore and is not optional. See
+      <a href="https://support.google.com/ar/answer/12148145">how Google Play Services for AR handles your data</a>.
+      Will It Fit does not use Cloud Anchors or the Geospatial API, so no location or camera video is sent.</li>
+      <li><strong>Google Play In-App Review</strong> may ask whether you want to rate the app. The rating, if you give
+      one, goes to Google Play under Google's terms; the app never sees it.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>The app is not directed at children. The app itself collects no personal data from anyone.</p>
+
+    <h2>Changes</h2>
+    <p>If a future version of the app ever needs to collect data itself, this page will say so before that version is
+    released, and the Play Store listing's Data safety section will be updated with it.</p>
+
+    <div class="contact">
+      <h3>Contact</h3>
+      <p>Questions about this policy: <a href="mailto:thomas.gorisse@gmail.com">thomas.gorisse@gmail.com</a>.</p>
+    </div>
+
+    <footer>
+      Will It Fit · Published by Thomas Gorisse ·
+      <a href="https://thomasgorisse.github.io/">thomasgorisse.github.io</a>
+    </footer>
+  </div>
+</body>
+</html>
