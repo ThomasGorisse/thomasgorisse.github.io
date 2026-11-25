@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will it fit? — Will It Fit</title>
+  <meta name="description" content="Someone checked whether an object fits through a door, into a car boot or around a hallway corner. Open the same check in Will It Fit." />
+  <!-- Every link is someone's own check: not for search engines. -->
+  <meta name="robots" content="noindex" />
+  <meta property="og:title" content="Will it fit?" />
+  <meta property="og:description" content="Open the same check in Will It Fit: the object, and the door, boot or hallway it has to get through." />
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png" />
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/willitfit/icon-192.png" />
+  <style>
+    /* The app's own Material 3 colours. */
+    :root {
+      --bg: #faf7f2; --card: #f2ede6; --on-bg: #1c1b1a; --on-variant: #3f4949; --outline: #bec8c9;
+      --primary: #00696f; --on-primary: #ffffff;
+      --sans: 'Google Sans Text', Roboto, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e1415; --card: #1b2122; --on-bg: #dee4e4; --on-variant: #bec8c9; --outline: #3f4949;
+        --primary: #80d4db; --on-primary: #00363a;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--on-bg);
+      line-height: 1.5; -webkit-font-smoothing: antialiased; padding: 0 16px; overflow-x: hidden;
+    }
+    main { max-width: 480px; margin: 0 auto; padding: 40px 0 48px; }
+    .app { display: flex; align-items: center; gap: 12px; color: var(--on-variant); font-weight: 500; }
+    .app img { width: 40px; height: 40px; border-radius: 12px; }
+    h1 { font-size: 32px; line-height: 40px; font-weight: 500; margin: 28px 0 20px; letter-spacing: -0.01em; }
+    .card { background: var(--card); border-radius: 16px; padding: 4px 20px; }
+    .row { padding: 16px 0; }
+    .row + .row { border-top: 1px solid var(--outline); }
+    .label { font-size: 14px; color: var(--on-variant); }
+    .value { font-size: 20px; line-height: 28px; font-weight: 500; overflow-wrap: anywhere; }
+    .detail { font-size: 16px; color: var(--on-variant); overflow-wrap: anywhere; }
+    .cta {
+      display: flex; align-items: center; justify-content: center; min-height: 56px; margin: 24px 0 12px;
+      border-radius: 28px; background: var(--primary); color: var(--on-primary);
+      font-size: 16px; font-weight: 500; text-decoration: none; padding: 0 24px; text-align: center;
+    }
+    .cta:focus-visible { outline: 3px solid var(--on-bg); outline-offset: 3px; }
+    .note { font-size: 14px; color: var(--on-variant); margin-top: 12px; }
+    .note a { color: var(--primary); }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="app"><img src="/willitfit/icon-192.png" alt="" /> Will It Fit</div>
+    <h1 id="title">Will it fit?</h1>
+    <div class="card" id="check" hidden>
+      <div class="row">
+        <div class="label" id="object-label">Object</div>
+        <div class="value" id="object"></div>
+        <div class="detail" id="object-size"></div>
+      </div>
+      <div class="row" id="space-row" hidden>
+        <div class="label" id="space-label"></div>
+        <div class="value" id="space"></div>
+        <div class="detail" id="space-detail"></div>
+      </div>
+    </div>
+    <p class="detail" id="empty" hidden>This link has no sizes in it. Ask for the link again, or measure it yourself.</p>
+    <a class="cta" id="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dshare">See the answer in Will It Fit</a>
+    <p class="note" id="platform">Free on Google Play, for Android phones.</p>
+    <p class="note" id="privacy">The sizes stay in the link: this page reads them in your browser and sends them nowhere. <a href="/willitfit/privacy/">Privacy</a></p>
+  </main>
+  <script>
+  (function () {
+    var PKG = 'com.gorisse.thomas.willitfit';
+    var T = {
+      en: { title: { door: 'Will it go through the door?', boot: 'Will it go in the boot?', hall: 'Will it make the turn?', none: 'Will it fit?' },
+            object: 'Object', custom: 'An object', door: 'Door', boot: 'Car boot', hall: 'Hallway',
+            opening: 'opening', inside: 'inside', ceiling: 'ceiling', turn: 'then',
+            cta: 'See the answer in Will It Fit', cta_other: 'Get Will It Fit on Google Play',
+            platform: 'Free on Google Play, for Android phones.',
+            privacy: 'The sizes stay in the link: this page reads them in your browser and sends them nowhere.',
+            empty: 'This link has no sizes in it. Ask for the link again, or measure it yourself.', privacy_link: 'Privacy' },
+      fr: { title: { door: 'Ça passe par la porte ?', boot: 'Ça rentre dans le coffre ?', hall: 'Ça passe le virage ?', none: 'Ça passe ?' },
+            object: 'Objet', custom: 'Un objet', door: 'Porte', boot: 'Coffre', hall: 'Couloir',
+            opening: 'ouverture', inside: 'intérieur', ceiling: 'plafond', turn: 'puis',
+            cta: 'Voir la réponse dans Will It Fit', cta_other: 'Installer Will It Fit sur Google Play',
+            platform: 'Gratuit sur Google Play, pour les téléphones Android.',
+            privacy: 'Les mesures restent dans le lien : cette page les lit dans votre navigateur et ne les envoie nulle part.',
+            empty: 'Ce lien ne contient aucune mesure. Redemandez le lien, ou mesurez vous-même.', privacy_link: 'Confidentialité' },
+      de: { title: { door: 'Passt es durch die Tür?', boot: 'Passt es in den Kofferraum?', hall: 'Passt es um die Ecke?', none: 'Passt es?' },
+            object: 'Objekt', custom: 'Ein Objekt', door: 'Tür', boot: 'Kofferraum', hall: 'Flur',
+            opening: 'Öffnung', inside: 'innen', ceiling: 'Decke', turn: 'dann',
+            cta: 'Die Antwort in Will It Fit ansehen', cta_other: 'Will It Fit bei Google Play holen',
+            platform: 'Kostenlos bei Google Play, für Android-Handys.',
+            privacy: 'Die Maße bleiben im Link: Diese Seite liest sie in deinem Browser und sendet sie nirgendwohin.',
+            empty: 'In diesem Link stehen keine Maße. Lass ihn dir noch einmal schicken oder miss selbst.', privacy_link: 'Datenschutz' },
+      es: { title: { door: '¿Pasa por la puerta?', boot: '¿Cabe en el maletero?', hall: '¿Pasa la esquina?', none: '¿Cabe?' },
+            object: 'Objeto', custom: 'Un objeto', door: 'Puerta', boot: 'Maletero', hall: 'Pasillo',
+            opening: 'apertura', inside: 'interior', ceiling: 'techo', turn: 'luego',
+            cta: 'Ver la respuesta en Will It Fit', cta_other: 'Descargar Will It Fit en Google Play',
+            platform: 'Gratis en Google Play, para móviles Android.',
+            privacy: 'Las medidas se quedan en el enlace: esta página las lee en tu navegador y no las envía a ningún sitio.',
+            empty: 'Este enlace no tiene medidas. Pide el enlace otra vez o mídelo tú.', privacy_link: 'Privacidad' },
+      it: { title: { door: 'Passa dalla porta?', boot: 'Entra nel bagagliaio?', hall: 'Passa la curva?', none: 'Ci sta?' },
+            object: 'Oggetto', custom: 'Un oggetto', door: 'Porta', boot: 'Bagagliaio', hall: 'Corridoio',
+            opening: 'apertura', inside: 'interno', ceiling: 'soffitto', turn: 'poi',
+            cta: 'Vedi la risposta in Will It Fit', cta_other: 'Scarica Will It Fit da Google Play',
+            platform: 'Gratis su Google Play, per telefoni Android.',
+            privacy: 'Le misure restano nel link: questa pagina le legge nel tuo browser e non le invia da nessuna parte.',
+            empty: 'Questo link non contiene misure. Chiedi di nuovo il link o misura tu.', privacy_link: 'Privacy' },
+      pt: { title: { door: 'Passa pela porta?', boot: 'Cabe no porta-malas?', hall: 'Passa na curva?', none: 'Cabe?' },
+            object: 'Objeto', custom: 'Um objeto', door: 'Porta', boot: 'Porta-malas', hall: 'Corredor',
+            opening: 'abertura', inside: 'interior', ceiling: 'teto', turn: 'depois',
+            cta: 'Ver a resposta no Will It Fit', cta_other: 'Baixar o Will It Fit no Google Play',
+            platform: 'Grátis no Google Play, para celulares Android.',
+            privacy: 'As medidas ficam no link: esta página as lê no seu navegador e não as envia para lugar nenhum.',
+            empty: 'Este link não tem medidas. Peça o link de novo ou meça você mesmo.', privacy_link: 'Privacidade' }
+    };
+    var PRESETS = {
+      sofa2: { en: 'Sofa, 2 seats', fr: 'Canapé 2 places', de: 'Sofa, 2-Sitzer', es: 'Sofá 2 plazas', it: 'Divano 2 posti', pt: 'Sofá 2 lugares' },
+      sofa3: { en: 'Sofa, 3 seats', fr: 'Canapé 3 places', de: 'Sofa, 3-Sitzer', es: 'Sofá 3 plazas', it: 'Divano 3 posti', pt: 'Sofá 3 lugares' },
+      bed140: { en: 'Bed 140', fr: 'Lit 140', de: 'Bett 140', es: 'Cama 140', it: 'Letto 140', pt: 'Cama 140' },
+      bed160: { en: 'Bed 160', fr: 'Lit 160', de: 'Bett 160', es: 'Cama 160', it: 'Letto 160', pt: 'Cama 160' },
+      wardrobe: { en: 'Wardrobe', fr: 'Armoire', de: 'Kleiderschrank', es: 'Armario', it: 'Armadio', pt: 'Guarda-roupa' },
+      fridge: { en: 'Fridge', fr: 'Frigo', de: 'Kühlschrank', es: 'Nevera', it: 'Frigo', pt: 'Geladeira' },
+      washer: { en: 'Washer', fr: 'Lave-linge', de: 'Waschmaschine', es: 'Lavadora', it: 'Lavatrice', pt: 'Lava-roupas' },
+      tv55: { en: 'TV 55″', fr: 'TV 55″', de: 'TV 55″', es: 'TV 55″', it: 'TV 55″', pt: 'TV 55″' },
+      tv65: { en: 'TV 65″', fr: 'TV 65″', de: 'TV 65″', es: 'TV 65″', it: 'TV 65″', pt: 'TV 65″' },
+      bike: { en: 'Bike', fr: 'Vélo', de: 'Fahrrad', es: 'Bici', it: 'Bici', pt: 'Bicicleta' },
+      stroller: { en: 'Stroller', fr: 'Poussette', de: 'Kinderwagen', es: 'Carrito', it: 'Passeggino', pt: 'Carrinho de bebê' }
+    };
+    var lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    if (!T[lang]) lang = 'en';
+    var t = T[lang];
+    document.documentElement.lang = lang;
+
+    function $(id) { return document.getElementById(id); }
+    function setText(id, text) { $(id).textContent = text; }
+
+    // The same reading as the app's (SharedCheck.parse): sizes in cm to the tenth, "x" between.
+    var raw = (location.hash || location.search).replace(/^[#?]/, '').slice(0, 512);
+    var params = {};
+    raw.split('&').forEach(function (pair) {
+      var i = pair.indexOf('=');
+      if (i <= 0) return;
+      try { params[pair.slice(0, i)] = decodeURIComponent(pair.slice(i + 1)); } catch (e) { /* not ours */ }
+    });
+    function numbers(text, count) {
+      if (!text) return null;
+      var parts = text.split('x');
+      if (parts.length !== count) return null;
+      var out = [];
+      for (var k = 0; k < parts.length; k++) {
+        if (!/^[0-9.]{1,7}$/.test(parts[k])) return null;
+        var v = parseFloat(parts[k]);
+        if (!isFinite(v) || v < 1 || v > 1000) return null;
+        out.push(v);
+      }
+      return out;
+    }
+    var inch = params.u === 'in';
+    var nf = new Intl.NumberFormat(lang, { maximumFractionDigits: inch ? 1 : 0 });
+    function len(cm) { return nf.format(inch ? cm / 2.54 : cm); }
+    function sizes(list) { return list.map(len).join(' × ') + (inch ? ' in' : ' cm'); }
+
+    var o = numbers(params.o, 3);
+    var door = numbers(params.door, 2), boot = numbers(params.boot, 5), hall = numbers(params.hall, 3);
+    var space = door ? 'door' : boot ? 'boot' : hall ? 'hall' : 'none';
+    var query = '';
+    if (o) {
+      // What goes on to the app: only what was read, rebuilt.
+      var keep = ['o=' + params.o];
+      if (params.p && PRESETS[params.p]) keep.push('p=' + params.p);
+      if (door) keep.push('door=' + params.door);
+      else if (boot) keep.push('boot=' + params.boot);
+      else if (hall) keep.push('hall=' + params.hall);
+      if (inch) keep.push('u=in');
+      query = keep.join('&');
+
+      setText('title', t.title[space]);
+      setText('object-label', t.object);
+      setText('object', params.p && PRESETS[params.p] ? PRESETS[params.p][lang] : t.custom);
+      setText('object-size', sizes(o));
+      if (space !== 'none') {
+        $('space-row').hidden = false;
+        setText('space-label', t[space]);
+        if (door) { setText('space', sizes(door)); }
+        if (boot) {
+          setText('space', t.opening + ' ' + sizes(boot.slice(0, 2)));
+          setText('space-detail', t.inside + ' ' + sizes(boot.slice(2)));
+        }
+        if (hall) {
+          setText('space', len(hall[0]) + ' → ' + sizes([hall[1]]));
+          setText('space-detail', t.ceiling + ' ' + sizes([hall[2]]));
+        }
+      }
+      $('check').hidden = false;
+    } else {
+      setText('title', t.title.none);
+      setText('empty', t.empty);
+      $('empty').hidden = false;
+    }
+
+    // Play keeps the sizes for the app's first launch (its install referrer).
+    var play = 'https://play.google.com/store/apps/details?id=' + PKG + '&referrer=' +
+      encodeURIComponent('utm_source=share' + (query ? '&' + query : ''));
+    var cta = $('cta');
+    var android = /Android/i.test(navigator.userAgent);
+    if (android) {
+      // Opens the app when it is there, with the sizes; Play otherwise.
+      cta.href = 'intent://thomasgorisse.github.io/willitfit/check/' + (query ? '?' + query : '') +
+        '#Intent;scheme=https;package=' + PKG + ';S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+      setText('cta', t.cta);
+    } else {
+      cta.href = play;
+      setText('cta', t.cta_other);
+    }
+    setText('platform', t.platform);
+    $('privacy').firstChild.textContent = t.privacy + ' ';
+    $('privacy').querySelector('a').textContent = t.privacy_link;
+  })();
+  </script>
+</body>
+</html>
