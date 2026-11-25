@@ -1,0 +1,4 @@
+# GitHub Pages builds this site with Jekyll, which leaves out dot folders unless named here:
+# .well-known/assetlinks.json lets Will It Fit open its shared links (/willitfit/check/).
+include:
+  - .well-known

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gorisse.thomas.willitfit",
+      "sha256_cert_fingerprints": [
+        "A4:95:32:42:48:7F:10:0D:A1:51:22:70:D0:CC:8C:62:0E:CE:70:6D:2A:96:C2:C3:7C:F6:A9:3F:4B:10:D3:15"
+      ]
+    }
+  }
+]

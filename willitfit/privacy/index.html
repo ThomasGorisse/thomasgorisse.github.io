@@ -64,7 +64,7 @@
       <div class="eyebrow">Will It Fit</div>
       <h1>Privacy Policy</h1>
       <p class="sub">Will It Fit measures whether an object fits in your room, on your phone. The app itself collects nothing; Google's AR service collects a few technical details, described below.</p>
-      <p class="updated">Last updated: 19 November 2026 · applies to Will It Fit 3.0 and later (Android, <code>com.gorisse.thomas.willitfit</code>)</p>
+      <p class="updated">Last updated: 25 November 2026 · applies to Will It Fit 3.0 and later (Android, <code>com.gorisse.thomas.willitfit</code>)</p>
     </header>
 
     <h2>What the app collects</h2>
@@ -80,6 +80,14 @@
       store or send camera frames.</li>
     </ul>
 
+    <h2>Sharing a check</h2>
+    <p>From version 3.0.9, when you share a door, boot or hallway check, the message carries a link such as
+    <code>thomasgorisse.github.io/willitfit/check/#o=220x95x85&amp;door=80x204</code>: the object's and the space's
+    sizes, and nothing else. You choose where it goes. The sizes sit after the <code>#</code>, a part of a link that
+    browsers never send to a server: whoever opens it, in the app or on that page, reads them on their own phone.
+    If they install the app from that page, the sizes go to Google Play inside the store link, so that the app can
+    open the same check on its first launch.</p>
+
     <h2>Google services the app relies on</h2>
     <ul>
       <li><strong>Google Play Services for AR (ARCore)</strong> provides augmented reality on supported phones. This
@@ -91,6 +99,9 @@
       parties and encrypts it in transit. This collection is required by ARCore and is not optional. See
       <a href="https://support.google.com/ar/answer/12148145">how Google Play Services for AR handles your data</a>.
       Will It Fit does not use Cloud Anchors or the Geospatial API, so no location or camera video is sent.</li>
+      <li><strong>Google Play Install Referrer</strong> (from version 3.0.9): on its first launch the app asks Google
+      Play, on the phone, which link it was installed from. When that link was a check someone shared with you, the
+      app opens that check. The answer comes from the Play Store app on your phone; Will It Fit sends nothing.</li>
       <li><strong>Google Play In-App Review</strong> may ask whether you want to rate the app. The rating, if you give
       one, goes to Google Play under Google's terms; the app never sees it.</li>
     </ul>
