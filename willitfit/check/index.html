@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Will it fit? — Will It Fit</title>
-  <meta name="description" content="Someone checked whether an object fits through a door, into a car boot or around a hallway corner. Open the same check in Will It Fit." />
+  <meta name="description" content="Someone checked whether an object fits through a door, into a car boot, around a hallway corner or into a lift. Open the same check in Will It Fit." />
   <!-- Every link is someone's own check: not for search engines. -->
   <meta name="robots" content="noindex" />
   <meta property="og:title" content="Will it fit?" />
-  <meta property="og:description" content="Open the same check in Will It Fit: the object, and the door, boot or hallway it has to get through." />
+  <meta property="og:description" content="Open the same check in Will It Fit: the object, and the door, boot, hallway or lift it has to get through." />
   <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png" />
   <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)" />
@@ -77,44 +77,44 @@
   (function () {
     var PKG = 'com.gorisse.thomas.willitfit';
     var T = {
-      en: { title: { door: 'Will it go through the door?', boot: 'Will it go in the boot?', hall: 'Will it make the turn?', none: 'Will it fit?' },
-            object: 'Object', custom: 'An object', door: 'Door', boot: 'Car boot', hall: 'Hallway',
-            opening: 'opening', inside: 'inside', ceiling: 'ceiling', turn: 'then',
+      en: { title: { door: 'Will it go through the door?', boot: 'Will it go in the boot?', hall: 'Will it make the turn?', lift: 'Will it fit in the lift?', none: 'Will it fit?' },
+            object: 'Object', custom: 'An object', door: 'Door', boot: 'Car boot', hall: 'Hallway', lift: 'Lift',
+            opening: 'opening', inside: 'inside', ceiling: 'ceiling', cabin: 'cabin', turn: 'then',
             cta: 'See the answer in Will It Fit', cta_other: 'Get Will It Fit on Google Play',
             platform: 'Free on Google Play, for Android phones.',
             privacy: 'The sizes stay in the link: this page reads them in your browser and sends them nowhere.',
             empty: 'This link has no sizes in it. Ask for the link again, or measure it yourself.', privacy_link: 'Privacy' },
-      fr: { title: { door: 'Ça passe par la porte ?', boot: 'Ça rentre dans le coffre ?', hall: 'Ça passe le virage ?', none: 'Ça passe ?' },
-            object: 'Objet', custom: 'Un objet', door: 'Porte', boot: 'Coffre', hall: 'Couloir',
-            opening: 'ouverture', inside: 'intérieur', ceiling: 'plafond', turn: 'puis',
+      fr: { title: { door: 'Ça passe par la porte ?', boot: 'Ça rentre dans le coffre ?', hall: 'Ça passe le virage ?', lift: 'Ça rentre dans l\'ascenseur ?', none: 'Ça passe ?' },
+            object: 'Objet', custom: 'Un objet', door: 'Porte', boot: 'Coffre', hall: 'Couloir', lift: 'Ascenseur',
+            opening: 'ouverture', inside: 'intérieur', ceiling: 'plafond', cabin: 'cabine', turn: 'puis',
             cta: 'Voir la réponse dans Will It Fit', cta_other: 'Installer Will It Fit sur Google Play',
             platform: 'Gratuit sur Google Play, pour les téléphones Android.',
             privacy: 'Les mesures restent dans le lien : cette page les lit dans votre navigateur et ne les envoie nulle part.',
             empty: 'Ce lien ne contient aucune mesure. Redemandez le lien, ou mesurez vous-même.', privacy_link: 'Confidentialité' },
-      de: { title: { door: 'Passt es durch die Tür?', boot: 'Passt es in den Kofferraum?', hall: 'Passt es um die Ecke?', none: 'Passt es?' },
-            object: 'Objekt', custom: 'Ein Objekt', door: 'Tür', boot: 'Kofferraum', hall: 'Flur',
-            opening: 'Öffnung', inside: 'innen', ceiling: 'Decke', turn: 'dann',
+      de: { title: { door: 'Passt es durch die Tür?', boot: 'Passt es in den Kofferraum?', hall: 'Passt es um die Ecke?', lift: 'Passt es in den Aufzug?', none: 'Passt es?' },
+            object: 'Objekt', custom: 'Ein Objekt', door: 'Tür', boot: 'Kofferraum', hall: 'Flur', lift: 'Aufzug',
+            opening: 'Öffnung', inside: 'innen', ceiling: 'Decke', cabin: 'Kabine', turn: 'dann',
             cta: 'Die Antwort in Will It Fit ansehen', cta_other: 'Will It Fit bei Google Play holen',
             platform: 'Kostenlos bei Google Play, für Android-Handys.',
             privacy: 'Die Maße bleiben im Link: Diese Seite liest sie in deinem Browser und sendet sie nirgendwohin.',
             empty: 'In diesem Link stehen keine Maße. Lass ihn dir noch einmal schicken oder miss selbst.', privacy_link: 'Datenschutz' },
-      es: { title: { door: '¿Pasa por la puerta?', boot: '¿Cabe en el maletero?', hall: '¿Pasa la esquina?', none: '¿Cabe?' },
-            object: 'Objeto', custom: 'Un objeto', door: 'Puerta', boot: 'Maletero', hall: 'Pasillo',
-            opening: 'apertura', inside: 'interior', ceiling: 'techo', turn: 'luego',
+      es: { title: { door: '¿Pasa por la puerta?', boot: '¿Cabe en el maletero?', hall: '¿Pasa la esquina?', lift: '¿Cabe en el ascensor?', none: '¿Cabe?' },
+            object: 'Objeto', custom: 'Un objeto', door: 'Puerta', boot: 'Maletero', hall: 'Pasillo', lift: 'Ascensor',
+            opening: 'apertura', inside: 'interior', ceiling: 'techo', cabin: 'cabina', turn: 'luego',
             cta: 'Ver la respuesta en Will It Fit', cta_other: 'Descargar Will It Fit en Google Play',
             platform: 'Gratis en Google Play, para móviles Android.',
             privacy: 'Las medidas se quedan en el enlace: esta página las lee en tu navegador y no las envía a ningún sitio.',
             empty: 'Este enlace no tiene medidas. Pide el enlace otra vez o mídelo tú.', privacy_link: 'Privacidad' },
-      it: { title: { door: 'Passa dalla porta?', boot: 'Entra nel bagagliaio?', hall: 'Passa la curva?', none: 'Ci sta?' },
-            object: 'Oggetto', custom: 'Un oggetto', door: 'Porta', boot: 'Bagagliaio', hall: 'Corridoio',
-            opening: 'apertura', inside: 'interno', ceiling: 'soffitto', turn: 'poi',
+      it: { title: { door: 'Passa dalla porta?', boot: 'Entra nel bagagliaio?', hall: 'Passa la curva?', lift: 'Entra in ascensore?', none: 'Ci sta?' },
+            object: 'Oggetto', custom: 'Un oggetto', door: 'Porta', boot: 'Bagagliaio', hall: 'Corridoio', lift: 'Ascensore',
+            opening: 'apertura', inside: 'interno', ceiling: 'soffitto', cabin: 'cabina', turn: 'poi',
             cta: 'Vedi la risposta in Will It Fit', cta_other: 'Scarica Will It Fit da Google Play',
             platform: 'Gratis su Google Play, per telefoni Android.',
             privacy: 'Le misure restano nel link: questa pagina le legge nel tuo browser e non le invia da nessuna parte.',
             empty: 'Questo link non contiene misure. Chiedi di nuovo il link o misura tu.', privacy_link: 'Privacy' },
-      pt: { title: { door: 'Passa pela porta?', boot: 'Cabe no porta-malas?', hall: 'Passa na curva?', none: 'Cabe?' },
-            object: 'Objeto', custom: 'Um objeto', door: 'Porta', boot: 'Porta-malas', hall: 'Corredor',
-            opening: 'abertura', inside: 'interior', ceiling: 'teto', turn: 'depois',
+      pt: { title: { door: 'Passa pela porta?', boot: 'Cabe no porta-malas?', hall: 'Passa na curva?', lift: 'Cabe no elevador?', none: 'Cabe?' },
+            object: 'Objeto', custom: 'Um objeto', door: 'Porta', boot: 'Porta-malas', hall: 'Corredor', lift: 'Elevador',
+            opening: 'abertura', inside: 'interior', ceiling: 'teto', cabin: 'cabine', turn: 'depois',
             cta: 'Ver a resposta no Will It Fit', cta_other: 'Baixar o Will It Fit no Google Play',
             platform: 'Grátis no Google Play, para celulares Android.',
             privacy: 'As medidas ficam no link: esta página as lê no seu navegador e não as envia para lugar nenhum.',
@@ -168,8 +168,8 @@
     function sizes(list) { return list.map(len).join(' × ') + (inch ? ' in' : ' cm'); }
 
     var o = numbers(params.o, 3);
-    var door = numbers(params.door, 2), boot = numbers(params.boot, 5), hall = numbers(params.hall, 3);
-    var space = door ? 'door' : boot ? 'boot' : hall ? 'hall' : 'none';
+    var door = numbers(params.door, 2), boot = numbers(params.boot, 5), hall = numbers(params.hall, 3), lift = numbers(params.lift, 5);
+    var space = door ? 'door' : boot ? 'boot' : hall ? 'hall' : lift ? 'lift' : 'none';
     var query = '';
     if (o) {
       // What goes on to the app: only what was read, rebuilt.
@@ -178,6 +178,7 @@
       if (door) keep.push('door=' + params.door);
       else if (boot) keep.push('boot=' + params.boot);
       else if (hall) keep.push('hall=' + params.hall);
+      else if (lift) keep.push('lift=' + params.lift);
       if (inch) keep.push('u=in');
       query = keep.join('&');
 
@@ -196,6 +197,10 @@
         if (hall) {
           setText('space', len(hall[0]) + ' → ' + sizes([hall[1]]));
           setText('space-detail', t.ceiling + ' ' + sizes([hall[2]]));
+        }
+        if (lift) {
+          setText('space', t.opening + ' ' + sizes(lift.slice(0, 2)));
+          setText('space-detail', t.cabin + ' ' + sizes(lift.slice(2)));
         }
       }
       $('check').hidden = false;
