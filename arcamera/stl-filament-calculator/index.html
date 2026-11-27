@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free STL Volume, PLA / PETG / ABS Filament Weight &amp; Print Bed Checker — Local Browser Tool</title>
+  <meta name="description" content="Calculate exact STL mesh volume (cm3), estimated PLA, PETG, or ABS filament weight in grams, and Bambu Lab A1 Mini / P1S / X1C / Ender 3 print bed fit 100% locally in your browser with zero file upload.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/stl-filament-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Local STL Volume &amp; Filament Weight Calculator (PLA / PETG / ABS)">
+  <meta property="og:description" content="Drop any .stl file locally — zero upload — to get exact bounding box in mm, mesh volume, filament weight in grams, and 1:1 AR desk preview on Android &amp; iOS.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/arcamera/stl-filament-calculator/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Local STL Volume & Filament Weight Calculator",
+    "url": "https://thomasgorisse.github.io/arcamera/stl-filament-calculator/",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "description": "100% client-side STL mesh volume, PLA/PETG/ABS filament weight estimator, and 3D printer build-plate checker with 1:1 AR desk preview.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does a browser STL filament weight calculator work without uploading my file?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every triangle in your binary or ASCII STL file is read directly in browser memory using JavaScript DataView. The signed tetrahedron volume of all triangles gives the solid mesh volume in cm3, which is multiplied by your chosen infill ratio and filament density (PLA 1.24 g/cm3, PETG 1.27 g/cm3, ABS 1.04 g/cm3)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I check how big my STL print will look on my real desk before slicing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Open the same .stl, .obj, or .glb file in 3D AR Viewer on Android or iOS to place it at true 1:1 scale on your desk or shelf in augmented reality."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#f8f9fc; --surface:#fff; --card:#eef1f7; --text:#12151c; --muted:#525d73; --outline:#d7dde8; --primary:#005bc1; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1117; --surface:#161b24; --card:#1e2532; --text:#edf2f8; --muted:#9aa7bd; --outline:#2b3446; --primary:#7eb3ff; --primary-ink:#071936; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; } }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { font-weight:800; text-decoration:none; color:inherit; }
+    .badge { font-size:.78rem; font-weight:600; color:var(--muted); background:var(--card); border:1px solid var(--outline); padding:5px 10px; border-radius:999px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:68ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .drop { display:block; border:2px dashed var(--outline); background:var(--card); border-radius:16px; padding:26px 16px; text-align:center; cursor:pointer; }
+    .drop:hover, .drop.drag { border-color:var(--primary); }
+    .controls { display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); margin:16px 0; }
+    label.ctrl { display:flex; flex-direction:column; gap:5px; font-size:.82rem; font-weight:700; color:var(--muted); }
+    select, input[type=number] { font:inherit; font-size:.95rem; font-weight:600; padding:10px 12px; border-radius:12px; border:1px solid var(--outline); background:var(--card); color:var(--text); }
+    .kpis { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); margin:16px 0; }
+    .kpi { background:var(--card); border:1px solid var(--outline); border-radius:14px; padding:12px; }
+    .kpi small { display:block; font-size:.75rem; color:var(--muted); font-weight:600; }
+    .kpi b { font-size:1.15rem; font-family:ui-monospace, Menlo, monospace; }
+    .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:.82rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/arcamera/">← 3D AR Viewer</a>
+      <span class="badge">100% offline in browser · zero upload</span>
+    </header>
+
+    <h1>STL Volume, Filament Weight &amp; Print Bed Calculator</h1>
+    <p class="sub">Drop any binary or ASCII <code>.stl</code> file to compute exact mesh volume, PLA / PETG / ABS filament weight in grams, spool usage, and Bambu Lab / Prusa / Ender 3 build-plate clearance — completely locally.</p>
+
+    <div class="panel">
+      <label class="drop" id="drop">
+        <input type="file" id="file" accept=".stl" hidden>
+        <strong style="display:block;font-size:1.05rem;margin-bottom:4px">Drop an .STL file here (or tap to pick)</strong>
+        <span style="font-size:.86rem;color:var(--muted)" id="fname">Sample loaded: 120 × 95 × 150 mm desk figurine (185 cm³ solid)</span>
+      </label>
+
+      <div class="controls">
+        <label class="ctrl">Material
+          <select id="mat">
+            <option value="1.24" selected>PLA (1.24 g/cm³)</option>
+            <option value="1.27">PETG (1.27 g/cm³)</option>
+            <option value="1.04">ABS (1.04 g/cm³)</option>
+            <option value="1.21">TPU (1.21 g/cm³)</option>
+            <option value="1.18">Resin (1.18 g/cm³)</option>
+          </select>
+        </label>
+        <label class="ctrl">Infill + walls factor
+          <select id="infill">
+            <option value="0.25">Light (10% infill + 2 walls)</option>
+            <option value="0.35" selected>Standard (15% infill + 3 walls)</option>
+            <option value="0.50">Strong (30% infill + 4 walls)</option>
+            <option value="1.00">Solid (100% / Resin)</option>
+          </select>
+        </label>
+        <label class="ctrl">Printer build plate
+          <select id="plate">
+            <option value="180">Bambu Lab A1 Mini (180×180 mm)</option>
+            <option value="220" selected>Ender 3 / Prusa MK4 (220×220 mm)</option>
+            <option value="256">Bambu Lab A1 / P1S / X1C (256×256 mm)</option>
+            <option value="300">Large Format (300×300 mm)</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><small>Bounding box (mm)</small><b id="bbox">120 × 95 × 150</b></div>
+        <div class="kpi"><small>Mesh volume</small><b id="vol">185 cm³</b></div>
+        <div class="kpi"><small>Estimated weight</small><b id="grams">80 g</b></div>
+        <div class="kpi"><small>1.75 mm filament length</small><b id="meters">26.8 m</b></div>
+      </div>
+
+      <div id="bed-verdict"><span class="pill pill--ok">Fits 220×220 mm build plate</span></div>
+
+      <div class="ctas">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_stl_calc%26utm_medium%3Dfilament_seo%26utm_campaign%3Dmakers">Preview 1:1 on your desk in AR (Android)</a>
+        <a class="btn btn--sec" href="https://apps.apple.com/app/id6790808866">Preview 1:1 in AR (iOS App Store)</a>
+        <a class="btn btn--sec" href="/arcamera/">Open 3D Wireframe Inspector</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/arcamera/">3D AR Viewer &amp; Wireframe Inspector</a>
+      <a href="/arcamera/dragon/">Living AR Dragon Showcase</a>
+      <a href="/willitfit/">Will It Fit Calculator</a>
+      <a href="https://github.com/sceneview/sceneview">Built with SceneView (Apache 2.0)</a>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var model = { name: 'Sample desk figurine', dx: 120, dy: 150, dz: 95, volCm3: 185, tris: 4200 };
+
+    function signedVol(a, b, c) {
+      return (a[0]*(b[1]*c[2]-b[2]*c[1]) + a[1]*(b[2]*c[0]-b[0]*c[2]) + a[2]*(b[0]*c[1]-b[1]*c[0])) / 6;
+    }
+
+    function parseSTL(buf, name) {
+      var dv = new DataView(buf);
+      var isBin = buf.byteLength >= 84 && (84 + dv.getUint32(80, true) * 50 === buf.byteLength);
+      var min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity], vol = 0, tris = 0;
+      function pv(v) { for (var k=0;k<3;k++){ if(v[k]<min[k]) min[k]=v[k]; if(v[k]>max[k]) max[k]=v[k]; } }
+      if (isBin) {
+        tris = dv.getUint32(80, true);
+        for (var i = 0; i < tris; i++) {
+          var o = 84 + i * 50 + 12;
+          var a = [dv.getFloat32(o,true), dv.getFloat32(o+4,true), dv.getFloat32(o+8,true)];
+          var b = [dv.getFloat32(o+12,true), dv.getFloat32(o+16,true), dv.getFloat32(o+20,true)];
+          var c = [dv.getFloat32(o+24,true), dv.getFloat32(o+28,true), dv.getFloat32(o+32,true)];
+          pv(a); pv(b); pv(c); vol += signedVol(a, b, c);
+        }
+      } else {
+        var txt = new TextDecoder().decode(buf), re = /vertex\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)/g, m, tri = [];
+        while ((m = re.exec(txt)) !== null) {
+          var v = [parseFloat(m[1]), parseFloat(m[2]), parseFloat(m[3])];
+          pv(v); tri.push(v);
+          if (tri.length === 3) { tris++; vol += signedVol(tri[0], tri[1], tri[2]); tri = []; }
+        }
+      }
+      var dx = max[0]-min[0], dy = max[1]-min[1], dz = max[2]-min[2];
+      return { name: name, dx: dx, dy: dy, dz: dz, volCm3: Math.abs(vol) / 1000, tris: tris };
+    }
+
+    function update() {
+      var density = parseFloat(document.getElementById('mat').value);
+      var fill = parseFloat(document.getElementById('infill').value);
+      var plate = parseInt(document.getElementById('plate').value, 10);
+      var grams = Math.max(1, Math.round(model.volCm3 * fill * density));
+      var meters = ((grams / density) / (Math.PI * 0.0875 * 0.0875) / 100).toFixed(1);
+      document.getElementById('bbox').textContent = Math.round(model.dx) + ' × ' + Math.round(model.dy) + ' × ' + Math.round(model.dz);
+      document.getElementById('vol').textContent = (model.volCm3 < 10 ? model.volCm3.toFixed(1) : Math.round(model.volCm3)) + ' cm³';
+      document.getElementById('grams').textContent = grams + ' g';
+      document.getElementById('meters').textContent = meters + ' m';
+      var fits = Math.max(model.dx, model.dy) <= plate && model.dz <= Math.max(plate, 250);
+      document.getElementById('bed-verdict').innerHTML = fits
+        ? '<span class="pill pill--ok">Fits ' + plate + '×' + plate + ' mm build plate (' + model.tris.toLocaleString() + ' triangles)</span>'
+        : '<span class="pill pill--warn">Exceeds ' + plate + '×' + plate + ' mm plate — scale down or split (' + model.tris.toLocaleString() + ' triangles)</span>';
+    }
+
+    function loadFile(f) {
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function () {
+        try {
+          model = parseSTL(r.result, f.name);
+          document.getElementById('fname').textContent = f.name + ' (' + model.tris.toLocaleString() + ' triangles)';
+          update();
+        } catch (e) { alert('Could not parse STL: ' + e.message); }
+      };
+      r.readAsArrayBuffer(f);
+    }
+
+    var drop = document.getElementById('drop'), inp = document.getElementById('file');
+    inp.onchange = function (e) { loadFile(e.target.files[0]); };
+    drop.ondragover = function (e) { e.preventDefault(); drop.classList.add('drag'); };
+    drop.ondragleave = function () { drop.classList.remove('drag'); };
+    drop.ondrop = function (e) { e.preventDefault(); drop.classList.remove('drag'); loadFile(e.dataTransfer.files[0]); };
+    ['mat', 'infill', 'plate'].forEach(function (id) { document.getElementById(id).onchange = update; });
+    update();
+  })();
+  </script>
+</body>
+</html>
