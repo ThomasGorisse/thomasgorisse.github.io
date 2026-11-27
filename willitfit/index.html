@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will It Fit? — Sofa, Door, Hallway Corner, Elevator &amp; Car Boot Fit Calculator</title>
+  <meta name="description" content="Free instant calculator to check if a sofa, bed, fridge, or wardrobe fits through a door, around a 90° hallway turn, into an elevator, or inside a car boot. Works offline; open in Android AR to measure with your camera.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Will It Fit? — Door, Hallway Turn, Elevator &amp; Car Boot Calculator">
+  <meta property="og:description" content="Check whether your sofa, bed, or appliance clears a doorway, 90° hallway corner, lift, or car boot before moving day — with instant clearance diagram and Android AR ruler.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Will It Fit — Furniture Clearance Calculator",
+    "url": "https://thomasgorisse.github.io/willitfit/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web, Android",
+    "description": "Calculate whether a sofa, bed, wardrobe, or appliance fits through a doorway, around a 90-degree hallway corner, into an elevator cabin, or inside a car boot.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you calculate if a sofa will fit around a 90-degree hallway corner?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As a sofa turns a right-angle corner from a hallway of width a into one of width b, its maximum clear length for width w at angle theta is (a*sin(theta) + b*cos(theta) - w) / (sin(theta)*cos(theta)). Minimizing across 0 to 90 degrees gives the tightest point of the turn."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Will It Fit work offline and on Android AR?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Both this web calculator and the Will It Fit Android app compute everything locally on your device with no account required. The Android app adds an AR tape measure and 3D room placement."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #faf7f2; --surface: #ffffff; --card: #f2ede6; --text: #1c1b1a; --muted: #545f5f;
+      --outline: #d5d0c8; --primary: #f2641f; --primary-ink: #ffffff;
+      --teal: #00696f; --teal-soft: #e0f2f3;
+      --ok: #137333; --ok-bg: #e6f4ea; --warn: #9a5b00; --warn-bg: #fef3dc; --no: #b3261e; --no-bg: #fce8e6;
+      --sans: 'Google Sans Text', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e1415; --surface: #161d1e; --card: #1d2526; --text: #e6ecec; --muted: #a2b0b0;
+        --outline: #2e3a3b; --primary: #ff7a38; --primary-ink: #1b0b00;
+        --teal: #80d4db; --teal-soft: #103235;
+        --ok: #81c995; --ok-bg: #112a1a; --warn: #f6c467; --warn-bg: #2e220a; --no: #f28b82; --no-bg: #351514;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 56px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: inherit; }
+    .brand img { width: 36px; height: 36px; border-radius: 10px; }
+    .unit-toggle { display: inline-flex; background: var(--card); border: 1px solid var(--outline); border-radius: 999px; padding: 3px; }
+    .unit-toggle button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .875rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+    .unit-toggle button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+    h1 { font-size: clamp(1.65rem, 4vw, 2.35rem); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 8px; }
+    .sub { color: var(--muted); margin: 0 0 22px; max-width: 64ch; }
+    .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+    @media (min-width: 820px) { .grid { grid-template-columns: 1.05fr .95fr; align-items: start; } }
+    .panel { background: var(--surface); border: 1px solid var(--outline); border-radius: 20px; padding: 18px; }
+    .section-label { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .chip { border: 1px solid var(--outline); background: var(--card); color: var(--text); font: inherit; font-size: .85rem; font-weight: 500; padding: 7px 12px; border-radius: 999px; cursor: pointer; }
+    .chip[aria-pressed="true"] { background: var(--teal-soft); border-color: var(--teal); color: var(--teal); font-weight: 700; }
+    .fields { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 18px; }
+    .fields--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field label { font-size: .78rem; color: var(--muted); font-weight: 600; }
+    .input-wrap { display: flex; align-items: center; background: var(--card); border: 1px solid var(--outline); border-radius: 12px; padding: 0 10px; }
+    .input-wrap:focus-within { border-color: var(--teal); outline: 2px solid color-mix(in srgb, var(--teal) 25%, transparent); }
+    .input-wrap input { width: 100%; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 1rem; font-weight: 600; padding: 10px 0; min-width: 0; outline: none; }
+    .input-wrap span { font-size: .8rem; color: var(--muted); font-weight: 600; margin-left: 4px; }
+    .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: var(--card); padding: 4px; border-radius: 14px; margin-bottom: 14px; }
+    .tab { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .88rem; font-weight: 600; padding: 9px 6px; border-radius: 10px; cursor: pointer; }
+    .tab[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+    .verdict { border-radius: 16px; padding: 16px; margin-bottom: 14px; }
+    .verdict--ok { background: var(--ok-bg); color: var(--ok); }
+    .verdict--tight { background: var(--warn-bg); color: var(--warn); }
+    .verdict--no { background: var(--no-bg); color: var(--no); }
+    .verdict__title { font-size: 1.35rem; font-weight: 800; margin: 0 0 4px; letter-spacing: -.01em; }
+    .verdict__detail { font-size: .95rem; font-weight: 600; margin: 0 0 6px; }
+    .verdict__tip { font-size: .86rem; color: var(--text); opacity: .88; margin: 0; }
+    .diagram { background: var(--card); border: 1px solid var(--outline); border-radius: 16px; padding: 12px; margin-bottom: 16px; }
+    .diagram svg { width: 100%; height: 220px; display: block; }
+    .ctas { display: grid; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 18px; border-radius: 999px; font: inherit; font-size: .96rem; font-weight: 700; text-decoration: none; cursor: pointer; border: 0; text-align: center; }
+    .btn--primary { background: var(--primary); color: var(--primary-ink); }
+    .btn--secondary { background: var(--card); color: var(--text); border: 1px solid var(--outline); }
+    .hint { font-size: .82rem; color: var(--muted); margin: 10px 0 0; }
+    .faq { margin-top: 32px; display: grid; gap: 12px; }
+    .faq details { background: var(--surface); border: 1px solid var(--outline); border-radius: 14px; padding: 14px 16px; }
+    .faq summary { font-weight: 700; cursor: pointer; }
+    .faq p { margin: 8px 0 0; color: var(--muted); font-size: .92rem; }
+    footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--outline); display: flex; flex-wrap: wrap; gap: 16px; font-size: .85rem; color: var(--muted); }
+    footer a { color: inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      <div class="unit-toggle" role="group" aria-label="Units">
+        <button type="button" id="u-cm" aria-pressed="true">cm</button>
+        <button type="button" id="u-in" aria-pressed="false">in</button>
+      </div>
+    </header>
+
+    <h1>Will your furniture actually fit through?</h1>
+    <p class="sub">Check instantly whether a sofa, bed, fridge, or wardrobe clears a doorway, a 90° hallway corner, an elevator, or a car boot — before moving day. Everything runs locally in your browser.</p>
+
+    <div class="grid">
+      <section class="panel" aria-label="Dimensions">
+        <p class="section-label">1. Pick a preset or enter object size</p>
+        <div class="chips" id="presets"></div>
+        <div class="fields">
+          <div class="field"><label for="ow">Width</label><div class="input-wrap"><input id="ow" type="number" inputmode="decimal" step="any" min="1" max="1000"><span class="u-lbl">cm</span></div></div>
+          <div class="field"><label for="od">Depth</label><div class="input-wrap"><input id="od" type="number" inputmode="decimal" step="any" min="1" max="1000"><span class="u-lbl">cm</span></div></div>
+          <div class="field"><label for="oh">Height</label><div class="input-wrap"><input id="oh" type="number" inputmode="decimal" step="any" min="1" max="1000"><span class="u-lbl">cm</span></div></div>
+        </div>
+
+        <p class="section-label">2. Tightest spot</p>
+        <div class="tabs" role="tablist" aria-label="Space type">
+          <button class="tab" role="tab" data-space="door" aria-selected="true">Door</button>
+          <button class="tab" role="tab" data-space="hall" aria-selected="false">Hall turn</button>
+          <button class="tab" role="tab" data-space="lift" aria-selected="false">Elevator</button>
+          <button class="tab" role="tab" data-space="boot" aria-selected="false">Car boot</button>
+        </div>
+        <div id="space-fields"></div>
+      </section>
+
+      <section class="panel" aria-live="polite" aria-label="Verdict">
+        <div class="verdict verdict--ok" id="verdict-box">
+          <p class="verdict__title" id="v-title">Checking…</p>
+          <p class="verdict__detail" id="v-detail"></p>
+          <p class="verdict__tip" id="v-tip"></p>
+        </div>
+
+        <div class="diagram">
+          <svg id="svg" viewBox="0 0 360 220" role="img" aria-label="Clearance diagram"></svg>
+        </div>
+
+        <div class="ctas">
+          <a class="btn btn--primary" id="play-cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_calc">Open in Android AR &amp; measure with camera</a>
+          <button class="btn btn--secondary" type="button" id="share-btn">Copy shareable check link</button>
+        </div>
+        <p class="hint" id="cta-hint">Opens Will It Fit on Google Play (free, offline, no account) with your exact measurements pre-loaded, plus an AR tape measure and 3D room placement.</p>
+      </section>
+    </div>
+
+    <section class="faq" aria-label="Frequently asked questions">
+      <details>
+        <summary>How is the 90° hallway corner turn calculated?</summary>
+        <p>The calculator sweeps every angle from 0.1° to 89.9° around the inner corner using the exact corridor clearance formula <code>(a·sin θ + b·cos θ − w) / (sin θ · cos θ)</code> across all 6 ways to carry the object (upright, on its side, or on its back). It flags the tightest bottleneck: ceiling, corridor width, or corner turn.</p>
+      </details>
+      <details>
+        <summary>How does elevator diagonal placement work?</summary>
+        <p>First it checks the elevator door opening width and height and the cabin ceiling. If the object does not fit straight on the cabin floor, it sweeps angles from 0° to 90° to find the maximum diagonal floor clearance.</p>
+      </details>
+      <details>
+        <summary>Can I measure my doorway or sofa without a physical tape measure?</summary>
+        <p>Yes — tap <strong>Open in Android AR</strong> above to launch the free Will It Fit Android app with your dimensions already loaded. It includes a built-in ARCore tape measure and places the furniture at real scale in your room.</p>
+      </details>
+    </section>
+
+    <footer>
+      <a href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_calc%26utm_medium%3Dfooter">Will It Fit on Google Play</a>
+      <a href="/arcamera/">3D AR Viewer (STL / GLB in AR)</a>
+      <a href="https://github.com/sceneview/sceneview">Built with SceneView</a>
+      <a href="/willitfit/privacy/">Privacy</a>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var PKG = 'com.gorisse.thomas.willitfit';
+    var CM_PER_IN = 2.54;
+    var PRESETS = [
+      { id: 'sofa3', name: 'Sofa, 3 seats', w: 220, d: 95, h: 85 },
+      { id: 'sofa2', name: 'Sofa, 2 seats', w: 170, d: 90, h: 85 },
+      { id: 'bed140', name: 'Bed 140', w: 150, d: 205, h: 95 },
+      { id: 'bed160', name: 'Bed 160', w: 170, d: 215, h: 95 },
+      { id: 'wardrobe', name: 'Wardrobe', w: 100, d: 60, h: 201 },
+      { id: 'fridge', name: 'Fridge', w: 60, d: 66, h: 186 },
+      { id: 'washer', name: 'Washer', w: 60, d: 60, h: 85 },
+      { id: 'tv65', name: 'TV 65″', w: 145, d: 29, h: 90 },
+      { id: 'bike', name: 'Bike', w: 178, d: 60, h: 105 }
+    ];
+    var CARRIES = [
+      { id: 'UPRIGHT', label: 'upright', upright: true, across: 'w', up: 'h', along: 'd' },
+      { id: 'UPRIGHT_SIDEWAYS', label: 'upright, turned sideways', upright: true, across: 'd', up: 'h', along: 'w' },
+      { id: 'ON_ITS_SIDE', label: 'on its side', upright: false, across: 'h', up: 'w', along: 'd' },
+      { id: 'ON_ITS_SIDE_SIDEWAYS', label: 'on its side, turned', upright: false, across: 'd', up: 'w', along: 'h' },
+      { id: 'ON_ITS_BACK', label: 'on its back', upright: false, across: 'w', up: 'd', along: 'h' },
+      { id: 'ON_ITS_BACK_SIDEWAYS', label: 'on its back, turned', upright: false, across: 'h', up: 'd', along: 'w' }
+    ];
+
+    var state = {
+      unit: /en-US/i.test(navigator.language || '') ? 'in' : 'cm',
+      presetId: 'sofa3',
+      obj: { w: 220, d: 95, h: 85 },
+      space: 'door',
+      door: { w: 78, h: 200 },
+      hall: { w: 90, t: 90, c: 240 },
+      lift: { dw: 80, dh: 200, cw: 100, cd: 125, ch: 210 },
+      boot: { ow: 108, oh: 80, l: 103, w: 104, h: 68 }
+    };
+
+    function toDisp(cm) {
+      var v = state.unit === 'in' ? cm / CM_PER_IN : cm;
+      return Math.round(v * 10) / 10;
+    }
+    function fromDisp(v) {
+      var n = parseFloat(v);
+      if (!isFinite(n) || n <= 0) return NaN;
+      return state.unit === 'in' ? n * CM_PER_IN : n;
+    }
+    function fmt(cm) {
+      var v = Math.abs(state.unit === 'in' ? cm / CM_PER_IN : cm);
+      return (Math.round(v * 10) / 10) + ' ' + state.unit;
+    }
+
+    function checkDoor(o, d) {
+      var list = CARRIES.map(function (c, i) {
+        var m = Math.min(d.w - o[c.across], d.h - o[c.up]);
+        return { fits: m >= 0, carry: c, margin: m, ord: i, across: o[c.across], up: o[c.up] };
+      });
+      var ok = list.filter(function (x) { return x.fits; });
+      if (ok.length) {
+        ok.sort(function (a, b) { return (b.carry.upright - a.carry.upright) || (b.margin - a.margin) || (a.ord - b.ord); });
+        return ok[0];
+      }
+      list.sort(function (a, b) { return (b.margin - a.margin) || (a.ord - b.ord); });
+      return list[0];
+    }
+
+    function turnMax(a, b, w) {
+      if (w > a || w > b) return { longest: Math.min(a, b) - w, deg: 45 };
+      var best = Infinity, bestDeg = 45;
+      for (var i = 1; i < 900; i++) {
+        var deg = i / 10, t = deg * Math.PI / 180, s = Math.sin(t), c = Math.cos(t);
+        var len = (a * s + b * c - w) / (s * c);
+        if (len < best) { best = len; bestDeg = deg; }
+      }
+      return { longest: best, deg: bestDeg };
+    }
+
+    function checkHall(o, h) {
+      var narrow = Math.min(h.w, h.t);
+      var all = CARRIES.map(function (c, i) {
+        var across = o[c.across], along = o[c.along], up = o[c.up];
+        var wGap = narrow - across, cGap = h.c - up;
+        var tm = turnMax(h.w, h.t, Math.min(across, narrow));
+        var tGap = tm.longest - along;
+        var gaps = [['ceiling', cGap], ['hallway width', wGap]];
+        if (wGap >= 0) gaps.push(['corner turn', tGap]);
+        gaps.sort(function (x, y) { return x[1] - y[1]; });
+        var missing = Math.min(wGap, 0) + Math.min(cGap, 0) + Math.min(tGap, 0);
+        return { fits: gaps[0][1] >= 0, carry: c, margin: gaps[0][1], limit: gaps[0][0], deg: tm.deg, across: across, along: along, missing: missing, ord: i };
+      });
+      var ok = all.filter(function (x) { return x.fits; });
+      if (ok.length) {
+        ok.sort(function (a, b) { return (b.carry.upright - a.carry.upright) || (b.margin - a.margin) || (a.ord - b.ord); });
+        return ok[0];
+      }
+      all.sort(function (a, b) { return (b.missing - a.missing) || (a.ord - b.ord); });
+      return all[0];
+    }
+
+    function liftFloor(across, along, cw, cd) {
+      var straight = Math.min(cw - across, cd - along);
+      var turned = Math.min(cw - along, cd - across);
+      if (Math.max(straight, turned) >= 0) return straight >= turned ? { m: straight, deg: 0 } : { m: turned, deg: 90 };
+      function gap(deg) {
+        var t = deg * Math.PI / 180;
+        return Math.min(cw - across * Math.cos(t) - along * Math.sin(t), cd - across * Math.sin(t) - along * Math.cos(t));
+      }
+      var best = straight, bestDeg = 0;
+      for (var i = 1; i <= 900; i++) { var g = gap(i / 10); if (g > best) { best = g; bestDeg = i / 10; } }
+      return { m: best, deg: bestDeg };
+    }
+
+    function checkLift(o, l) {
+      var all = CARRIES.map(function (c, i) {
+        var across = o[c.across], along = o[c.along], up = o[c.up];
+        var fl = liftFloor(across, along, l.cw, l.cd);
+        var gaps = [['door width', l.dw - across], ['door height', l.dh - up], ['cabin height', l.ch - up], ['cabin floor', fl.m]];
+        gaps.sort(function (x, y) { return x[1] - y[1]; });
+        var missing = gaps.reduce(function (s, g) { return s + Math.min(g[1], 0); }, 0);
+        return { fits: gaps[0][1] >= 0, carry: c, margin: gaps[0][1], limit: gaps[0][0], deg: fl.deg, diagonal: fl.deg > 0 && fl.deg < 90, across: across, along: along, missing: missing, ord: i };
+      });
+      var ok = all.filter(function (x) { return x.fits; });
+      if (ok.length) {
+        ok.sort(function (a, b) { return (b.carry.upright - a.carry.upright) || (b.margin - a.margin) || (a.ord - b.ord); });
+        return ok[0];
+      }
+      all.sort(function (a, b) { return (b.missing - a.missing) || (a.ord - b.ord); });
+      return all[0];
+    }
+
+    function checkBoot(o, b) {
+      var all = CARRIES.map(function (c, i) {
+        var across = o[c.across], along = o[c.along], up = o[c.up];
+        var gaps = [['opening width', b.ow - across], ['opening height', b.oh - up], ['boot length', b.l - along], ['boot width', b.w - across], ['boot height', b.h - up]];
+        gaps.sort(function (x, y) { return x[1] - y[1]; });
+        return { fits: gaps[0][1] >= 0, carry: c, margin: gaps[0][1], limit: gaps[0][0], across: across, up: up, ord: i };
+      });
+      all.sort(function (a, b) { return (b.margin - a.margin) || (a.ord - b.ord); });
+      return all[0];
+    }
+
+    function renderPresets() {
+      var el = document.getElementById('presets');
+      el.innerHTML = '';
+      PRESETS.forEach(function (p) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.textContent = p.name;
+        btn.setAttribute('aria-pressed', String(state.presetId === p.id));
+        btn.onclick = function () {
+          state.presetId = p.id;
+          state.obj = { w: p.w, d: p.d, h: p.h };
+          syncInputs();
+          update();
+        };
+        el.appendChild(btn);
+      });
+    }
+
+    function syncInputs() {
+      document.getElementById('ow').value = toDisp(state.obj.w);
+      document.getElementById('od').value = toDisp(state.obj.d);
+      document.getElementById('oh').value = toDisp(state.obj.h);
+      document.querySelectorAll('.u-lbl').forEach(function (s) { s.textContent = state.unit; });
+      renderPresets();
+      renderSpaceFields();
+    }
+
+    function renderSpaceFields() {
+      var wrap = document.getElementById('space-fields');
+      var specs = {
+        door: [['dw', 'Door width', state.door.w], ['dh', 'Door height', state.door.h]],
+        hall: [['hw', 'Hallway 1 width', state.hall.w], ['ht', 'Hallway 2 width', state.hall.t], ['hc', 'Ceiling height', state.hall.c]],
+        lift: [['ldw', 'Door width', state.lift.dw], ['ldh', 'Door height', state.lift.dh], ['lcw', 'Cabin width', state.lift.cw], ['lcd', 'Cabin depth', state.lift.cd], ['lch', 'Cabin height', state.lift.ch]],
+        boot: [['bow', 'Opening width', state.boot.ow], ['boh', 'Opening height', state.boot.oh], ['bl', 'Inside length', state.boot.l], ['bw', 'Inside width', state.boot.w], ['bh', 'Inside height', state.boot.h]]
+      }[state.space];
+      var cls = specs.length === 2 ? 'fields fields--2' : 'fields';
+      wrap.innerHTML = '<div class="' + cls + '">' + specs.map(function (sp) {
+        return '<div class="field"><label for="' + sp[0] + '">' + sp[1] + '</label><div class="input-wrap"><input id="' + sp[0] + '" type="number" inputmode="decimal" step="any" min="1" max="1000" value="' + toDisp(sp[2]) + '"><span>' + state.unit + '</span></div></div>';
+      }).join('') + '</div>';
+      specs.forEach(function (sp) {
+        document.getElementById(sp[0]).addEventListener('input', function (e) {
+          var cm = fromDisp(e.target.value);
+          if (!isFinite(cm)) return;
+          if (state.space === 'door') state.door[sp[0] === 'dw' ? 'w' : 'h'] = cm;
+          if (state.space === 'hall') state.hall[sp[0] === 'hw' ? 'w' : sp[0] === 'ht' ? 't' : 'c'] = cm;
+          if (state.space === 'lift') state.lift[sp[0].slice(1)] = cm;
+          if (state.space === 'boot') state.boot[sp[0].slice(1)] = cm;
+          update();
+        });
+      });
+    }
+
+    function drawDiagram(v) {
+      var svg = document.getElementById('svg');
+      var col = v.fits ? (v.margin < 2 ? '#d97706' : '#137333') : '#b3261e';
+      var fill = v.fits ? (v.margin < 2 ? 'rgba(217,119,6,.22)' : 'rgba(19,115,51,.22)') : 'rgba(179,38,30,.22)';
+      if (state.space === 'door' || state.space === 'boot') {
+        var fw = state.space === 'door' ? state.door.w : state.boot.ow;
+        var fh = state.space === 'door' ? state.door.h : state.boot.oh;
+        var scale = Math.min(240 / Math.max(fw, v.across), 170 / Math.max(fh, v.up));
+        var rw = fw * scale, rh = fh * scale, ox = (360 - rw) / 2, oy = 195 - rh;
+        var ow = v.across * scale, oh = v.up * scale, bx = (360 - ow) / 2, by = 195 - oh;
+        svg.innerHTML =
+          '<line x1="20" y1="195" x2="340" y2="195" stroke="currentColor" stroke-opacity=".25" stroke-width="2"/>' +
+          '<rect x="' + ox + '" y="' + oy + '" width="' + rw + '" height="' + rh + '" fill="none" stroke="currentColor" stroke-opacity=".6" stroke-width="3" stroke-dasharray="6 4"/>' +
+          '<rect x="' + bx + '" y="' + by + '" width="' + ow + '" height="' + oh + '" rx="4" fill="' + fill + '" stroke="' + col + '" stroke-width="2.5"/>' +
+          '<text x="180" y="18" text-anchor="middle" fill="currentColor" font-size="11" opacity=".7">' + (state.space === 'door' ? 'Front view · door opening vs furniture' : 'Rear view · boot opening vs object') + '</text>';
+      } else if (state.space === 'hall') {
+        var a = state.hall.w, b = state.hall.t;
+        var sc = Math.min(110 / Math.max(a, b, 60), 0.75);
+        var aw = a * sc, bw = b * sc;
+        var cx = 190, cy = 115;
+        var ow = v.along * sc, oh = v.across * sc;
+        var rot = -(90 - v.deg);
+        svg.innerHTML =
+          '<path d="M 30 ' + (cy - bw) + ' H ' + (cx + aw) + ' V 205 H ' + cx + ' V ' + cy + ' H 30 Z" fill="currentColor" fill-opacity=".07" stroke="currentColor" stroke-opacity=".55" stroke-width="2.5"/>' +
+          '<g transform="translate(' + (cx + aw * 0.25) + ',' + (cy - bw * 0.25) + ') rotate(' + rot + ')">' +
+          '<rect x="' + (-ow / 2) + '" y="' + (-oh / 2) + '" width="' + ow + '" height="' + oh + '" rx="4" fill="' + fill + '" stroke="' + col + '" stroke-width="2.5"/></g>' +
+          '<text x="180" y="18" text-anchor="middle" fill="currentColor" font-size="11" opacity=".7">Top-down 90° corner turn · tightest angle ' + Math.round(v.deg) + '°</text>';
+      } else {
+        var cw = state.lift.cw, cd = state.lift.cd;
+        var s = Math.min(220 / Math.max(cw, v.across, v.along), 155 / Math.max(cd, v.across, v.along));
+        var rw2 = cw * s, rh2 = cd * s, x0 = (360 - rw2) / 2, y0 = (220 - rh2) / 2 + 8;
+        var pw = v.across * s, ph = v.along * s;
+        svg.innerHTML =
+          '<rect x="' + x0 + '" y="' + y0 + '" width="' + rw2 + '" height="' + rh2 + '" rx="4" fill="currentColor" fill-opacity=".06" stroke="currentColor" stroke-opacity=".6" stroke-width="2.5"/>' +
+          '<g transform="translate(180,' + (y0 + rh2 / 2) + ') rotate(' + v.deg + ')">' +
+          '<rect x="' + (-pw / 2) + '" y="' + (-ph / 2) + '" width="' + pw + '" height="' + ph + '" rx="4" fill="' + fill + '" stroke="' + col + '" stroke-width="2.5"/></g>' +
+          '<text x="180" y="18" text-anchor="middle" fill="currentColor" font-size="11" opacity=".7">Top-down elevator cabin floor' + (v.diagonal ? ' · diagonal ' + Math.round(v.deg) + '°' : '') + '</text>';
+      }
+    }
+
+    function buildQuery() {
+      function r(x) { return String(Math.round(x * 10) / 10); }
+      var parts = ['o=' + [state.obj.w, state.obj.d, state.obj.h].map(r).join('x')];
+      if (state.presetId) parts.push('p=' + state.presetId);
+      if (state.space === 'door') parts.push('door=' + [state.door.w, state.door.h].map(r).join('x'));
+      if (state.space === 'hall') parts.push('hall=' + [state.hall.w, state.hall.t, state.hall.c].map(r).join('x'));
+      if (state.space === 'lift') parts.push('lift=' + [state.lift.dw, state.lift.dh, state.lift.cw, state.lift.cd, state.lift.ch].map(r).join('x'));
+      if (state.space === 'boot') parts.push('boot=' + [state.boot.ow, state.boot.oh, state.boot.l, state.boot.w, state.boot.h].map(r).join('x'));
+      if (state.unit === 'in') parts.push('u=in');
+      return parts.join('&');
+    }
+
+    function update() {
+      var v = state.space === 'door' ? checkDoor(state.obj, state.door)
+            : state.space === 'hall' ? checkHall(state.obj, state.hall)
+            : state.space === 'lift' ? checkLift(state.obj, state.lift)
+            : checkBoot(state.obj, state.boot);
+      var box = document.getElementById('verdict-box');
+      box.className = 'verdict ' + (v.fits ? (v.margin < 2 ? 'verdict--tight' : 'verdict--ok') : 'verdict--no');
+      document.getElementById('v-title').textContent = v.fits
+        ? (v.margin < 2 ? 'Yes, very tight fit' : 'Yes, it fits!')
+        : "No, it won't fit";
+      var detail = v.fits
+        ? fmt(v.margin) + ' to spare · carry ' + v.carry.label + (v.diagonal ? ' (diagonal in cabin)' : '')
+        : fmt(v.margin) + ' too big' + (v.limit ? ' (' + v.limit + ')' : '') + ' · closest: ' + v.carry.label;
+      document.getElementById('v-detail').textContent = detail;
+      document.getElementById('v-tip').textContent = v.fits
+        ? 'Measure the real opening with your phone camera in AR before moving day so handles or trim do not surprise you.'
+        : 'Tip: for sofas, removing legs or tilting feet-first around the seat depth often saves 10–15 cm.';
+
+      drawDiagram(v);
+      var q = buildQuery();
+      var playUrl = 'https://play.google.com/store/apps/details?id=' + PKG + '&referrer=' + encodeURIComponent('utm_source=web_calc&utm_medium=calculator&' + q);
+      var cta = document.getElementById('play-cta');
+      if (/Android/i.test(navigator.userAgent)) {
+        cta.href = 'intent://thomasgorisse.github.io/willitfit/check/?' + q + '#Intent;scheme=https;package=' + PKG + ';S.browser_fallback_url=' + encodeURIComponent(playUrl) + ';end';
+      } else {
+        cta.href = playUrl;
+      }
+    }
+
+    ['ow', 'od', 'oh'].forEach(function (id, idx) {
+      var key = ['w', 'd', 'h'][idx];
+      document.getElementById(id).addEventListener('input', function (e) {
+        var cm = fromDisp(e.target.value);
+        if (!isFinite(cm)) return;
+        state.presetId = null;
+        state.obj[key] = cm;
+        renderPresets();
+        update();
+      });
+    });
+
+    document.querySelectorAll('.tab').forEach(function (btn) {
+      btn.onclick = function () {
+        state.space = btn.dataset.space;
+        document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t === btn)); });
+        renderSpaceFields();
+        update();
+      };
+    });
+
+    document.getElementById('u-cm').onclick = function () {
+      state.unit = 'cm';
+      document.getElementById('u-cm').setAttribute('aria-pressed', 'true');
+      document.getElementById('u-in').setAttribute('aria-pressed', 'false');
+      syncInputs(); update();
+    };
+    document.getElementById('u-in').onclick = function () {
+      state.unit = 'in';
+      document.getElementById('u-in').setAttribute('aria-pressed', 'true');
+      document.getElementById('u-cm').setAttribute('aria-pressed', 'false');
+      syncInputs(); update();
+    };
+
+    document.getElementById('share-btn').onclick = function () {
+      var url = 'https://thomasgorisse.github.io/willitfit/check/?' + buildQuery();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          var b = document.getElementById('share-btn');
+          b.textContent = 'Check link copied!';
+          setTimeout(function () { b.textContent = 'Copy shareable check link'; }, 2000);
+        });
+      } else {
+        location.href = url;
+      }
+    };
+
+    syncInputs();
+    update();
+  })();
+  </script>
+</body>
+</html>

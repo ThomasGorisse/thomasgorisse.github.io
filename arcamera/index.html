@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D AR Viewer — Free STL, OBJ &amp; GLB Real-Size Inspector &amp; AR Preview</title>
+  <meta name="description" content="Drop any .stl, .obj, or .glb 3D model to inspect its exact bounding box in mm, cm, and inches next to a real-world scale reference — 100% in your browser, no upload. Open 1:1 in AR on Android and iOS.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="3D AR Viewer — Check STL, OBJ &amp; GLB Real-World Size in Browser &amp; AR">
+  <meta property="og:description" content="Instant 100% client-side STL, OBJ and GLB bounding box checker with real-scale comparison and 1:1 AR placement on Android and iOS.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/arcamera/">
+  <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "3D AR Viewer — STL, OBJ & GLB Real-Size Inspector",
+    "url": "https://thomasgorisse.github.io/arcamera/",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "description": "Inspect local STL, OBJ, and GLB 3D model dimensions in mm, cm, and inches directly in your browser without uploading files, then place them at true 1:1 scale in AR on Android and iOS.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f8f9fc; --surface: #ffffff; --card: #eef1f7; --text: #12151c; --muted: #525d73;
+      --outline: #d7dde8; --primary: #005bc1; --primary-ink: #ffffff; --accent: #0ea5e9;
+      --sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e1117; --surface: #161b24; --card: #1e2532; --text: #edf2f8; --muted: #9aa7bd;
+        --outline: #2b3446; --primary: #7eb3ff; --primary-ink: #071936; --accent: #38bdf8;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 56px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .brand { font-weight: 800; font-size: 1.05rem; text-decoration: none; color: inherit; letter-spacing: -.01em; }
+    .badge { font-size: .78rem; font-weight: 600; color: var(--muted); background: var(--card); border: 1px solid var(--outline); padding: 5px 10px; border-radius: 999px; }
+    h1 { font-size: clamp(1.65rem, 4vw, 2.35rem); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 8px; }
+    .sub { color: var(--muted); margin: 0 0 22px; max-width: 66ch; }
+    .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+    @media (min-width: 820px) { .grid { grid-template-columns: 1.1fr .9fr; align-items: start; } }
+    .panel { background: var(--surface); border: 1px solid var(--outline); border-radius: 20px; padding: 18px; }
+    .drop { border: 2px dashed var(--outline); background: var(--card); border-radius: 16px; padding: 24px 16px; text-align: center; cursor: pointer; transition: border-color .15s; }
+    .drop:hover, .drop.drag { border-color: var(--primary); }
+    .drop strong { display: block; font-size: 1rem; margin-bottom: 4px; }
+    .drop span { font-size: .85rem; color: var(--muted); }
+    .samples { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+    .chip { border: 1px solid var(--outline); background: var(--card); color: var(--text); font: inherit; font-size: .84rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; cursor: pointer; }
+    .chip[aria-pressed="true"] { border-color: var(--primary); color: var(--primary); }
+    canvas { width: 100%; height: 280px; display: block; background: var(--card); border: 1px solid var(--outline); border-radius: 16px; cursor: grab; touch-action: none; }
+    canvas:active { cursor: grabbing; }
+    .unit-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .seg { display: inline-flex; background: var(--card); border: 1px solid var(--outline); border-radius: 999px; padding: 3px; }
+    .seg button { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .82rem; font-weight: 700; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
+    .seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .stat { background: var(--card); border: 1px solid var(--outline); border-radius: 14px; padding: 12px; }
+    .stat small { display: block; font-size: .75rem; color: var(--muted); font-weight: 600; }
+    .stat b { font-family: var(--mono); font-size: 1.08rem; }
+    .meta { font-size: .86rem; color: var(--muted); margin: 0 0 14px; }
+    .scale-ref { background: var(--card); border: 1px solid var(--outline); border-radius: 14px; padding: 12px; margin-bottom: 16px; }
+    .scale-ref svg { width: 100%; height: 110px; display: block; }
+    .ctas { display: grid; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 18px; border-radius: 999px; font: inherit; font-size: .95rem; font-weight: 700; text-decoration: none; text-align: center; }
+    .btn--primary { background: var(--primary); color: var(--primary-ink); }
+    .btn--secondary { background: var(--card); color: var(--text); border: 1px solid var(--outline); }
+    footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--outline); display: flex; flex-wrap: wrap; gap: 16px; font-size: .85rem; color: var(--muted); }
+    footer a { color: inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/arcamera/">3D AR Viewer</a>
+      <span class="badge">100% local · no file upload</span>
+    </header>
+
+    <h1>Check any STL, OBJ, or GLB at real size before printing</h1>
+    <p class="sub">Drop a 3D file to inspect its exact bounding box in millimetres, centimetres, and inches next to a real-world reference — then place it 1:1 on your desk in AR with 3D AR Viewer.</p>
+
+    <div class="grid">
+      <section class="panel">
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept=".stl,.obj,.glb" hidden>
+          <strong>Drop an .stl, .obj, or .glb file here</strong>
+          <span>or tap to choose from your phone / computer — parsed locally in memory</span>
+        </label>
+        <div class="samples">
+          <button class="chip" type="button" data-sample="benchy" aria-pressed="true">Sample: Desk figurine (150 mm)</button>
+          <button class="chip" type="button" data-sample="bracket" aria-pressed="false">Sample: Wall bracket (185 mm)</button>
+          <button class="chip" type="button" data-sample="vase" aria-pressed="false">Sample: Planter (240 mm)</button>
+        </div>
+        <canvas id="cv" width="640" height="420" aria-label="Interactive 3D wireframe preview"></canvas>
+      </section>
+
+      <section class="panel" aria-live="polite">
+        <div class="unit-row">
+          <strong id="model-name">Desk figurine (sample)</strong>
+          <div class="seg" role="group" aria-label="File units">
+            <button type="button" data-u="mm" aria-pressed="true">mm</button>
+            <button type="button" data-u="cm" aria-pressed="false">cm</button>
+            <button type="button" data-u="m" aria-pressed="false">m</button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><small>Width (X)</small><b id="sx">—</b></div>
+          <div class="stat"><small>Depth (Z)</small><b id="sz">—</b></div>
+          <div class="stat"><small>Height (Y)</small><b id="sy">—</b></div>
+        </div>
+        <p class="meta" id="meta">Triangles: — · Fits standard 220×220 mm print bed: —</p>
+
+        <div class="scale-ref">
+          <svg id="ref-svg" viewBox="0 0 340 110" role="img" aria-label="Real-scale comparison against a 12 cm soda can"></svg>
+        </div>
+
+        <div class="ctas">
+          <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_stl%26utm_medium%3Dtool%26utm_campaign%3Dreal_size">Place 1:1 on your desk in AR (Android)</a>
+          <a class="btn btn--secondary" href="https://apps.apple.com/app/id6790808866">Get 3D AR Viewer on iOS (App Store)</a>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <a href="/willitfit/">Will It Fit Calculator</a>
+      <a href="https://github.com/sceneview/sceneview">Built with SceneView (Apache 2.0)</a>
+      <a href="/arcamera/privacy/">Privacy</a>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var fileUnit = 'mm';
+    var current = { name: '', rawMin: [0,0,0], rawMax: [110,150,95], tris: 0, edges: [] };
+    var yaw = 0.65, pitch = 0.35, dragging = false, lx = 0, ly = 0;
+
+    function makeBoxSample(name, w, h, d, extra) {
+      var verts = [
+        [-w/2,0,-d/2],[w/2,0,-d/2],[w/2,0,d/2],[-w/2,0,d/2],
+        [-w/2,h,-d/2],[w/2,h,-d/2],[w/2,h,d/2],[-w/2,h,d/2]
+      ];
+      var edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+      if (extra) extra(verts, edges);
+      var segs = edges.map(function (e) { return [verts[e[0]], verts[e[1]]]; });
+      return { name: name, rawMin: [-w/2, 0, -d/2], rawMax: [w/2, h, d/2], tris: segs.length * 12, edges: segs };
+    }
+
+    var SAMPLES = {
+      benchy: makeBoxSample('Desk figurine (sample)', 110, 150, 95, function (v, e) {
+        v.push([-35, 150, -30], [35, 150, -30], [35, 150, 30], [-35, 150, 30], [0, 180, 0]);
+        e.push([8,9],[9,10],[10,11],[11,8],[8,12],[9,12],[10,12],[11,12]);
+      }),
+      bracket: makeBoxSample('Wall bracket (sample)', 185, 62, 120),
+      vase: makeBoxSample('Geometric planter (sample)', 160, 240, 160)
+    };
+
+    function parseSTL(buf, name) {
+      var dv = new DataView(buf);
+      var isBinary = buf.byteLength >= 84 && (84 + dv.getUint32(80, true) * 50 === buf.byteLength);
+      var min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+      var edges = [], tris = 0;
+      function pushV(x, y, z) {
+        if (x < min[0]) min[0] = x; if (x > max[0]) max[0] = x;
+        if (y < min[1]) min[1] = y; if (y > max[1]) max[1] = y;
+        if (z < min[2]) min[2] = z; if (z > max[2]) max[2] = z;
+      }
+      if (isBinary) {
+        tris = dv.getUint32(80, true);
+        var step = Math.max(1, Math.floor(tris / 450));
+        for (var i = 0; i < tris; i++) {
+          var o = 84 + i * 50 + 12;
+          var a = [dv.getFloat32(o, true), dv.getFloat32(o+8, true), dv.getFloat32(o+4, true)];
+          var b = [dv.getFloat32(o+12, true), dv.getFloat32(o+20, true), dv.getFloat32(o+16, true)];
+          var c = [dv.getFloat32(o+24, true), dv.getFloat32(o+32, true), dv.getFloat32(o+28, true)];
+          pushV(a[0],a[1],a[2]); pushV(b[0],b[1],b[2]); pushV(c[0],c[1],c[2]);
+          if (i % step === 0) { edges.push([a,b],[b,c],[c,a]); }
+        }
+      } else {
+        var text = new TextDecoder().decode(buf);
+        var re = /vertex\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)/g, m, tri = [];
+        while ((m = re.exec(text)) !== null) {
+          var v = [parseFloat(m[1]), parseFloat(m[3]), parseFloat(m[2])];
+          pushV(v[0],v[1],v[2]); tri.push(v);
+          if (tri.length === 3) { tris++; if (edges.length < 1500) edges.push([tri[0],tri[1]],[tri[1],tri[2]],[tri[2],tri[0]]); tri = []; }
+        }
+      }
+      fileUnit = 'mm';
+      return { name: name, rawMin: min, rawMax: max, tris: tris, edges: edges };
+    }
+
+    function parseOBJ(buf, name) {
+      var text = new TextDecoder().decode(buf);
+      var verts = [], min = [Infinity,Infinity,Infinity], max = [-Infinity,-Infinity,-Infinity], edges = [], tris = 0;
+      text.split(/\r?\n/).forEach(function (line) {
+        if (line.startsWith('v ')) {
+          var p = line.trim().split(/\s+/);
+          var v = [parseFloat(p[1]), parseFloat(p[2]), parseFloat(p[3])];
+          if (v.every(isFinite)) {
+            verts.push(v);
+            for (var k = 0; k < 3; k++) { if (v[k] < min[k]) min[k] = v[k]; if (v[k] > max[k]) max[k] = v[k]; }
+          }
+        } else if (line.startsWith('f ')) {
+          tris++;
+          if (edges.length < 1500) {
+            var idx = line.trim().split(/\s+/).slice(1).map(function (t) { return parseInt(t.split('/')[0], 10) - 1; });
+            for (var i = 0; i < idx.length; i++) {
+              var a = verts[idx[i]], b = verts[idx[(i + 1) % idx.length]];
+              if (a && b) edges.push([a, b]);
+            }
+          }
+        }
+      });
+      fileUnit = (max[0] - min[0]) < 10 ? 'm' : 'mm';
+      return { name: name, rawMin: min, rawMax: max, tris: tris, edges: edges };
+    }
+
+    function parseGLB(buf, name) {
+      var dv = new DataView(buf);
+      if (dv.getUint32(0, true) !== 0x46546C67) throw new Error('Not a valid GLB file');
+      var jsonLen = dv.getUint32(12, true);
+      var json = JSON.parse(new TextDecoder().decode(new Uint8Array(buf, 20, jsonLen)));
+      var min = [Infinity,Infinity,Infinity], max = [-Infinity,-Infinity,-Infinity], tris = 0;
+      (json.meshes || []).forEach(function (mesh) {
+        (mesh.primitives || []).forEach(function (prim) {
+          var pos = json.accessors && json.accessors[prim.attributes && prim.attributes.POSITION];
+          if (pos && pos.min && pos.max) {
+            for (var k = 0; k < 3; k++) { if (pos.min[k] < min[k]) min[k] = pos.min[k]; if (pos.max[k] > max[k]) max[k] = pos.max[k]; }
+          }
+          var idx = json.accessors && json.accessors[prim.indices];
+          if (idx && idx.count) tris += Math.floor(idx.count / 3);
+        });
+      });
+      if (!isFinite(min[0])) { min = [-0.5,0,-0.5]; max = [0.5,1,0.5]; }
+      fileUnit = 'm';
+      var b = makeBoxSample(name, max[0]-min[0], max[1]-min[1], max[2]-min[2]);
+      b.rawMin = min; b.rawMax = max; b.tris = tris;
+      return b;
+    }
+
+    function toMm(v) { return fileUnit === 'mm' ? v : fileUnit === 'cm' ? v * 10 : v * 1000; }
+
+    function updateInfo() {
+      document.getElementById('model-name').textContent = current.name;
+      document.querySelectorAll('.seg button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.u === fileUnit)); });
+      var dx = toMm(current.rawMax[0] - current.rawMin[0]);
+      var dy = toMm(current.rawMax[1] - current.rawMin[1]);
+      var dz = toMm(current.rawMax[2] - current.rawMin[2]);
+      function fmt3(mm) {
+        return Math.round(mm) + ' mm (' + (Math.round(mm / 2.54) / 10) + ' in)';
+      }
+      document.getElementById('sx').textContent = fmt3(dx);
+      document.getElementById('sy').textContent = fmt3(dy);
+      document.getElementById('sz').textContent = fmt3(dz);
+      var bedOk = Math.max(dx, dz) <= 220 && dy <= 250;
+      document.getElementById('meta').textContent = 'Triangles: ' + current.tris.toLocaleString() + ' · Standard 220×220 mm print bed: ' + (bedOk ? 'Fits' : 'Needs scaling or splitting');
+
+      var canMm = 122, maxH = Math.max(dy, canMm, 1);
+      var canPx = Math.max(14, (canMm / maxH) * 76);
+      var modPx = Math.max(14, (dy / maxH) * 76);
+      var modW = Math.min(140, Math.max(20, (dx / maxH) * 76));
+      document.getElementById('ref-svg').innerHTML =
+        '<line x1="20" y1="92" x2="320" y2="92" stroke="currentColor" stroke-opacity=".25" stroke-width="2"/>' +
+        '<rect x="65" y="' + (92 - canPx) + '" width="34" height="' + canPx + '" rx="5" fill="currentColor" fill-opacity=".18" stroke="currentColor" stroke-opacity=".5"/>' +
+        '<text x="82" y="106" text-anchor="middle" fill="currentColor" font-size="10" opacity=".7">Soda can (122 mm)</text>' +
+        '<rect x="' + (225 - modW / 2) + '" y="' + (92 - modPx) + '" width="' + modW + '" height="' + modPx + '" rx="5" fill="rgba(14,165,233,.25)" stroke="#0ea5e9" stroke-width="2"/>' +
+        '<text x="225" y="106" text-anchor="middle" fill="currentColor" font-size="10" opacity=".85">Your model (' + Math.round(dy) + ' mm tall)</text>';
+    }
+
+    function draw3D() {
+      var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+      var w = cv.width, h = cv.height;
+      ctx.clearRect(0, 0, w, h);
+      var cx = (current.rawMin[0] + current.rawMax[0]) / 2;
+      var cy = (current.rawMin[1] + current.rawMax[1]) / 2;
+      var cz = (current.rawMin[2] + current.rawMax[2]) / 2;
+      var span = Math.max(current.rawMax[0]-current.rawMin[0], current.rawMax[1]-current.rawMin[1], current.rawMax[2]-current.rawMin[2], 1e-4);
+      var sc = Math.min(w, h) * 0.56 / span;
+      var cyaw = Math.cos(yaw), syaw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+      function proj(p) {
+        var x = p[0] - cx, y = p[1] - cy, z = p[2] - cz;
+        var x1 = x * cyaw - z * syaw, z1 = x * syaw + z * cyaw;
+        var y2 = y * cp - z1 * sp;
+        return [w / 2 + x1 * sc, h / 2 - y2 * sc];
+      }
+      ctx.strokeStyle = matchMedia('(prefers-color-scheme: dark)').matches ? '#7eb3ff' : '#005bc1';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      current.edges.forEach(function (e) {
+        var a = proj(e[0]), b = proj(e[1]);
+        ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
+      });
+      ctx.stroke();
+    }
+
+    function loadSample(key) {
+      current = SAMPLES[key];
+      fileUnit = 'mm';
+      document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.sample === key)); });
+      updateInfo(); draw3D();
+    }
+
+    function handleFile(f) {
+      if (!f) return;
+      var ext = f.name.split('.').pop().toLowerCase();
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          if (ext === 'stl') current = parseSTL(reader.result, f.name);
+          else if (ext === 'obj') current = parseOBJ(reader.result, f.name);
+          else if (ext === 'glb') current = parseGLB(reader.result, f.name);
+          else { alert('Supported formats: .stl, .obj, .glb'); return; }
+          document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+          updateInfo(); draw3D();
+        } catch (err) { alert('Could not parse file: ' + err.message); }
+      };
+      reader.readAsArrayBuffer(f);
+    }
+
+    var drop = document.getElementById('drop'), input = document.getElementById('file');
+    input.onchange = function (e) { handleFile(e.target.files[0]); };
+    drop.ondragover = function (e) { e.preventDefault(); drop.classList.add('drag'); };
+    drop.ondragleave = function () { drop.classList.remove('drag'); };
+    drop.ondrop = function (e) { e.preventDefault(); drop.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); };
+
+    document.querySelectorAll('.chip').forEach(function (c) { c.onclick = function () { loadSample(c.dataset.sample); }; });
+    document.querySelectorAll('.seg button').forEach(function (b) { b.onclick = function () { fileUnit = b.dataset.u; updateInfo(); }; });
+
+    var cv = document.getElementById('cv');
+    cv.onpointerdown = function (e) { dragging = true; lx = e.clientX; ly = e.clientY; cv.setPointerCapture(e.pointerId); };
+    cv.onpointermove = function (e) { if (!dragging) return; yaw += (e.clientX - lx) * 0.01; pitch = Math.max(-1.2, Math.min(1.2, pitch + (e.clientY - ly) * 0.01)); lx = e.clientX; ly = e.clientY; draw3D(); };
+    cv.onpointerup = function () { dragging = false; };
+
+    loadSample('benchy');
+  })();
+  </script>
+</body>
+</html>
