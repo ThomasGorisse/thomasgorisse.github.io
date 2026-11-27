@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will my fridge fit through the door? Size checker</title>
+  <meta name="description" content="Check your fridge against the clear door opening in cm or inches. See the fit margin, removable-door advice and why a fridge should travel upright.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/will-my-fridge-fit-through-the-door/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Will It Fit">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/will-my-fridge-fit-through-the-door/">
+  <meta property="og:title" content="Will my fridge fit through the door? Size checker">
+  <meta property="og:description" content="Check your fridge against the clear door opening in cm or inches. See the fit margin, removable-door advice and why a fridge should travel upright.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/img/7-verdict.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1440">
+  <meta property="og:image:alt" content="Will It Fit showing a sofa on its back at a doorway, with 2 cm to spare.">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <link rel="stylesheet" href="/willitfit/site.css">
+  <script type="module" src="/willitfit/checker.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Should I remove the room door or the fridge doors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Measure the clear gap inside the frame, with stops, hinges and handles accounted for. Taking the room door off its hinges can increase usable space. Some fridge handles and doors can also be removed following the model’s instructions; water lines and wiring may need attention. Remeasure the remaining fridge body and opening rather than subtracting a guessed amount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why should I carry a fridge upright?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tilting or laying a fridge down can move compressor oil out of its reservoir and into the cooling pipes. Keeping it upright helps avoid this. The checker tries all six box orientations, so a side or back size match does not mean the manufacturer permits that position."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long should I wait before switching the fridge on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As general guidance, leave the fridge unplugged and upright for at least four hours after moving so compressor oil can settle. The required time varies by model and how it travelled; after side transport it may be longer, sometimes up to 24 hours. Follow your own manufacturer’s manual before switching it on."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" width="36" height="36" alt="">Will It Fit</a>
+      <nav aria-label="Site"><a href="/willitfit/">The app</a><a href="/willitfit/privacy/">Privacy</a></nav>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="question-title">
+        <p class="eyebrow">Fridge door size checker</p>
+        <h1 id="question-title">Will my fridge fit through the door?</h1>
+        <p class="lead">A fridge clears a doorway upright if its width or depth fits the clear opening’s width and its height fits the opening’s height. Measure the actual fridge, including doors and handles, and the usable gap inside the door frame.</p>
+        <p>If the opening is tight, removing the room door from its hinges may help. Fridge handles and doors may also come off: follow the model’s instructions and remeasure what you will actually carry. <strong>Keep the fridge upright</strong>; a geometric fit on its side is not moving advice.</p>
+      </section>
+      <section aria-labelledby="checker-title">
+        <div class="checker">
+          <h2 id="checker-title">Check your fridge and door</h2>
+          <p class="small" id="example-help">The fridge preset is the app’s 60 × 66 × 186 cm example. Replace every size with your measurements.</p>
+          <form data-checker="door" data-appliance="fridge" aria-labelledby="checker-title" aria-describedby="example-help">
+            <fieldset class="controls" disabled>
+              <legend class="small">Your measurements</legend>
+              <div class="toolbar">
+                <fieldset class="units">
+                  <legend>Units</legend>
+                  <label><input type="radio" name="unit" value="cm" checked>cm</label>
+                  <label><input type="radio" name="unit" value="in">in</label>
+                </fieldset>
+                <div class="preset">
+                  <label for="preset">Start with an object</label>
+                  <select id="preset" name="preset">
+                    <option value="custom">Your own sizes</option>
+                    <optgroup label="App preset">
+                      <option value="fridge" selected>Fridge-freezer · app preset</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <fieldset>
+                <legend>Object · width × depth × height</legend>
+                <div class="fields">
+                  <label for="object-width">Width (<span data-unit>cm</span>)<input id="object-width" data-size type="text" inputmode="decimal" value="60" data-inches="24" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-depth">Depth (<span data-unit>cm</span>)<input id="object-depth" data-size type="text" inputmode="decimal" value="66" data-inches="26" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-height">Height (<span data-unit>cm</span>)<input id="object-height" data-size type="text" inputmode="decimal" value="186" data-inches="73" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Door · clear opening</legend>
+                <div class="fields two">
+                  <label for="space-width">Clear width (<span data-unit>cm</span>)<input id="space-width" data-size type="text" inputmode="decimal" value="78" data-inches="30" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="space-height">Clear height (<span data-unit>cm</span>)<input id="space-height" data-size type="text" inputmode="decimal" value="200" data-inches="80" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <p class="help" id="size-help">Use positive sizes from 1 to 1,000 cm (about 0.4 to 393.7 in). Decimals are welcome. The answer updates as you type.</p>
+            </fieldset>
+          </form>
+          <div class="verdict" id="verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+            <h3 id="verdict-title">Your fit verdict</h3>
+            <p id="verdict-margin">Enter your sizes to see the margin.</p>
+            <p class="small" id="verdict-carry">The carrying orientation will appear here.</p>
+            <p class="small">Keep the fridge upright. A side or back size match is geometry only, not a recommended moving position.</p>
+          </div>
+          <noscript><p>This checker needs JavaScript enabled. The measuring advice on this page still applies.</p></noscript>
+          <p class="small">Your measurements stay in this browser. Nothing is saved or sent.</p>
+        </div>
+        <p class="small limitations"><strong>What this checks:</strong> a rigid rectangular box passing straight through a clear opening in six orientations. No diagonal tilt, compression, approach space, wall thickness or hallway turn is simulated. The margin is the smaller total gap across or up, not a gap on each side. Less than 2 cm is “tight”; an exact fit leaves no room for hands or padding.</p>
+      </section>
+      <section class="app-section" aria-labelledby="app-title">
+        <figure class="app-shot">
+          <img src="/willitfit/img/7-verdict.jpg" width="720" height="1440" loading="lazy" decoding="async" alt="Will It Fit showing a sofa on its back at a doorway, with 2 cm to spare.">
+          <figcaption>The app’s door checker, shown with a sofa example. This is not a fridge transport recommendation.</figcaption>
+        </figure>
+        <div class="app-copy">
+          <h2 id="app-title">Check the opening in the app</h2>
+          <p>Enter your fridge’s measured size, compare it with the door, and see the dimensions in 3D and AR. Will It Fit also checks hallway turns and lifts. Follow your fridge’s transport instructions.</p>
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb%26utm_medium%3Dfridge%26utm_campaign%3Dwif-web">Get it on Google Play</a>
+          <p class="availability">For Android. AR needs a compatible phone.</p>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you move it</h2>
+        <h3>Should I remove the room door or the fridge doors?</h3>
+        <p>Measure the clear gap inside the frame, with stops, hinges and handles accounted for. Taking the room door off its hinges can increase usable space. Some fridge handles and doors can also be removed following the model’s instructions; water lines and wiring may need attention. Remeasure the remaining fridge body and opening rather than subtracting a guessed amount.</p>
+        <h3>Why should I carry a fridge upright?</h3>
+        <p>Tilting or laying a fridge down can move compressor oil out of its reservoir and into the cooling pipes. Keeping it upright helps avoid this. The checker tries all six box orientations, so a side or back size match does not mean the manufacturer permits that position.</p>
+        <h3>How long should I wait before switching the fridge on?</h3>
+        <p>As general guidance, leave the fridge unplugged and upright for at least four hours after moving so compressor oil can settle. The required time varies by model and how it travelled; after side transport it may be longer, sometimes up to 24 hours. Follow your own manufacturer’s manual before switching it on.</p>
+        <p class="small">Manufacturer guidance: <a href="https://www.beko.co.uk/support/faqs/fridges/turning-on-fridge-after-moving">Beko’s four-hour settling advice</a> and <a href="https://www.bosch-home.co.uk/en/c/spotlight/blt8a05669486786fc0/customer-service/get-support/cooling-and-freezing/transporting-a-fridge-on-side">Bosch’s fridge transport guidance</a>. Your model’s manual takes priority.</p>
+      </section>
+      <section class="more-checks" aria-labelledby="more-title">
+        <h2 id="more-title">More size checks</h2>
+        <ul>
+          <li><a href="/willitfit/will-my-couch-fit-through-the-door/">Will my couch fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-around-the-corner/">Will my couch fit around the corner?</a></li>
+          <li><a href="/willitfit/will-a-washing-machine-fit-through-the-door/">Will a washing machine fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-bed-fit-through-the-door/">Will my bed fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-up-the-stairs/">Will my couch fit up the stairs?</a></li>
+        </ul>
+      </section>
+    </main>
+    <footer><p><a href="/willitfit/">Will It Fit</a> · Published by <a href="/">Thomas Gorisse</a> · <a href="/willitfit/privacy/">Privacy</a></p></footer>
+  </div>
+</body>
+</html>

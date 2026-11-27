@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will a washing machine fit through the door? Size checker</title>
+  <meta name="description" content="Compare a washing machine or dryer with your clear door opening. Check sizes in cm or inches, see the margin and plan for transit bolts and hose space.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/will-a-washing-machine-fit-through-the-door/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Will It Fit">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/will-a-washing-machine-fit-through-the-door/">
+  <meta property="og:title" content="Will a washing machine fit through the door? Size checker">
+  <meta property="og:description" content="Compare a washing machine or dryer with your clear door opening. Check sizes in cm or inches, see the margin and plan for transit bolts and hose space.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/img/7-verdict.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1440">
+  <meta property="og:image:alt" content="Will It Fit’s door checker showing a sofa example and its carrying orientation.">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <link rel="stylesheet" href="/willitfit/site.css">
+  <script type="module" src="/willitfit/checker.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need transit bolts to move a washing machine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a front-loading washer, refit the correct transit bolts before transport as instructed by the manufacturer. They secure the drum and protect its suspension. Drain residual water, disconnect and secure hoses, and remove the bolts again before running the machine. A dryer has its own transport instructions; do not assume it uses washer transit bolts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I put a washing machine on its side to fit through the door?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Keep it upright and follow the manufacturer’s moving instructions. Laying it down can damage internal parts or let residual water leak. This size checker tries all six rigid-box orientations; a result on its side or back is not a recommendation to move an appliance that way."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does fitting through the door mean it will fit in its niche?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Measure the niche width and height separately, and allow the depth required by the appliance’s door, rear hose connections and hose bends. Follow the installation clearances for your model, including ventilation and access. Do not squash hoses against the wall; dryers may also need space for a duct."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" width="36" height="36" alt="">Will It Fit</a>
+      <nav aria-label="Site"><a href="/willitfit/">The app</a><a href="/willitfit/privacy/">Privacy</a></nav>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="question-title">
+        <p class="eyebrow">Washing machine door size checker</p>
+        <h1 id="question-title">Will a washing machine fit through the door?</h1>
+        <p class="lead">A washing machine fits through a door upright when its width or depth clears the opening’s width and its height clears the opening’s height. A nominal 60 cm appliance still needs measuring: the door, controls and hose connections can stick out.</p>
+        <p>Measure the <strong>clear opening inside the frame</strong>, accounting for hinges and the open door. If needed, remove the room door and measure again. Keep the appliance upright, and leave space for hands and protective padding.</p>
+      </section>
+      <section aria-labelledby="checker-title">
+        <div class="checker">
+          <h2 id="checker-title">Check your washer or dryer and door</h2>
+          <p class="small" id="example-help">The washer is the app’s 60 × 60 × 85 cm preset. The dryer is a separate website example, 60 × 65 × 85 cm. Measure your own appliance, including protrusions.</p>
+          <form data-checker="door" data-appliance="washer or dryer" aria-labelledby="checker-title" aria-describedby="example-help">
+            <fieldset class="controls" disabled>
+              <legend class="small">Your measurements</legend>
+              <div class="toolbar">
+                <fieldset class="units">
+                  <legend>Units</legend>
+                  <label><input type="radio" name="unit" value="cm" checked>cm</label>
+                  <label><input type="radio" name="unit" value="in">in</label>
+                </fieldset>
+                <div class="preset">
+                  <label for="preset">Start with an object</label>
+                  <select id="preset" name="preset">
+                    <option value="custom">Your own sizes</option>
+                    <optgroup label="App preset">
+                      <option value="washer" selected>Washing machine · app preset</option>
+                    </optgroup>
+                    <optgroup label="Website example">
+                      <option value="dryer">Dryer · example, check yours</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <fieldset>
+                <legend>Object · width × depth × height</legend>
+                <div class="fields">
+                  <label for="object-width">Width (<span data-unit>cm</span>)<input id="object-width" data-size type="text" inputmode="decimal" value="60" data-inches="24" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-depth">Depth (<span data-unit>cm</span>)<input id="object-depth" data-size type="text" inputmode="decimal" value="60" data-inches="24" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-height">Height (<span data-unit>cm</span>)<input id="object-height" data-size type="text" inputmode="decimal" value="85" data-inches="33" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Door · clear opening</legend>
+                <div class="fields two">
+                  <label for="space-width">Clear width (<span data-unit>cm</span>)<input id="space-width" data-size type="text" inputmode="decimal" value="78" data-inches="30" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="space-height">Clear height (<span data-unit>cm</span>)<input id="space-height" data-size type="text" inputmode="decimal" value="200" data-inches="80" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <p class="help" id="size-help">Use positive sizes from 1 to 1,000 cm (about 0.4 to 393.7 in). Decimals are welcome. The answer updates as you type.</p>
+            </fieldset>
+          </form>
+          <div class="verdict" id="verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+            <h3 id="verdict-title">Your fit verdict</h3>
+            <p id="verdict-margin">Enter your sizes to see the margin.</p>
+            <p class="small" id="verdict-carry">The carrying orientation will appear here.</p>
+            <p class="small">Keep the washer or dryer upright and follow its transport instructions. A side or back size match is geometry only, not moving advice.</p>
+          </div>
+          <noscript><p>This checker needs JavaScript enabled. The measuring advice on this page still applies.</p></noscript>
+          <p class="small">Your measurements stay in this browser. Nothing is saved or sent.</p>
+        </div>
+        <p class="small limitations"><strong>What this checks:</strong> a rigid rectangular box passing straight through a clear opening in six orientations. No diagonal tilt, compression, approach space, wall thickness or hallway turn is simulated. The margin is the smaller total gap across or up, not a gap on each side. Less than 2 cm is “tight”; an exact fit leaves no room for hands or padding.</p>
+      </section>
+      <section class="app-section" aria-labelledby="app-title">
+        <figure class="app-shot">
+          <img src="/willitfit/img/7-verdict.jpg" width="720" height="1440" loading="lazy" decoding="async" alt="Will It Fit’s door checker showing a sofa example and its carrying orientation.">
+          <figcaption>The Android app’s door checker, shown with a sofa example.</figcaption>
+        </figure>
+        <div class="app-copy">
+          <h2 id="app-title">Check each opening on the route</h2>
+          <p>Use your appliance’s actual dimensions in Will It Fit to check doors, hallway turns and lifts. See the sizes in 3D and AR, and save your home for the next check.</p>
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb%26utm_medium%3Dwasher%26utm_campaign%3Dwif-web">Get it on Google Play</a>
+          <p class="availability">For Android. AR needs a compatible phone.</p>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you move it</h2>
+        <h3>Do I need transit bolts to move a washing machine?</h3>
+        <p>For a front-loading washer, refit the correct transit bolts before transport as instructed by the manufacturer. They secure the drum and protect its suspension. Drain residual water, disconnect and secure hoses, and remove the bolts again before running the machine. A dryer has its own transport instructions; do not assume it uses washer transit bolts.</p>
+        <h3>Can I put a washing machine on its side to fit through the door?</h3>
+        <p>Keep it upright and follow the manufacturer’s moving instructions. Laying it down can damage internal parts or let residual water leak. This size checker tries all six rigid-box orientations; a result on its side or back is not a recommendation to move an appliance that way.</p>
+        <h3>Does fitting through the door mean it will fit in its niche?</h3>
+        <p>No. Measure the niche width and height separately, and allow the depth required by the appliance’s door, rear hose connections and hose bends. Follow the installation clearances for your model, including ventilation and access. Do not squash hoses against the wall; dryers may also need space for a duct.</p>
+        <p class="small">Moving advice: <a href="https://www.bosch-home.co.uk/customer-service/get-support/how-to-move-a-washing-machine">Bosch’s washing machine transport guidance</a>. Use your own model’s manual for bolts and installation clearances.</p>
+      </section>
+      <section class="more-checks" aria-labelledby="more-title">
+        <h2 id="more-title">More size checks</h2>
+        <ul>
+          <li><a href="/willitfit/will-my-couch-fit-through-the-door/">Will my couch fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-around-the-corner/">Will my couch fit around the corner?</a></li>
+          <li><a href="/willitfit/will-my-fridge-fit-through-the-door/">Will my fridge fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-bed-fit-through-the-door/">Will my bed fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-up-the-stairs/">Will my couch fit up the stairs?</a></li>
+        </ul>
+      </section>
+    </main>
+    <footer><p><a href="/willitfit/">Will It Fit</a> · Published by <a href="/">Thomas Gorisse</a> · <a href="/willitfit/privacy/">Privacy</a></p></footer>
+  </div>
+</body>
+</html>

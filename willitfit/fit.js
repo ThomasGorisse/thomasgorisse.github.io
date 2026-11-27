@@ -21,12 +21,24 @@ export const PRESETS = Object.freeze({
   sofa3: Object.freeze([220, 95, 85]),
   fridge: Object.freeze([60, 66, 186]),
   wardrobe: Object.freeze([100, 60, 201]),
+  bed140: Object.freeze([150, 205, 95]),
   bed160: Object.freeze([170, 215, 95]),
+  washer: Object.freeze([60, 60, 85]),
+});
+
+// Website examples only: these are not presets in the Android app.
+// Mattress thickness and assembled frame dimensions must be replaced with actual sizes.
+export const WEB_EXAMPLES = Object.freeze({
+  bed180: Object.freeze([190, 215, 95]),
+  mattress140: Object.freeze([140, 190, 25]),
+  mattress160: Object.freeze([160, 200, 25]),
+  mattress180: Object.freeze([180, 200, 25]),
+  dryer: Object.freeze([60, 65, 85]),
 });
 
 // Preset.dimensionsIn(INCH): whole inches, converted back to Float centimetres.
 export function presetDimensions(id, unit = 'cm') {
-  return PRESETS[id].map(cm => unit === 'in'
+  return (PRESETS[id] ?? WEB_EXAMPLES[id]).map(cm => unit === 'in'
     ? f(Math.round(f(cm / CM_PER_INCH)) * CM_PER_INCH) : cm);
 }
 
@@ -37,6 +49,15 @@ function result(fits, carry, marginCm, extra = {}) {
 function fittingOrder(a, b) {
   return Number(b.carry.isUpright) - Number(a.carry.isUpright)
     || b.marginCm - a.marginCm || a.carry.ordinal - b.carry.ordinal;
+}
+
+// Only the width side of DoorCheck, across the narrowest of the same six carries.
+// This is not a stair simulation: no headroom, slope or change of orientation is checked.
+export function checkStairWidth(obj, widthCm) {
+  const carry = CARRIES.reduce((best, next) =>
+    f(obj[next.across]) < f(obj[best.across]) ? next : best);
+  const marginCm = f(f(widthCm) - f(obj[carry.across]));
+  return result(marginCm >= 0, carry, marginCm);
 }
 
 export function checkDoor(obj, door) {

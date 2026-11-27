@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will my couch fit up the stairs? Width &amp; landing checker</title>
+  <meta name="description" content="Check your couch against stair width and a right-angle landing turn in cm or inches. Flight tilting, handrails and headroom over the steps are not simulated.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/will-my-couch-fit-up-the-stairs/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Will It Fit">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/will-my-couch-fit-up-the-stairs/">
+  <meta property="og:title" content="Will my couch fit up the stairs? Width &amp; landing checker">
+  <meta property="og:description" content="Check your couch against stair width and a right-angle landing turn in cm or inches. Flight tilting, handrails and headroom over the steps are not simulated.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/img/8-hall.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1440">
+  <meta property="og:image:alt" content="Will It Fit’s hallway plan showing a sofa at a right-angle turn.">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <link rel="stylesheet" href="/willitfit/site.css">
+  <script type="module" src="/willitfit/checker.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can this tell me for sure that my couch will go upstairs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The width check only compares the narrowest object side with the clear stair width. It does not check the height of that carrying position, tilting along the slope, the handrail’s shape or headroom above the steps. Even if both results match, you still need to confirm the whole route and room to change orientation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I check an L-shaped or U-shaped staircase landing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For one right-angle landing turn, enter the clear approach width before it, the width after it and the lowest headroom above the landing. This is the same level-turn calculation as a hallway. An L-shaped stair normally has one such turn. If a U-shaped stair has two right-angle turns, check each separately with its own measurements; a complete 180-degree turn, finite landing depth and the transition between turns are not simulated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where should I measure the stairs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Measure the narrowest usable width along the route, including handrails, newel posts and wall projections. Measure the clear approaches to the landing and the lowest headroom above it. Separately measure the ceiling over the steps and look for a low beam or sloping ceiling. Allow for hands, padding and room to reposition the couch."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" width="36" height="36" alt="">Will It Fit</a>
+      <nav aria-label="Site"><a href="/willitfit/">The app</a><a href="/willitfit/privacy/">Privacy</a></nav>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="question-title">
+        <p class="eyebrow">Stair width and landing size checks</p>
+        <h1 id="question-title">Will my couch fit up the stairs?</h1>
+        <p class="lead">Width and the landing turn are two things you can check, but neither proves a couch will go upstairs. Will It Fit does not simulate stairs. Use the checks below for the narrowest clear stair width and one right-angle landing turn.</p>
+        <p>Measure the couch’s full width, depth and height. Measure the <strong>narrowest usable stair width</strong>, including handrails and posts, then the widths before and after the landing and the headroom above it. Check the ceiling over the steps separately.</p>
+      </section>
+      <section aria-labelledby="checker-title">
+        <div class="checker">
+          <h2 id="checker-title">Check stair width and the landing turn</h2>
+          <p class="small" id="example-help">Example sofa and stair sizes to start with. Replace them with your measurements. The two results cover different parts of the route.</p>
+          <form data-checker="stairs" aria-labelledby="checker-title" aria-describedby="example-help">
+            <fieldset class="controls" disabled>
+              <legend class="small">Your measurements</legend>
+              <div class="toolbar">
+                <fieldset class="units">
+                  <legend>Units</legend>
+                  <label><input type="radio" name="unit" value="cm" checked>cm</label>
+                  <label><input type="radio" name="unit" value="in">in</label>
+                </fieldset>
+                <div class="preset">
+                  <label for="preset">Start with an object</label>
+                  <select id="preset" name="preset">
+                    <option value="custom">Your own sizes</option>
+                    <optgroup label="App presets">
+                      <option value="sofa2">2-seat sofa</option>
+                      <option value="sofa3" selected>3-seat sofa</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <fieldset>
+                <legend>Object · width × depth × height</legend>
+                <div class="fields">
+                  <label for="object-width">Width (<span data-unit>cm</span>)<input id="object-width" data-size type="text" inputmode="decimal" value="220" data-inches="87" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-depth">Depth (<span data-unit>cm</span>)<input id="object-depth" data-size type="text" inputmode="decimal" value="95" data-inches="37" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-height">Height (<span data-unit>cm</span>)<input id="object-height" data-size type="text" inputmode="decimal" value="85" data-inches="33" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Stair flight · width only</legend>
+                <div class="fields two">
+                  <label for="space-stair">Narrowest clear width (<span data-unit>cm</span>)<input id="space-stair" data-size type="text" inputmode="decimal" value="90" data-inches="36" autocomplete="off" spellcheck="false" aria-describedby="stairs-help size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Landing · one right-angle turn</legend>
+                <div class="fields hall">
+                  <label for="space-width">Width before turn (<span data-unit>cm</span>)<input id="space-width" data-size type="text" inputmode="decimal" value="90" data-inches="36" autocomplete="off" spellcheck="false" aria-describedby="landing-help size-help"></label>
+                  <label for="space-turn">Width after turn (<span data-unit>cm</span>)<input id="space-turn" data-size type="text" inputmode="decimal" value="90" data-inches="36" autocomplete="off" spellcheck="false" aria-describedby="landing-help size-help"></label>
+                  <label for="space-ceiling">Landing headroom (<span data-unit>cm</span>)<input id="space-ceiling" data-size type="text" inputmode="decimal" value="240" data-inches="96" autocomplete="off" spellcheck="false" aria-describedby="landing-help size-help"></label>
+                </div>
+              </fieldset>
+              <p class="help" id="stairs-help">Measure the narrowest usable width along the flight, including handrails and posts. This compares width only.</p>
+              <p class="help" id="landing-help">Use the clear approach widths before and after one 90° landing turn, and the lowest headroom above the landing. This uses the hallway turn check. It does not check the flight or the full shape of a landing.</p>
+              <p class="help" id="size-help">Use positive sizes from 1 to 1,000 cm (about 0.4 to 393.7 in). Decimals are welcome. The answer updates as you type.</p>
+            </fieldset>
+          </form>
+          <div class="stair-results">
+            <div class="verdict" id="width-verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+              <h3 id="width-title">Stair width only</h3>
+              <p id="width-margin">Enter your sizes to compare the narrowest object side.</p>
+              <p class="small" id="width-carry">Flight headroom and tilting are not checked.</p>
+            </div>
+            <div class="verdict" id="verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+              <h3 id="verdict-title">Landing turn only</h3>
+              <p id="verdict-margin">Enter your sizes to check one right-angle turn.</p>
+              <p class="small" id="verdict-carry">The geometric orientation will appear here.</p>
+            </div>
+          </div>
+          <p class="small"><strong>Two size matches do not confirm the couch will go upstairs.</strong> These checks can use different orientations. Getting into either position and changing between them are not simulated.</p>
+          <noscript><p>This checker needs JavaScript enabled. The measuring advice on this page still applies.</p></noscript>
+          <p class="small">Your measurements stay in this browser. Nothing is saved or sent.</p>
+        </div>
+        <p class="small limitations"><strong>What these check:</strong> stair width against the object’s narrowest side across the same six box orientations, plus a level 90° turn using the hallway calculation with the approach widths and landing headroom. Margins are total gaps; less than 2 cm is “tight”. <strong>Not simulated:</strong> tilting on the flight, the handrail’s shape, headroom over the flight itself, finite landing depth, steps or changes of orientation. Account for rails in your clear-width measurements and measure the ceiling over every step.</p>
+      </section>
+      <section class="app-section" aria-labelledby="app-title">
+        <figure class="app-shot">
+          <img src="/willitfit/img/8-hall.jpg" width="720" height="1440" loading="lazy" decoding="async" alt="Will It Fit’s hallway plan showing a sofa at a right-angle turn.">
+          <figcaption>The app’s hallway checker. The landing check uses this right-angle turn calculation; the app has no stair simulation.</figcaption>
+        </figure>
+        <div class="app-copy">
+          <h2 id="app-title">Check doors and landing turns in the app</h2>
+          <p>Will It Fit checks doors, hallway turns, lifts and car boots, with dimensions in 3D and AR. For a landing that can be represented by a right-angle hallway turn, use the hallway check. The app does not simulate carrying a couch up stairs.</p>
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb%26utm_medium%3Dstairs%26utm_campaign%3Dwif-web">Get it on Google Play</a>
+          <p class="availability">For Android. AR needs a compatible phone.</p>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you move it</h2>
+        <h3>Can this tell me for sure that my couch will go upstairs?</h3>
+        <p>No. The width check only compares the narrowest object side with the clear stair width. It does not check the height of that carrying position, tilting along the slope, the handrail’s shape or headroom above the steps. Even if both results match, you still need to confirm the whole route and room to change orientation.</p>
+        <h3>How do I check an L-shaped or U-shaped staircase landing?</h3>
+        <p>For one right-angle landing turn, enter the clear approach width before it, the width after it and the lowest headroom above the landing. This is the same level-turn calculation as a hallway. An L-shaped stair normally has one such turn. If a U-shaped stair has two right-angle turns, check each separately with its own measurements; a complete 180-degree turn, finite landing depth and the transition between turns are not simulated.</p>
+        <h3>Where should I measure the stairs?</h3>
+        <p>Measure the narrowest usable width along the route, including handrails, newel posts and wall projections. Measure the clear approaches to the landing and the lowest headroom above it. Separately measure the ceiling over the steps and look for a low beam or sloping ceiling. Allow for hands, padding and room to reposition the couch.</p>
+        <p><a href="/willitfit/will-my-couch-fit-through-the-door/">Check the door at the top or bottom of the stairs too.</a></p>
+      </section>
+      <section class="more-checks" aria-labelledby="more-title">
+        <h2 id="more-title">More size checks</h2>
+        <ul>
+          <li><a href="/willitfit/will-my-couch-fit-through-the-door/">Will my couch fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-around-the-corner/">Will my couch fit around the corner?</a></li>
+          <li><a href="/willitfit/will-my-fridge-fit-through-the-door/">Will my fridge fit through the door?</a></li>
+          <li><a href="/willitfit/will-a-washing-machine-fit-through-the-door/">Will a washing machine fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-bed-fit-through-the-door/">Will my bed fit through the door?</a></li>
+        </ul>
+      </section>
+    </main>
+    <footer><p><a href="/willitfit/">Will It Fit</a> · Published by <a href="/">Thomas Gorisse</a> · <a href="/willitfit/privacy/">Privacy</a></p></footer>
+  </div>
+</body>
+</html>

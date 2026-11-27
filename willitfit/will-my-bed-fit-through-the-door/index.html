@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will my bed fit through the door? Frame &amp; mattress checker</title>
+  <meta name="description" content="Check a bed frame, mattress or box spring against your door opening in cm or inches. Try example sizes, see the fit margin and plan what to take apart.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/will-my-bed-fit-through-the-door/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Will It Fit">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/will-my-bed-fit-through-the-door/">
+  <meta property="og:title" content="Will my bed fit through the door? Frame &amp; mattress checker">
+  <meta property="og:description" content="Check a bed frame, mattress or box spring against your door opening in cm or inches. Try example sizes, see the fit margin and plan what to take apart.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/img/2-bed.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1440">
+  <meta property="og:image:alt" content="Will It Fit showing its Bed 160 preset in a room, labelled 170 cm wide, 215 cm deep and 95 cm high.">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <link rel="stylesheet" href="/willitfit/site.css">
+  <script type="module" src="/willitfit/checker.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Should I check the assembled bed or its separate parts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check what you will actually carry. Frames often come apart into side rails, slats and a headboard; measure and check every large rigid piece. App frame presets include the outer frame and headboard, so a 160 × 200 cm mattress does not mean the whole bed is that size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I bend a mattress or a box spring through the door?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Some mattresses flex a little, but the permitted amount depends on their construction and the manufacturer’s instructions. Do not assume you can fold one. A box spring or rigid divan base does not bend like a mattress: measure it as a separate rigid object. The checker does not simulate flex or compression."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my bed fits the door but there is a hallway corner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The doorway result only checks a straight pass. Long bed rails, a headboard, a mattress or a box spring still need room to swing around the corner. Check each piece against both hallway widths and the ceiling, and allow space to get it into the chosen orientation."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" width="36" height="36" alt="">Will It Fit</a>
+      <nav aria-label="Site"><a href="/willitfit/">The app</a><a href="/willitfit/privacy/">Privacy</a></nav>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="question-title">
+        <p class="eyebrow">Bed and mattress door size checker</p>
+        <h1 id="question-title">Will my bed fit through the door?</h1>
+        <p class="lead">An assembled bed often needs taking apart before it will fit through a door. A mattress is a separate check: its thickness and shorter edge must clear the opening when carried on edge, with room to line it up on both sides.</p>
+        <p>Measure the <strong>largest rigid piece you will carry</strong>, including any headboard or fittings that stay attached. Check each dismantled piece and the mattress separately. Use the door’s clear width and height inside the frame, and allow space for hands and padding.</p>
+      </section>
+      <section aria-labelledby="checker-title">
+        <div class="checker">
+          <h2 id="checker-title">Check a bed frame, mattress or box spring</h2>
+          <p class="small" id="example-help">Frames 140 and 160 use the app’s presets; their names refer to mattress sizes, not outer frame widths. Frame 180 and the mattresses are website examples. Mattress thickness starts at 25 cm: replace it with yours.</p>
+          <form data-checker="door" aria-labelledby="checker-title" aria-describedby="example-help">
+            <fieldset class="controls" disabled>
+              <legend class="small">Your measurements</legend>
+              <div class="toolbar">
+                <fieldset class="units">
+                  <legend>Units</legend>
+                  <label><input type="radio" name="unit" value="cm" checked>cm</label>
+                  <label><input type="radio" name="unit" value="in">in</label>
+                </fieldset>
+                <div class="preset">
+                  <label for="preset">Start with an object</label>
+                  <select id="preset" name="preset">
+                    <option value="custom">Your own sizes</option>
+                    <optgroup label="App presets">
+                      <option value="bed140">Bed frame 140 · app preset</option>
+                      <option value="bed160" selected>Bed frame 160 · app preset</option>
+                    </optgroup>
+                    <optgroup label="Website examples">
+                      <option value="bed180">Bed frame 180 · example</option>
+                      <option value="mattress140">Mattress 140 × 190 · example</option>
+                      <option value="mattress160">Mattress 160 × 200 · example</option>
+                      <option value="mattress180">Mattress 180 × 200 · example</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <fieldset>
+                <legend>Object · width × depth × height</legend>
+                <div class="fields">
+                  <label for="object-width">Width (<span data-unit>cm</span>)<input id="object-width" data-size type="text" inputmode="decimal" value="170" data-inches="67" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-depth">Depth (<span data-unit>cm</span>)<input id="object-depth" data-size type="text" inputmode="decimal" value="215" data-inches="85" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-height">Height (<span data-unit>cm</span>)<input id="object-height" data-size type="text" inputmode="decimal" value="95" data-inches="37" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Door · clear opening</legend>
+                <div class="fields two">
+                  <label for="space-width">Clear width (<span data-unit>cm</span>)<input id="space-width" data-size type="text" inputmode="decimal" value="78" data-inches="30" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="space-height">Clear height (<span data-unit>cm</span>)<input id="space-height" data-size type="text" inputmode="decimal" value="200" data-inches="80" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <p class="help" id="size-help">Use positive sizes from 1 to 1,000 cm (about 0.4 to 393.7 in). Decimals are welcome. The answer updates as you type.</p>
+            </fieldset>
+          </form>
+          <div class="verdict" id="verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+            <h3 id="verdict-title">Your fit verdict</h3>
+            <p id="verdict-margin">Enter your sizes to see the margin.</p>
+            <p class="small" id="verdict-carry">The carrying orientation will appear here.</p>
+          </div>
+          <noscript><p>This checker needs JavaScript enabled. The measuring advice on this page still applies.</p></noscript>
+          <p class="small">Your measurements stay in this browser. Nothing is saved or sent.</p>
+        </div>
+        <p class="small limitations"><strong>What this checks:</strong> a rigid rectangular box passing straight through a clear opening in six orientations. No diagonal tilt, compression, approach space, wall thickness or hallway turn is simulated. The margin is the smaller total gap across or up, not a gap on each side. Less than 2 cm is “tight”; an exact fit leaves no room for hands or padding. A mattress is treated as a rigid box; bending is not simulated.</p>
+      </section>
+      <section class="app-section" aria-labelledby="app-title">
+        <figure class="app-shot">
+          <img src="/willitfit/img/2-bed.jpg" width="720" height="1440" loading="lazy" decoding="async" alt="Will It Fit showing its Bed 160 preset in a room, labelled 170 cm wide, 215 cm deep and 95 cm high.">
+          <figcaption>The app’s Bed 160 example: outer frame dimensions, not just the mattress.</figcaption>
+        </figure>
+        <div class="app-copy">
+          <h2 id="app-title">See the bed’s actual outer size</h2>
+          <p>Enter the size of the frame, mattress or largest dismantled piece in Will It Fit. Check the door and hallway turn, or view the dimensions in your room with 3D and AR.</p>
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb%26utm_medium%3Dbed%26utm_campaign%3Dwif-web">Get it on Google Play</a>
+          <p class="availability">For Android. AR needs a compatible phone.</p>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you move it</h2>
+        <h3>Should I check the assembled bed or its separate parts?</h3>
+        <p>Check what you will actually carry. Frames often come apart into side rails, slats and a headboard; measure and check every large rigid piece. App frame presets include the outer frame and headboard, so a 160 × 200 cm mattress does not mean the whole bed is that size.</p>
+        <h3>Can I bend a mattress or a box spring through the door?</h3>
+        <p>Some mattresses flex a little, but the permitted amount depends on their construction and the manufacturer’s instructions. Do not assume you can fold one. A box spring or rigid divan base does not bend like a mattress: measure it as a separate rigid object. The checker does not simulate flex or compression.</p>
+        <h3>What if my bed fits the door but there is a hallway corner?</h3>
+        <p>The doorway result only checks a straight pass. Long bed rails, a headboard, a mattress or a box spring still need room to swing around the corner. Check each piece against both hallway widths and the ceiling, and allow space to get it into the chosen orientation.</p>
+        <p><a href="/willitfit/will-my-couch-fit-around-the-corner/">Check a right-angle hallway turn</a> using your bed piece’s dimensions.</p>
+      </section>
+      <section class="more-checks" aria-labelledby="more-title">
+        <h2 id="more-title">More size checks</h2>
+        <ul>
+          <li><a href="/willitfit/will-my-couch-fit-through-the-door/">Will my couch fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-around-the-corner/">Will my couch fit around the corner?</a></li>
+          <li><a href="/willitfit/will-my-fridge-fit-through-the-door/">Will my fridge fit through the door?</a></li>
+          <li><a href="/willitfit/will-a-washing-machine-fit-through-the-door/">Will a washing machine fit through the door?</a></li>
+          <li><a href="/willitfit/will-my-couch-fit-up-the-stairs/">Will my couch fit up the stairs?</a></li>
+        </ul>
+      </section>
+    </main>
+    <footer><p><a href="/willitfit/">Will It Fit</a> · Published by <a href="/">Thomas Gorisse</a> · <a href="/willitfit/privacy/">Privacy</a></p></footer>
+  </div>
+</body>
+</html>
