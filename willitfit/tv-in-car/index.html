@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will a 55″, 65″, 75″, or 85″ TV Box Fit in My Car? — Instant Fit Table &amp; Calculator</title>
+  <meta name="description" content="Standing in the store parking lot? Check instantly whether a 55-inch, 65-inch, 75-inch, or 85-inch TV box fits in a VW Golf, Honda Civic, Toyota RAV4, Tesla Model Y, CR-V, or Peugeot 3008 — with seats down and exact box sizes.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/tv-in-car/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Will a 55″, 65″, 75″ or 85″ TV Box Fit in My Car?">
+  <meta property="og:description" content="2-second car trunk fit matrix for TV boxes across popular hatchbacks and SUVs, plus free Android AR boot measurement.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/tv-in-car/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will a 65-inch TV box fit in a hatchback or compact SUV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A typical 65-inch TV box measures about 160 x 97 x 19 cm (63 x 38 x 7.5 in). It fits flat with rear seats folded in most compact SUVs (RAV4, CR-V, Model Y, Peugeot 3008) and many hatchbacks (Civic, Golf) if front seats are moved forward, but rarely fits in sedans due to the narrow trunk pass-through."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you lay a 65-inch or 75-inch TV flat in the car?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TV manufacturers recommend transporting large OLED and QLED panels upright. If you must lay the box flat for a short drive, keep it inside the original box with screen side facing up, never stack anything on top, and avoid bumps."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#faf7f2; --surface:#fff; --card:#f2ede6; --text:#1c1b1a; --muted:#545f5f; --outline:#d5d0c8; --primary:#f2641f; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --no:#b3261e; --no-bg:#fce8e6; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1415; --surface:#161d1e; --card:#1d2526; --text:#e6ecec; --muted:#a2b0b0; --outline:#2e3a3b; --primary:#ff7a38; --primary-ink:#1b0b00; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --no:#f28b82; --no-bg:#351514; } }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color:inherit; }
+    .brand img { width:34px; height:34px; border-radius:9px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:65ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.88rem; font-weight:600; padding:8px 13px; border-radius:999px; cursor:pointer; }
+    .chip[aria-pressed="true"] { background:var(--primary); color:var(--primary-ink); border-color:var(--primary); }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--outline); }
+    th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+    .pill { display:inline-block; padding:3px 9px; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .pill--no { background:var(--no-bg); color:var(--no); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      <a class="btn btn--sec" style="min-height:38px;font-size:.85rem" href="/willitfit/?space=boot&amp;preset=tv65box">Custom dimensions calculator →</a>
+    </header>
+
+    <h1>Will a 55″, 65″, 75″, or 85″ TV box fit in my car?</h1>
+    <p class="sub">Pick your TV box size below for an instant seats-down verdict across popular hatchbacks and SUVs. Want to check your exact car trunk with your phone camera? Launch the free offline AR ruler.</p>
+
+    <div class="panel">
+      <strong>1. Pick TV box size (typical retail carton):</strong>
+      <div class="chips" id="tvs"></div>
+      <div id="tv-dim" style="font-size:.9rem;color:var(--muted);margin-bottom:14px"></div>
+      <table>
+        <thead><tr><th>Car (rear seats folded)</th><th>Typical cargo (L × W × H)</th><th>Verdict</th><th>Action</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0"><strong>Safety note:</strong> TV makers advise carrying large OLED/QLED boxes upright. Flat transport is only for short, smooth drives with the screen side facing up and nothing stacked on top.</p>
+      <div class="ctas">
+        <a class="btn" id="play-cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dtv_in_car%26utm_campaign%3Dparking_lot">Measure my exact boot in Android AR (free)</a>
+        <a class="btn btn--sec" href="/willitfit/?space=boot&amp;preset=tv65box">Open full boot &amp; door calculator</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/willitfit/">Main Calculator</a>
+      <a href="/willitfit/ikea-in-car/">IKEA Box Fit Guide</a>
+      <a href="/willitfit/sofa-through-door/">Sofa Door &amp; Hallway Guide</a>
+      <a href="/arcamera/">3D AR Viewer</a>
+      <a href="/willitfit/privacy/">Privacy</a>
+    </footer>
+  </div>
+  <script>
+  (function () {
+    var TVS = [
+      { id: 'tv55', label: '55″ TV Box', w: 138, h: 84, d: 17 },
+      { id: 'tv65box', label: '65″ TV Box', w: 160, h: 97, d: 19 },
+      { id: 'tv75box', label: '75″ TV Box', w: 184, h: 112, d: 21 },
+      { id: 'tv85', label: '85″ TV Box', w: 210, h: 126, d: 24 }
+    ];
+    var CARS = [
+      { id: 'clio', name: 'Renault Clio / Subcompact', l: 142, w: 98, h: 70, ow: 96, oh: 67 },
+      { id: 'golf', name: 'VW Golf / Compact Hatch', l: 158, w: 100, h: 74, ow: 102, oh: 71 },
+      { id: 'civic', name: 'Honda Civic Hatchback', l: 165, w: 102, h: 72, ow: 104, oh: 69 },
+      { id: 'p3008', name: 'Peugeot 3008 / Compact SUV', l: 172, w: 105, h: 80, ow: 106, oh: 76 },
+      { id: 'x3', name: 'BMW X3 / Mid SUV', l: 178, w: 109, h: 80, ow: 110, oh: 77 },
+      { id: 'rav4', name: 'Toyota RAV4', l: 180, w: 108, h: 84, ow: 110, oh: 79 },
+      { id: 'crv', name: 'Honda CR-V', l: 184, w: 107, h: 86, ow: 112, oh: 82 },
+      { id: 'modely', name: 'Tesla Model Y', l: 192, w: 105, h: 78, ow: 109, oh: 74 },
+      { id: 'kangoo', name: 'Compact Van / Kangoo', l: 188, w: 119, h: 115, ow: 120, oh: 112 }
+    ];
+    var selected = TVS[1];
+    function render() {
+      var tvsEl = document.getElementById('tvs');
+      tvsEl.innerHTML = TVS.map(function (t) {
+        return '<button type="button" class="chip" data-id="' + t.id + '" aria-pressed="' + String(t.id === selected.id) + '">' + t.label + '</button>';
+      }).join('');
+      tvsEl.querySelectorAll('button').forEach(function (b) {
+        b.onclick = function () { selected = TVS.find(function (t) { return t.id === b.dataset.id; }); render(); };
+      });
+      document.getElementById('tv-dim').textContent = 'Typical retail box: ' + selected.w + ' × ' + selected.h + ' × ' + selected.d + ' cm (' + Math.round(selected.w/2.54) + ' × ' + Math.round(selected.h/2.54) + ' × ' + Math.round(selected.d/2.54) + ' in)';
+      document.getElementById('rows').innerHTML = CARS.map(function (c) {
+        var upright = selected.w <= c.l && selected.h <= Math.min(c.h, c.oh) && selected.d <= Math.min(c.w, c.ow);
+        var flat = selected.w <= c.l && selected.h <= Math.min(c.w, c.ow) && selected.d <= Math.min(c.h, c.oh);
+        var tight = !flat && selected.w <= c.l + 10 && selected.h <= Math.min(c.w, c.ow);
+        var badge = upright ? '<span class="pill pill--ok">Fits upright</span>'
+                  : flat ? '<span class="pill pill--ok">Fits flat</span>'
+                  : tight ? '<span class="pill pill--warn">Tight · slide front seats</span>'
+                  : '<span class="pill pill--no">Won\'t fit in box</span>';
+        return '<tr><td><strong>' + c.name + '</strong></td><td>' + c.l + ' × ' + c.w + ' × ' + c.h + ' cm</td><td>' + badge + '</td><td><a href="/willitfit/?space=boot&amp;preset=' + (selected.id === 'tv65box' || selected.id === 'tv75box' ? selected.id : 'tv65box') + '&amp;car=' + c.id + '">Adjust</a></td></tr>';
+      }).join('');
+    }
+    render();
+  })();
+  </script>
+</body>
+</html>

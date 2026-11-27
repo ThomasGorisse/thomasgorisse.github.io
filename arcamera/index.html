@@ -95,9 +95,10 @@
           <span>or tap to choose from your phone / computer — parsed locally in memory</span>
         </label>
         <div class="samples">
-          <button class="chip" type="button" data-sample="benchy" aria-pressed="true">Sample: Desk figurine (150 mm)</button>
-          <button class="chip" type="button" data-sample="bracket" aria-pressed="false">Sample: Wall bracket (185 mm)</button>
-          <button class="chip" type="button" data-sample="vase" aria-pressed="false">Sample: Planter (240 mm)</button>
+          <button class="chip" type="button" data-sample="benchy" aria-pressed="true">Desk figurine (150 mm)</button>
+          <button class="chip" type="button" data-sample="mini" aria-pressed="false">Tabletop mini (38 mm)</button>
+          <button class="chip" type="button" data-sample="bracket" aria-pressed="false">Wall bracket (185 mm)</button>
+          <button class="chip" type="button" data-sample="vase" aria-pressed="false">Planter (240 mm)</button>
         </div>
         <canvas id="cv" width="640" height="420" aria-label="Interactive 3D wireframe preview"></canvas>
       </section>
@@ -117,7 +118,15 @@
           <div class="stat"><small>Depth (Z)</small><b id="sz">—</b></div>
           <div class="stat"><small>Height (Y)</small><b id="sy">—</b></div>
         </div>
-        <p class="meta" id="meta">Triangles: — · Fits standard 220×220 mm print bed: —</p>
+        <div class="unit-row" style="margin-bottom:10px">
+          <span style="font-size:.82rem;color:var(--muted);font-weight:600">Build plate:</span>
+          <div class="seg" id="bed-seg" role="group" aria-label="Print bed size">
+            <button type="button" data-bed="180" aria-pressed="false">A1 Mini 180</button>
+            <button type="button" data-bed="220" aria-pressed="true">220 mm</button>
+            <button type="button" data-bed="256" aria-pressed="false">P1S/X1C 256</button>
+          </div>
+        </div>
+        <p class="meta" id="meta">Triangles: — · Est. PLA: — · Build plate: —</p>
 
         <div class="scale-ref">
           <svg id="ref-svg" viewBox="0 0 340 110" role="img" aria-label="Real-scale comparison against a 12 cm soda can"></svg>
@@ -140,8 +149,13 @@
   <script>
   (function () {
     var fileUnit = 'mm';
-    var current = { name: '', rawMin: [0,0,0], rawMax: [110,150,95], tris: 0, edges: [] };
+    var bedMm = 220;
+    var current = { name: '', rawMin: [0,0,0], rawMax: [110,150,95], tris: 0, rawVol: 0, exactVol: false, edges: [] };
     var yaw = 0.65, pitch = 0.35, dragging = false, lx = 0, ly = 0;
+
+    function signedTriVol(a, b, c) {
+      return (a[0]*(b[1]*c[2] - b[2]*c[1]) + a[1]*(b[2]*c[0] - b[0]*c[2]) + a[2]*(b[0]*c[1] - b[1]*c[0])) / 6;
+    }
 
     function makeBoxSample(name, w, h, d, extra) {
       var verts = [
@@ -151,7 +165,7 @@
       var edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
       if (extra) extra(verts, edges);
       var segs = edges.map(function (e) { return [verts[e[0]], verts[e[1]]]; });
-      return { name: name, rawMin: [-w/2, 0, -d/2], rawMax: [w/2, h, d/2], tris: segs.length * 12, edges: segs };
+      return { name: name, rawMin: [-w/2, 0, -d/2], rawMax: [w/2, h, d/2], tris: segs.length * 12, rawVol: w * h * d * 0.35, exactVol: false, edges: segs };
     }
 
     var SAMPLES = {
@@ -159,6 +173,7 @@
         v.push([-35, 150, -30], [35, 150, -30], [35, 150, 30], [-35, 150, 30], [0, 180, 0]);
         e.push([8,9],[9,10],[10,11],[11,8],[8,12],[9,12],[10,12],[11,12]);
       }),
+      mini: makeBoxSample('Tabletop mini (sample)', 28, 38, 28),
       bracket: makeBoxSample('Wall bracket (sample)', 185, 62, 120),
       vase: makeBoxSample('Geometric planter (sample)', 160, 240, 160)
     };
@@ -167,7 +182,7 @@
       var dv = new DataView(buf);
       var isBinary = buf.byteLength >= 84 && (84 + dv.getUint32(80, true) * 50 === buf.byteLength);
       var min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
-      var edges = [], tris = 0;
+      var edges = [], tris = 0, vol = 0;
       function pushV(x, y, z) {
         if (x < min[0]) min[0] = x; if (x > max[0]) max[0] = x;
         if (y < min[1]) min[1] = y; if (y > max[1]) max[1] = y;
@@ -182,6 +197,7 @@
           var b = [dv.getFloat32(o+12, true), dv.getFloat32(o+20, true), dv.getFloat32(o+16, true)];
           var c = [dv.getFloat32(o+24, true), dv.getFloat32(o+32, true), dv.getFloat32(o+28, true)];
           pushV(a[0],a[1],a[2]); pushV(b[0],b[1],b[2]); pushV(c[0],c[1],c[2]);
+          vol += signedTriVol(a, b, c);
           if (i % step === 0) { edges.push([a,b],[b,c],[c,a]); }
         }
       } else {
@@ -190,11 +206,11 @@
         while ((m = re.exec(text)) !== null) {
           var v = [parseFloat(m[1]), parseFloat(m[3]), parseFloat(m[2])];
           pushV(v[0],v[1],v[2]); tri.push(v);
-          if (tri.length === 3) { tris++; if (edges.length < 1500) edges.push([tri[0],tri[1]],[tri[1],tri[2]],[tri[2],tri[0]]); tri = []; }
+          if (tri.length === 3) { tris++; vol += signedTriVol(tri[0], tri[1], tri[2]); if (edges.length < 1500) edges.push([tri[0],tri[1]],[tri[1],tri[2]],[tri[2],tri[0]]); tri = []; }
         }
       }
       fileUnit = 'mm';
-      return { name: name, rawMin: min, rawMax: max, tris: tris, edges: edges };
+      return { name: name, rawMin: min, rawMax: max, tris: tris, rawVol: Math.abs(vol), exactVol: Math.abs(vol) > 0, edges: edges };
     }
 
     function parseOBJ(buf, name) {
@@ -260,8 +276,15 @@
       document.getElementById('sx').textContent = fmt3(dx);
       document.getElementById('sy').textContent = fmt3(dy);
       document.getElementById('sz').textContent = fmt3(dz);
-      var bedOk = Math.max(dx, dz) <= 220 && dy <= 250;
-      document.getElementById('meta').textContent = 'Triangles: ' + current.tris.toLocaleString() + ' · Standard 220×220 mm print bed: ' + (bedOk ? 'Fits' : 'Needs scaling or splitting');
+      var bedOk = Math.max(dx, dz) <= bedMm && dy <= Math.max(bedMm, 250);
+      var scaleMm = fileUnit === 'mm' ? 1 : fileUnit === 'cm' ? 10 : 1000;
+      var volCm3 = (current.rawVol > 0 ? current.rawVol * Math.pow(scaleMm, 3) : dx * dy * dz * 0.3) / 1000;
+      var plaGrams = Math.max(1, Math.round(volCm3 * 0.35 * 1.24));
+      document.getElementById('meta').textContent =
+        'Triangles: ' + current.tris.toLocaleString() +
+        ' · ' + (current.exactVol ? 'Mesh vol: ' + Math.round(volCm3) + ' cm³' : 'Est. vol: ~' + Math.round(volCm3) + ' cm³') +
+        ' · Est. PLA (15% infill): ~' + plaGrams + ' g' +
+        ' · ' + bedMm + '×' + bedMm + ' mm plate: ' + (bedOk ? 'Fits' : 'Needs scaling or splitting');
 
       var canMm = 122, maxH = Math.max(dy, canMm, 1);
       var canPx = Math.max(14, (canMm / maxH) * 76);
@@ -332,7 +355,14 @@
     drop.ondrop = function (e) { e.preventDefault(); drop.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); };
 
     document.querySelectorAll('.chip').forEach(function (c) { c.onclick = function () { loadSample(c.dataset.sample); }; });
-    document.querySelectorAll('.seg button').forEach(function (b) { b.onclick = function () { fileUnit = b.dataset.u; updateInfo(); }; });
+    document.querySelectorAll('[data-u]').forEach(function (b) { b.onclick = function () { fileUnit = b.dataset.u; updateInfo(); }; });
+    document.querySelectorAll('#bed-seg button').forEach(function (b) {
+      b.onclick = function () {
+        bedMm = parseInt(b.dataset.bed, 10);
+        document.querySelectorAll('#bed-seg button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        updateInfo();
+      };
+    });
 
     var cv = document.getElementById('cv');
     cv.onpointerdown = function (e) { dragging = true; lx = e.clientX; ly = e.clientY; cv.setPointerCapture(e.pointerId); };

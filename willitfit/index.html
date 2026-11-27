@@ -186,7 +186,10 @@
     </section>
 
     <footer>
-      <a href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_calc%26utm_medium%3Dfooter">Will It Fit on Google Play</a>
+      <a href="/willitfit/tv-in-car/">TV Box in Car Calculator</a>
+      <a href="/willitfit/ikea-in-car/">IKEA Box Fit Guide</a>
+      <a href="/willitfit/sofa-through-door/">Sofa Door &amp; Hallway Guide</a>
+      <a href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_calc%26utm_medium%3Dfooter">Google Play</a>
       <a href="/arcamera/">3D AR Viewer (STL / GLB in AR)</a>
       <a href="https://github.com/sceneview/sceneview">Built with SceneView</a>
       <a href="/willitfit/privacy/">Privacy</a>
@@ -200,13 +203,27 @@
     var PRESETS = [
       { id: 'sofa3', name: 'Sofa, 3 seats', w: 220, d: 95, h: 85 },
       { id: 'sofa2', name: 'Sofa, 2 seats', w: 170, d: 90, h: 85 },
-      { id: 'bed140', name: 'Bed 140', w: 150, d: 205, h: 95 },
-      { id: 'bed160', name: 'Bed 160', w: 170, d: 215, h: 95 },
-      { id: 'wardrobe', name: 'Wardrobe', w: 100, d: 60, h: 201 },
+      { id: 'tv65box', name: '65″ TV (box)', w: 160, d: 19, h: 97 },
+      { id: 'tv75box', name: '75″ TV (box)', w: 184, d: 21, h: 112 },
+      { id: 'billy', name: 'IKEA BILLY (box)', w: 206, d: 29, h: 13 },
+      { id: 'pax201', name: 'IKEA PAX 201 (box)', w: 207, d: 61, h: 9 },
+      { id: 'kallax', name: 'IKEA KALLAX 4×4', w: 151, d: 41, h: 20 },
+      { id: 'friheten', name: 'IKEA FRIHETEN', w: 230, d: 151, h: 66 },
+      { id: 'bed160', name: 'Queen bed', w: 170, d: 215, h: 95 },
       { id: 'fridge', name: 'Fridge', w: 60, d: 66, h: 186 },
       { id: 'washer', name: 'Washer', w: 60, d: 60, h: 85 },
-      { id: 'tv65', name: 'TV 65″', w: 145, d: 29, h: 90 },
       { id: 'bike', name: 'Bike', w: 178, d: 60, h: 105 }
+    ];
+    var CARS = [
+      { id: 'golf', name: 'VW Golf (seats down)', ow: 102, oh: 71, l: 158, w: 100, h: 74 },
+      { id: 'clio', name: 'Renault Clio (seats down)', ow: 96, oh: 67, l: 142, w: 98, h: 70 },
+      { id: 'civic', name: 'Honda Civic Hatch', ow: 104, oh: 69, l: 165, w: 102, h: 72 },
+      { id: 'p3008', name: 'Peugeot 3008 SUV', ow: 106, oh: 76, l: 172, w: 105, h: 80 },
+      { id: 'rav4', name: 'Toyota RAV4', ow: 110, oh: 79, l: 180, w: 108, h: 84 },
+      { id: 'crv', name: 'Honda CR-V', ow: 112, oh: 82, l: 184, w: 107, h: 86 },
+      { id: 'modely', name: 'Tesla Model Y', ow: 109, oh: 74, l: 192, w: 105, h: 78 },
+      { id: 'x3', name: 'BMW X3', ow: 110, oh: 77, l: 178, w: 109, h: 80 },
+      { id: 'kangoo', name: 'Compact Van / Kangoo', ow: 120, oh: 112, l: 188, w: 119, h: 115 }
     ];
     var CARRIES = [
       { id: 'UPRIGHT', label: 'upright', upright: true, across: 'w', up: 'h', along: 'd' },
@@ -220,12 +237,13 @@
     var state = {
       unit: /en-US/i.test(navigator.language || '') ? 'in' : 'cm',
       presetId: 'sofa3',
+      carId: 'golf',
       obj: { w: 220, d: 95, h: 85 },
       space: 'door',
       door: { w: 78, h: 200 },
       hall: { w: 90, t: 90, c: 240 },
       lift: { dw: 80, dh: 200, cw: 100, cd: 125, ch: 210 },
-      boot: { ow: 108, oh: 80, l: 103, w: 104, h: 68 }
+      boot: { ow: 102, oh: 71, l: 158, w: 100, h: 74 }
     };
 
     function toDisp(cm) {
@@ -368,9 +386,26 @@
         boot: [['bow', 'Opening width', state.boot.ow], ['boh', 'Opening height', state.boot.oh], ['bl', 'Inside length', state.boot.l], ['bw', 'Inside width', state.boot.w], ['bh', 'Inside height', state.boot.h]]
       }[state.space];
       var cls = specs.length === 2 ? 'fields fields--2' : 'fields';
-      wrap.innerHTML = '<div class="' + cls + '">' + specs.map(function (sp) {
+      var carHtml = state.space === 'boot'
+        ? '<div class="chips" id="car-presets" style="margin-bottom:12px">' + CARS.map(function (c) {
+            return '<button type="button" class="chip" data-car="' + c.id + '" aria-pressed="' + String(state.carId === c.id) + '">' + c.name + '</button>';
+          }).join('') + '</div>'
+        : '';
+      wrap.innerHTML = carHtml + '<div class="' + cls + '">' + specs.map(function (sp) {
         return '<div class="field"><label for="' + sp[0] + '">' + sp[1] + '</label><div class="input-wrap"><input id="' + sp[0] + '" type="number" inputmode="decimal" step="any" min="1" max="1000" value="' + toDisp(sp[2]) + '"><span>' + state.unit + '</span></div></div>';
       }).join('') + '</div>';
+      if (state.space === 'boot') {
+        wrap.querySelectorAll('[data-car]').forEach(function (btn) {
+          btn.onclick = function () {
+            var car = CARS.find(function (c) { return c.id === btn.dataset.car; });
+            if (!car) return;
+            state.carId = car.id;
+            state.boot = { ow: car.ow, oh: car.oh, l: car.l, w: car.w, h: car.h };
+            renderSpaceFields();
+            update();
+          };
+        });
+      }
       specs.forEach(function (sp) {
         document.getElementById(sp[0]).addEventListener('input', function (e) {
           var cm = fromDisp(e.target.value);
@@ -378,7 +413,7 @@
           if (state.space === 'door') state.door[sp[0] === 'dw' ? 'w' : 'h'] = cm;
           if (state.space === 'hall') state.hall[sp[0] === 'hw' ? 'w' : sp[0] === 'ht' ? 't' : 'c'] = cm;
           if (state.space === 'lift') state.lift[sp[0].slice(1)] = cm;
-          if (state.space === 'boot') state.boot[sp[0].slice(1)] = cm;
+          if (state.space === 'boot') { state.carId = null; state.boot[sp[0].slice(1)] = cm; }
           update();
         });
       });
@@ -511,6 +546,23 @@
         location.href = url;
       }
     };
+
+    // Apply URL query parameters (?space=boot&preset=tv65box&car=golf&u=in)
+    (function () {
+      var params = new URLSearchParams(location.search);
+      if (params.get('u') === 'in' || params.get('u') === 'cm') state.unit = params.get('u');
+      var sp = params.get('space');
+      if (sp && ['door', 'hall', 'lift', 'boot'].indexOf(sp) >= 0) {
+        state.space = sp;
+        document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t.dataset.space === sp)); });
+      }
+      var pr = PRESETS.find(function (p) { return p.id === params.get('preset'); });
+      if (pr) { state.presetId = pr.id; state.obj = { w: pr.w, d: pr.d, h: pr.h }; }
+      var cr = CARS.find(function (c) { return c.id === params.get('car'); });
+      if (cr) { state.carId = cr.id; state.boot = { ow: cr.ow, oh: cr.oh, l: cr.l, w: cr.w, h: cr.h }; }
+      document.getElementById('u-cm').setAttribute('aria-pressed', String(state.unit === 'cm'));
+      document.getElementById('u-in').setAttribute('aria-pressed', String(state.unit === 'in'));
+    })();
 
     syncInputs();
     update();
