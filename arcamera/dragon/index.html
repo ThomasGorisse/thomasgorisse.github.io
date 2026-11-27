@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Living AR Dragon on a Real Living Room Floor — 3D AR Viewer</title>
+  <meta name="description" content="Watch a 3D dragon anchored at true 1:1 scale on a real living room floor with ARCore + Filament and brought to life. Try 3D AR Viewer on Android and iOS.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/dragon/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Living AR Dragon on a Real Living Room Floor — 3D AR Viewer">
+  <meta property="og:description" content="Anchored at 1:1 scale with real shadows using open-source SceneView, then brought to life in the room.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/arcamera/dragon/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/arcamera/dragon-poster.jpg">
+  <style>
+    :root { color-scheme: light dark; --bg:#0b0e14; --surface:#141923; --text:#eef2f7; --muted:#9aa7bd; --outline:#263042; --primary:#ffd166; --primary-ink:#111318; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; gap:12px; }
+    .brand { font-weight:800; text-decoration:none; color:inherit; }
+    .grid { display:grid; gap:22px; grid-template-columns:1fr; align-items:center; }
+    @media (min-width: 780px) { .grid { grid-template-columns: .95fr 1.05fr; } }
+    .phone { border-radius:24px; overflow:hidden; border:1px solid var(--outline); background:#000; max-width:380px; margin:0 auto; width:100%; box-shadow:0 24px 60px rgba(0,0,0,.55); }
+    video { width:100%; display:block; }
+    h1 { font-size:clamp(1.7rem, 4vw, 2.4rem); line-height:1.12; margin:0 0 12px; }
+    .sub { color:var(--muted); margin:0 0 20px; }
+    .ctas { display:grid; gap:10px; max-width:380px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:50px; padding:0 20px; border-radius:999px; font-weight:800; text-decoration:none; text-align:center; }
+    .btn--primary { background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--surface); color:var(--text); border:1px solid var(--outline); }
+    .steps { margin-top:24px; padding:16px; border-radius:16px; background:var(--surface); border:1px solid var(--outline); font-size:.9rem; color:var(--muted); }
+    .steps strong { color:var(--text); }
+    footer { margin-top:36px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/arcamera/">← 3D AR Viewer</a>
+      <a href="https://github.com/sceneview/sceneview" style="color:var(--muted);font-size:.86rem;text-decoration:none">Built with SceneView (Apache 2.0)</a>
+    </header>
+
+    <div class="grid">
+      <div class="phone">
+        <video src="/arcamera/dragon-hero.mp4" poster="/arcamera/dragon-poster.jpg" autoplay muted loop playsinline controls></video>
+      </div>
+      <div>
+        <h1>Placed a 3D dragon in my living room in AR — then brought it to life</h1>
+        <p class="sub">When you anchor a 3D model on your real floor first with ARCore and Filament, you get exact perspective, true 1:1 scale, and matching room shadows before animating a single frame.</p>
+        <div class="ctas">
+          <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_dragon%26utm_medium%3Dshowcase%26utm_campaign%3Ddragon_launch">Get 3D AR Viewer on Google Play</a>
+          <a class="btn btn--sec" href="https://apps.apple.com/app/id6790808866">Get 3D AR Viewer on iOS (App Store)</a>
+          <a class="btn btn--sec" href="/arcamera/">Inspect local .STL / .OBJ / .GLB files in browser</a>
+        </div>
+        <div class="steps">
+          <strong>How it works:</strong><br>
+          1. Open any local <code>.glb</code>, <code>.stl</code>, or <code>.obj</code> model (or create one from a photo).<br>
+          2. Anchor it on your real floor or desk at 1:1 scale with Filament PBR lighting and ground shadows.<br>
+          3. Capture and animate directly in your real room.
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/arcamera/">STL / OBJ / GLB Inspector</a>
+      <a href="/willitfit/">Will It Fit Calculator</a>
+      <a href="https://github.com/sceneview/sceneview">SceneView on GitHub</a>
+      <a href="/arcamera/privacy/">Privacy</a>
+    </footer>
+  </div>
+</body>
+</html>
