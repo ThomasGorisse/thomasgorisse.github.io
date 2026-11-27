@@ -21,8 +21,9 @@
     .brand { font-weight:800; text-decoration:none; color:inherit; }
     .grid { display:grid; gap:22px; grid-template-columns:1fr; align-items:center; }
     @media (min-width: 780px) { .grid { grid-template-columns: .95fr 1.05fr; } }
-    .phone { border-radius:24px; overflow:hidden; border:1px solid var(--outline); background:#000; max-width:380px; margin:0 auto; width:100%; box-shadow:0 24px 60px rgba(0,0,0,.55); }
+    .phone { position:relative; border-radius:24px; overflow:hidden; border:1px solid var(--outline); background:#000; max-width:380px; margin:0 auto; width:100%; box-shadow:0 24px 60px rgba(0,0,0,.55); }
     video { width:100%; display:block; }
+    .sound-btn { position:absolute; bottom:14px; right:14px; z-index:2; border:1px solid rgba(255,255,255,.28); background:rgba(11,14,20,.76); color:#fff; font:inherit; font-size:.82rem; font-weight:700; padding:7px 13px; border-radius:999px; cursor:pointer; backdrop-filter:blur(8px); }
     h1 { font-size:clamp(1.7rem, 4vw, 2.4rem); line-height:1.12; margin:0 0 12px; }
     .sub { color:var(--muted); margin:0 0 20px; }
     .ctas { display:grid; gap:10px; max-width:380px; }
@@ -44,7 +45,8 @@
 
     <div class="grid">
       <div class="phone">
-        <video src="/arcamera/dragon-hero.mp4" poster="/arcamera/dragon-poster.jpg" autoplay muted loop playsinline controls></video>
+        <video id="dvid" src="/arcamera/dragon-showcase.mp4" poster="/arcamera/dragon-poster.jpg" autoplay muted loop playsinline controls></video>
+        <button type="button" class="sound-btn" id="sbtn">🔊 Enable sound</button>
       </div>
       <div>
         <h1>Placed a 3D dragon in my living room in AR — then brought it to life</h1>
@@ -70,5 +72,19 @@
       <a href="/arcamera/privacy/">Privacy</a>
     </footer>
   </div>
+  <script>
+  (function () {
+    var v = document.getElementById('dvid'), b = document.getElementById('sbtn');
+    if (!v || !b) return;
+    b.onclick = function () {
+      v.muted = !v.muted;
+      if (!v.muted) { v.volume = 1; v.play().catch(function(){}); }
+      b.textContent = v.muted ? '🔊 Enable sound' : '🔇 Mute';
+    };
+    v.onvolumechange = function () {
+      b.textContent = v.muted ? '🔊 Enable sound' : '🔇 Mute';
+    };
+  })();
+  </script>
 </body>
 </html>
