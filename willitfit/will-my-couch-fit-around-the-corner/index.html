@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will my couch fit around the corner? Free hallway checker</title>
+  <meta name="description" content="Will your couch make a right-angle hallway turn? Enter its size, both hallway widths and the ceiling height. Get a fit verdict, carrying orientation and margin.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/will-my-couch-fit-around-the-corner/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Will It Fit">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/will-my-couch-fit-around-the-corner/">
+  <meta property="og:title" content="Will my couch fit around the corner? Free hallway checker">
+  <meta property="og:description" content="Check a right-angle hallway turn using your couch's size, the widths before and after the corner, and the ceiling height.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/img/8-hall.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1440">
+  <meta property="og:image:alt" content="Will It Fit's hallway plan showing a sofa making a right-angle turn.">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <link rel="stylesheet" href="/willitfit/site.css">
+  <script type="module" src="/willitfit/checker.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Why can a couch fit through the door but miss the corner?", "acceptedAnswer": { "@type": "Answer", "text": "A doorway only needs to clear the couch's cross-section. At a corner, its length must swing between the walls while its inner edge clears the inside corner. That turning space can be the limiting measurement." } },
+      { "@type": "Question", "name": "Which hallway sizes should I enter?", "acceptedAnswer": { "@type": "Answer", "text": "Measure wall to wall at the narrowest usable points before and after the right-angle turn, and the lowest ceiling above the route. Account for skirting boards, radiators, handles and other obstructions. For a door after the turn, use its clear width and check its height separately." } },
+      { "@type": "Question", "name": "Can standing the couch on its end help?", "acceptedAnswer": { "@type": "Answer", "text": "Sometimes. This checker tries all six orientations, including ones with the couch's width pointing up, provided it clears the ceiling. It assumes you can get it into that orientation; lifting it into position or tilting it during the turn is not simulated." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" width="36" height="36" alt="">Will It Fit</a>
+      <nav aria-label="Site"><a href="/willitfit/">The app</a><a href="/willitfit/privacy/">Privacy</a></nav>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="question-title">
+        <p class="eyebrow">Hallway corner checker</p>
+        <h1 id="question-title">Will my couch make the turn in a hallway?</h1>
+        <p class="lead">A couch can clear the door and still catch at the corner: its length needs room to swing between the walls. Measure both hallway widths and the ceiling, as well as the couch’s full width, depth and height.</p>
+        <p>Use the <strong>narrowest clear width before and after the turn</strong>. Allow for skirting boards, radiators and handles. Standing the couch on its end may help if it clears the ceiling. Leave space for hands and padding.</p>
+      </section>
+      <section aria-labelledby="checker-title">
+        <div class="checker">
+          <h2 id="checker-title">Check your hallway turn</h2>
+          <p class="small" id="example-help">Example sizes to start with. Replace them with your measurements.</p>
+          <form data-checker="hall" aria-labelledby="checker-title" aria-describedby="example-help">
+            <fieldset class="controls" disabled>
+              <legend class="small">Your measurements</legend>
+              <div class="toolbar">
+                <fieldset class="units">
+                  <legend>Units</legend>
+                  <label><input type="radio" name="unit" value="cm" checked>cm</label>
+                  <label><input type="radio" name="unit" value="in">in</label>
+                </fieldset>
+                <div class="preset">
+                  <label for="preset">Start with an object</label>
+                  <select id="preset" name="preset">
+                    <option value="custom">Your own sizes</option>
+                    <option value="sofa2">2-seat sofa</option>
+                    <option value="sofa3" selected>3-seat sofa</option>
+                    <option value="fridge">Fridge</option>
+                    <option value="wardrobe">Wardrobe</option>
+                    <option value="bed160">Bed 160</option>
+                  </select>
+                </div>
+              </div>
+              <fieldset>
+                <legend>Object · width × depth × height</legend>
+                <div class="fields">
+                  <label for="object-width">Width (<span data-unit>cm</span>)<input id="object-width" data-size type="text" inputmode="decimal" value="220" data-inches="87" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-depth">Depth (<span data-unit>cm</span>)<input id="object-depth" data-size type="text" inputmode="decimal" value="95" data-inches="37" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-height">Height (<span data-unit>cm</span>)<input id="object-height" data-size type="text" inputmode="decimal" value="85" data-inches="33" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Hallway · right-angle turn</legend>
+                <div class="fields hall">
+                  <label for="space-width">Before turn (<span data-unit>cm</span>)<input id="space-width" data-size type="text" inputmode="decimal" value="90" data-inches="36" autocomplete="off" spellcheck="false" aria-describedby="hall-help size-help"></label>
+                  <label for="space-turn">After turn (<span data-unit>cm</span>)<input id="space-turn" data-size type="text" inputmode="decimal" value="90" data-inches="36" autocomplete="off" spellcheck="false" aria-describedby="hall-help size-help"></label>
+                  <label for="space-ceiling">Ceiling (<span data-unit>cm</span>)<input id="space-ceiling" data-size type="text" inputmode="decimal" value="240" data-inches="96" autocomplete="off" spellcheck="false" aria-describedby="hall-help size-help"></label>
+                </div>
+              </fieldset>
+              <p class="help" id="hall-help">Widths are wall to wall at the narrowest point. Turning through a door? Use its clear width after the turn, then <a href="/willitfit/will-my-couch-fit-through-the-door/">check the door’s height too</a>.</p>
+              <p class="help" id="size-help">Use positive sizes from 1 to 1,000 cm (about 0.4 to 393.7 in). Decimals are welcome. The answer updates as you type.</p>
+            </fieldset>
+          </form>
+          <div class="verdict" id="verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+            <h3 id="verdict-title">Your fit verdict</h3>
+            <p id="verdict-margin">Enter your sizes to see the margin.</p>
+            <p class="small" id="verdict-carry">The carrying orientation will appear here.</p>
+          </div>
+          <noscript><p>This checker needs JavaScript enabled. The measuring advice on this page still applies.</p></noscript>
+          <p class="small">Your measurements stay in this browser. Nothing is saved or sent.</p>
+        </div>
+        <p class="small limitations"><strong>What this checks:</strong> a rectangular box carried level around a 90° turn, in six orientations, with both hallways continuing past the corner. No tilting during the turn, lifting into position, furniture flex or irregular obstacles are simulated. A short doorway may allow more room than this model. The margin names the limiting width, ceiling or extra object length at the turn. Less than 2 cm is “tight”.</p>
+      </section>
+      <section class="app-section" aria-labelledby="app-title">
+        <figure class="app-shot">
+          <img src="/willitfit/img/8-hall.jpg" width="720" height="1440" loading="lazy" decoding="async" alt="Will It Fit's hallway plan: a sofa on its side making the turn between two 100 cm hallways.">
+          <figcaption>A hallway check in the Android app. Example measurements.</figcaption>
+        </figure>
+        <div class="app-copy">
+          <h2 id="app-title">See the turn, keep the sizes</h2>
+          <p>See the hallway plan in Will It Fit. Check furniture in 3D and AR, measure the door and hallway with the AR tape, and save your home. The app also checks car boots and lifts.</p>
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb%26utm_medium%3Dcorner%26utm_campaign%3Dwif-web">Get it on Google Play</a>
+          <p class="availability">Free for Android. AR needs a compatible phone.</p>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you reach the corner</h2>
+        <h3>Why can a couch fit through the door but miss the corner?</h3>
+        <p>A doorway only needs to clear the couch’s cross-section. At a corner, its length must swing between the walls while its inner edge clears the inside corner. That turning space can be the limiting measurement.</p>
+        <h3>Which hallway sizes should I enter?</h3>
+        <p>Measure wall to wall at the narrowest usable points before and after the right-angle turn, and the lowest ceiling above the route. Account for skirting boards, radiators, handles and other obstructions. For a door after the turn, use its clear width and check its height separately.</p>
+        <h3>Can standing the couch on its end help?</h3>
+        <p>Sometimes. This checker tries all six orientations, including ones with the couch’s width pointing up, provided it clears the ceiling. It assumes you can get it into that orientation; lifting it into position or tilting it during the turn is not simulated.</p>
+        <p><a href="/willitfit/will-my-couch-fit-through-the-door/">Also check: will your couch fit through the door?</a></p>
+      </section>
+    </main>
+    <footer><p><a href="/willitfit/">Will It Fit</a> · Published by <a href="/">Thomas Gorisse</a> · <a href="/willitfit/privacy/">Privacy</a></p></footer>
+  </div>
+</body>
+</html>

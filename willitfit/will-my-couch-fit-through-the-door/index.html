@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will my couch fit through the door? Free size checker</title>
+  <meta name="description" content="Measure your couch and the clear door opening. Check six carrying orientations in cm or inches, with a fit verdict and margin. No sizes leave your browser.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/will-my-couch-fit-through-the-door/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Will It Fit">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/will-my-couch-fit-through-the-door/">
+  <meta property="og:title" content="Will my couch fit through the door? Free size checker">
+  <meta property="og:description" content="Enter the couch and clear opening sizes. Check six carrying orientations, with the margin and which way to carry it.">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/img/7-verdict.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="1440">
+  <meta property="og:image:alt" content="Will It Fit showing a sofa going through a door on its back, with 2 cm to spare.">
+  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1415" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <link rel="stylesheet" href="/willitfit/site.css">
+  <script type="module" src="/willitfit/checker.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What should I measure on the door?", "acceptedAnswer": { "@type": "Answer", "text": "Measure the clear opening inside the frame with the door open. Include any space taken by stops, hinges and handles; use the narrowest usable width and height, not the door leaf size." } },
+      { "@type": "Question", "name": "Can a couch longer than the door is tall still fit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Its length can travel through the opening while its depth and height fit across and up, in either order. This also needs room to line it up and carry it out on the other side." } },
+      { "@type": "Question", "name": "Does a no verdict mean it is impossible?", "acceptedAnswer": { "@type": "Answer", "text": "No. This checks a solid rectangular box passing straight through in six orientations. Diagonal tilting, a sofa's shaped seat and removable parts can change the answer. Remeasure after removing parts, and allow room for hands and padding." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="wrap">
+    <header class="masthead">
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" width="36" height="36" alt="">Will It Fit</a>
+      <nav aria-label="Site"><a href="/willitfit/">The app</a><a href="/willitfit/privacy/">Privacy</a></nav>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="question-title">
+        <p class="eyebrow">Door size checker</p>
+        <h1 id="question-title">Will my couch fit through the door?</h1>
+        <p class="lead">For a straight pass, the couch’s depth or height must fit the door’s clear width, and the other must fit its clear height. Its length travels through the doorway. Standing it on its end is another option if there’s room.</p>
+        <p>Measure the <strong>clear opening inside the frame</strong>, with the door open: stops, hinges and handles included. Measure the couch’s full width, depth and height, including feet and arms. If parts come off, measure it again without them. Leave room for hands and protective padding.</p>
+      </section>
+      <section aria-labelledby="checker-title">
+        <div class="checker">
+          <h2 id="checker-title">Check your couch and door</h2>
+          <p class="small" id="example-help">Example sizes to start with. Replace them with your measurements.</p>
+          <form data-checker="door" aria-labelledby="checker-title" aria-describedby="example-help">
+            <fieldset class="controls" disabled>
+              <legend class="small">Your measurements</legend>
+              <div class="toolbar">
+                <fieldset class="units">
+                  <legend>Units</legend>
+                  <label><input type="radio" name="unit" value="cm" checked>cm</label>
+                  <label><input type="radio" name="unit" value="in">in</label>
+                </fieldset>
+                <div class="preset">
+                  <label for="preset">Start with an object</label>
+                  <select id="preset" name="preset">
+                    <option value="custom">Your own sizes</option>
+                    <option value="sofa2">2-seat sofa</option>
+                    <option value="sofa3" selected>3-seat sofa</option>
+                    <option value="fridge">Fridge</option>
+                    <option value="wardrobe">Wardrobe</option>
+                    <option value="bed160">Bed 160</option>
+                  </select>
+                </div>
+              </div>
+              <fieldset>
+                <legend>Object · width × depth × height</legend>
+                <div class="fields">
+                  <label for="object-width">Width (<span data-unit>cm</span>)<input id="object-width" data-size type="text" inputmode="decimal" value="220" data-inches="87" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-depth">Depth (<span data-unit>cm</span>)<input id="object-depth" data-size type="text" inputmode="decimal" value="95" data-inches="37" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="object-height">Height (<span data-unit>cm</span>)<input id="object-height" data-size type="text" inputmode="decimal" value="85" data-inches="33" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Door · clear opening</legend>
+                <div class="fields two">
+                  <label for="space-width">Clear width (<span data-unit>cm</span>)<input id="space-width" data-size type="text" inputmode="decimal" value="78" data-inches="30" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                  <label for="space-height">Clear height (<span data-unit>cm</span>)<input id="space-height" data-size type="text" inputmode="decimal" value="200" data-inches="80" autocomplete="off" spellcheck="false" aria-describedby="size-help"></label>
+                </div>
+              </fieldset>
+              <p class="help" id="size-help">Use positive sizes from 1 to 1,000 cm (about 0.4 to 393.7 in). Decimals are welcome. The answer updates as you type.</p>
+            </fieldset>
+          </form>
+          <div class="verdict" id="verdict" role="status" aria-live="polite" aria-atomic="true" data-state="empty">
+            <h3 id="verdict-title">Your fit verdict</h3>
+            <p id="verdict-margin">Enter your sizes to see the margin.</p>
+            <p class="small" id="verdict-carry">The carrying orientation will appear here.</p>
+          </div>
+          <noscript><p>This checker needs JavaScript enabled. The measuring advice on this page still applies.</p></noscript>
+          <p class="small">Your measurements stay in this browser. Nothing is saved or sent.</p>
+        </div>
+        <p class="small limitations"><strong>What this checks:</strong> a rectangular box, straight through, in six orientations. No diagonal tilt, compression or curved sofa shape; no approach space, wall thickness or hallway turn is simulated. The margin is the smaller total gap across or up, not a gap on each side. Less than 2 cm to spare is “tight”; an exact fit leaves no room for hands.</p>
+      </section>
+      <section class="app-section" aria-labelledby="app-title">
+        <figure class="app-shot">
+          <img src="/willitfit/img/7-verdict.jpg" width="720" height="1440" loading="lazy" decoding="async" alt="Will It Fit's door view: a sofa carried on its back, with a verdict and 2 cm to spare.">
+          <figcaption>A door check in the Android app. Example measurements.</figcaption>
+        </figure>
+        <div class="app-copy">
+          <h2 id="app-title">See which way to carry it</h2>
+          <p>Check it in 3D and AR, measure the door with the AR tape, save your home. Will It Fit also checks the car boot, hallway and lift.</p>
+          <a class="cta" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb%26utm_medium%3Ddoor%26utm_campaign%3Dwif-web">Get it on Google Play</a>
+          <p class="availability">Free for Android. AR needs a compatible phone.</p>
+        </div>
+      </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you move it</h2>
+        <h3>What should I measure on the door?</h3>
+        <p>Measure the clear opening inside the frame with the door open. Include any space taken by stops, hinges and handles; use the narrowest usable width and height, not the door leaf size.</p>
+        <h3>Can a couch longer than the door is tall still fit?</h3>
+        <p>Yes. Its length can travel through the opening while its depth and height fit across and up, in either order. This also needs room to line it up and carry it out on the other side.</p>
+        <h3>Does a no verdict mean it is impossible?</h3>
+        <p>No. This checks a solid rectangular box passing straight through in six orientations. Diagonal tilting, a sofa’s shaped seat and removable parts can change the answer. Remeasure after removing parts, and allow room for hands and padding.</p>
+        <p><a href="/willitfit/will-my-couch-fit-around-the-corner/">Next: will your couch make the turn in a hallway?</a></p>
+      </section>
+    </main>
+    <footer><p><a href="/willitfit/">Will It Fit</a> · Published by <a href="/">Thomas Gorisse</a> · <a href="/willitfit/privacy/">Privacy</a></p></footer>
+  </div>
+</body>
+</html>
