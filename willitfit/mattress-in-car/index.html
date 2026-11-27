@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will a Twin, Full, Queen, or King Mattress Fit in My Car? — Instant Fit Table &amp; Calculator</title>
+  <meta name="description" content="Buying or moving a mattress? Check instantly whether a Twin, Full, Queen, King, EU 140×190, EU 160×200, or boxed mattress-in-a-box fits in a Golf, Civic, RAV4, CR-V, Model Y, 3008, or compact van.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/mattress-in-car/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Will a Twin, Full, Queen, or King Mattress Fit in My Car?">
+  <meta property="og:description" content="Instant car cargo fit table for unrolled, memory-foam, and boxed mattresses across 9 popular cars, plus offline Android AR boot measurement.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/mattress-in-car/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Will a Mattress Fit in My Car? — Instant Boot Fit Checker",
+    "url": "https://thomasgorisse.github.io/willitfit/mattress-in-car/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web, Android",
+    "description": "Check whether a Twin, Full, Queen, King, EU 140x190, EU 160x200, or rolled mattress-in-a-box fits inside popular hatchbacks, SUVs, and compact vans.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will an unrolled Queen mattress fit inside an SUV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An unrolled US Queen mattress measures 152 x 203 cm (60 x 80 in), which is wider than almost every SUV cargo bay between the wheel arches (105 to 112 cm). A rigid innerspring or hybrid Queen will not lie flat inside a standard SUV; only an all-foam mattress can be curved slightly into a U-shape for a short drive, whereas a rolled mattress-in-a-box (roughly 43 x 43 x 110 cm) fits easily inside any hatchback or SUV."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will a Twin mattress fit in a hatchback or compact SUV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A US Twin (97 x 190 cm / 38 x 75 in) or EU Single (90 x 190 cm) clears the wheel-arch width of most hatchbacks and compact SUVs with the rear seats folded, though length (190 cm) requires sliding the front passenger seat forward or reclining it in vehicles shorter than a Tesla Model Y."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#faf7f2; --surface:#fff; --card:#f2ede6; --text:#1c1b1a; --muted:#545f5f; --outline:#d5d0c8; --primary:#f2641f; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --no:#b3261e; --no-bg:#fce8e6; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1415; --surface:#161d1e; --card:#1d2526; --text:#e6ecec; --muted:#a2b0b0; --outline:#2e3a3b; --primary:#ff7a38; --primary-ink:#1b0b00; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --no:#f28b82; --no-bg:#351514; } }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color:inherit; }
+    .brand img { width:34px; height:34px; border-radius:9px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:66ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.86rem; font-weight:600; padding:8px 13px; border-radius:999px; cursor:pointer; }
+    .chip[aria-pressed="true"] { background:var(--primary); color:var(--primary-ink); border-color:var(--primary); }
+    .mode-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:14px; }
+    .seg { display:inline-flex; background:var(--card); border:1px solid var(--outline); border-radius:999px; padding:3px; }
+    .seg button { border:0; background:transparent; color:var(--muted); font:inherit; font-size:.82rem; font-weight:700; padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .seg button[aria-pressed="true"] { background:var(--surface); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.12); }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--outline); }
+    th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+    .pill { display:inline-block; padding:3px 9px; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .pill--no { background:var(--no-bg); color:var(--no); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      <a class="btn btn--sec" style="min-height:38px;font-size:.85rem" href="/willitfit/?space=boot&amp;preset=bed160">Custom dimensions calculator →</a>
+    </header>
+
+    <h1>Will a Twin, Full, Queen, or King mattress fit in my car?</h1>
+    <p class="sub">Pick your mattress size and construction below for an instant cargo-bay verdict across 9 common cars with rear seats folded. Moving a bed indoors too? Check the <a href="/willitfit/will-my-bed-fit-through-the-door/" style="color:inherit;font-weight:600">bed-through-doorway checker</a>.</p>
+
+    <div class="panel">
+      <strong>1. Pick mattress size (US &amp; EU):</strong>
+      <div class="chips" id="sizes"></div>
+      <div class="mode-row">
+        <strong style="font-size:.88rem">2. Mattress type:</strong>
+        <div class="seg" role="group" aria-label="Mattress type">
+          <button type="button" data-kind="spring" aria-pressed="true">Innerspring / Hybrid (rigid)</button>
+          <button type="button" data-kind="foam" aria-pressed="false">All-Foam (can curve slightly)</button>
+          <button type="button" data-kind="boxed" aria-pressed="false">Rolled Mattress-in-a-Box</button>
+        </div>
+      </div>
+      <div id="m-dim" style="font-size:.9rem;color:var(--muted);margin-bottom:14px"></div>
+      <table>
+        <thead><tr><th>Car (rear seats folded)</th><th>Typical cargo (L × W × H)</th><th>Verdict</th><th>Action</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0"><strong>Transport tip:</strong> Never fold an innerspring or hybrid mattress sharply — bent coils do not recover. All-foam mattresses tolerate a gentle U-curve for a short drive if secured, while a rolled mattress-in-a-box fits easily in almost any car boot.</p>
+      <div class="ctas">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dmattress_in_car%26utm_campaign%3Dparking_lot">Measure my exact boot in Android AR</a>
+        <a class="btn btn--sec" href="/willitfit/?space=boot&amp;preset=bed160">Open full boot &amp; doorway calculator</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/willitfit/">Main Calculator</a>
+      <a href="/willitfit/tv-in-car/">TV Box in Car</a>
+      <a href="/willitfit/ikea-in-car/">IKEA Box in Car</a>
+      <a href="/willitfit/will-my-bed-fit-through-the-door/">Bed Through Door</a>
+      <a href="/willitfit/will-my-couch-fit-through-the-door/">Couch Through Door</a>
+      <a href="/arcamera/">3D AR Viewer</a>
+      <a href="/willitfit/privacy/">Privacy</a>
+    </footer>
+  </div>
+  <script>
+  (function () {
+    var MATTRESSES = [
+      { id: 'twin', label: 'US Twin / EU Single', w: 97, l: 190, h: 24, box: [108, 42, 42] },
+      { id: 'full', label: 'US Full / Double', w: 137, l: 190, h: 25, box: [110, 44, 44] },
+      { id: 'eu140', label: 'EU 140 × 190', w: 140, l: 190, h: 24, box: [110, 44, 44] },
+      { id: 'queen', label: 'US Queen', w: 152, l: 203, h: 26, box: [112, 46, 46] },
+      { id: 'eu160', label: 'EU 160 × 200', w: 160, l: 200, h: 26, box: [112, 46, 46] },
+      { id: 'king', label: 'US King / EU 180', w: 193, l: 203, h: 28, box: [115, 48, 48] }
+    ];
+    var CARS = [
+      { id: 'clio', name: 'Renault Clio / Subcompact', l: 142, w: 98, h: 70, ow: 96, oh: 67 },
+      { id: 'golf', name: 'VW Golf / Compact Hatch', l: 158, w: 100, h: 74, ow: 102, oh: 71 },
+      { id: 'civic', name: 'Honda Civic Hatchback', l: 165, w: 102, h: 72, ow: 104, oh: 69 },
+      { id: 'p3008', name: 'Peugeot 3008 / Compact SUV', l: 172, w: 105, h: 80, ow: 106, oh: 76 },
+      { id: 'x3', name: 'BMW X3 / Mid SUV', l: 178, w: 109, h: 80, ow: 110, oh: 77 },
+      { id: 'rav4', name: 'Toyota RAV4', l: 180, w: 108, h: 84, ow: 110, oh: 79 },
+      { id: 'crv', name: 'Honda CR-V', l: 184, w: 107, h: 86, ow: 112, oh: 82 },
+      { id: 'modely', name: 'Tesla Model Y', l: 192, w: 105, h: 78, ow: 109, oh: 74 },
+      { id: 'kangoo', name: 'Compact Van / Kangoo', l: 188, w: 119, h: 115, ow: 120, oh: 112 }
+    ];
+    var selected = MATTRESSES[3];
+    var kind = 'spring';
+
+    function render() {
+      var sizesEl = document.getElementById('sizes');
+      sizesEl.innerHTML = MATTRESSES.map(function (m) {
+        return '<button type="button" class="chip" data-id="' + m.id + '" aria-pressed="' + String(m.id === selected.id) + '">' + m.label + '</button>';
+      }).join('');
+      sizesEl.querySelectorAll('button').forEach(function (b) {
+        b.onclick = function () { selected = MATTRESSES.find(function (m) { return m.id === b.dataset.id; }); render(); };
+      });
+
+      if (kind === 'boxed') {
+        var b = selected.box;
+        document.getElementById('m-dim').textContent = 'Typical mattress-in-a-box carton: ' + b[0] + ' × ' + b[1] + ' × ' + b[2] + ' cm (' + Math.round(b[0]/2.54) + ' × ' + Math.round(b[1]/2.54) + ' × ' + Math.round(b[2]/2.54) + ' in)';
+      } else {
+        document.getElementById('m-dim').textContent = 'Unrolled mattress size: ' + selected.w + ' × ' + selected.l + ' × ' + selected.h + ' cm (' + Math.round(selected.w/2.54) + ' × ' + Math.round(selected.l/2.54) + ' × ' + Math.round(selected.h/2.54) + ' in)';
+      }
+
+      document.getElementById('rows').innerHTML = CARS.map(function (c) {
+        var badge;
+        if (kind === 'boxed') {
+          var b = selected.box;
+          var fitsBox = b[0] <= c.l && b[1] <= Math.min(c.w, c.ow) && b[2] <= Math.min(c.h, c.oh);
+          badge = fitsBox ? '<span class="pill pill--ok">Fits easily in box</span>' : '<span class="pill pill--warn">Tight · slide seat forward</span>';
+        } else {
+          var flatOk = selected.w <= Math.min(c.w, c.ow) && selected.l <= c.l;
+          var flatSlide = selected.w <= Math.min(c.w, c.ow) && selected.l <= c.l + 18;
+          var foamCurve = kind === 'foam' && selected.w <= Math.min(c.w, c.ow) + 55 && selected.l <= c.l + 25 && c.h >= 74;
+          badge = flatOk ? '<span class="pill pill--ok">Fits flat inside</span>'
+                : flatSlide ? '<span class="pill pill--warn">Fits flat · slide front seats</span>'
+                : foamCurve ? '<span class="pill pill--warn">Fits curved (foam only)</span>'
+                : '<span class="pill pill--no">Too wide — needs van / roof rack</span>';
+        }
+        return '<tr><td><strong>' + c.name + '</strong></td><td>' + c.l + ' × ' + c.w + ' × ' + c.h + ' cm</td><td>' + badge + '</td><td><a href="/willitfit/?space=boot&amp;preset=bed160&amp;car=' + c.id + '">Adjust</a></td></tr>';
+      }).join('');
+    }
+
+    document.querySelectorAll('[data-kind]').forEach(function (btn) {
+      btn.onclick = function () {
+        kind = btn.dataset.kind;
+        document.querySelectorAll('[data-kind]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === btn)); });
+        render();
+      };
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>
