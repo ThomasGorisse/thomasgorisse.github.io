@@ -605,7 +605,7 @@
       <figure class="dragon-stage">
         <div class="dragon-glow" aria-hidden="true"></div>
         <div class="phone-frame">
-          <video id="dvid" src="/arcamera/dragon-showcase.mp4" poster="/arcamera/dragon-poster.jpg" autoplay muted loop playsinline controls aria-label="Living AR Dragon anchored at 1:1 scale on a wooden living room floor"></video>
+          <video id="dvid" src="/arcamera/dragon-showcase.mp4" poster="/arcamera/dragon-poster.jpg" autoplay muted loop playsinline controls style="object-fit:cover;object-position:center 36%;transform:scale(1.16);transform-origin:48% 6%;" aria-label="Living AR Dragon anchored at 1:1 scale on a wooden living room floor"></video>
           <div class="hud-chip"><i></i><span>ARCore + Filament · 1:1 Real Scale</span></div>
           <button type="button" class="sound-btn" id="sbtn" aria-pressed="false" aria-label="Enable sound on AR Dragon video">🔊 Enable sound</button>
         </div>
@@ -635,30 +635,31 @@
     <section class="wrap section" aria-labelledby="source3d-title">
       <div class="section-head">
         <div>
-          <p class="eyebrow">00 · Interactive 3D Source Mesh</p>
-          <h2 id="source3d-title">Compare the live 3D dragon mesh before AR &amp; animation</h2>
+          <p class="eyebrow">00 · Interactive 3D WebGL Sandbox</p>
+          <h2 id="source3d-title">Spin a live animated 3D dragon right in your browser</h2>
         </div>
-        <p class="section-sub">Drag to orbit the real animated <code>.glb</code> source model right in your browser — the exact 3D geometry anchored onto the room floor above.</p>
+        <p class="section-sub">Drag to orbit an animated <code>.glb</code> dragon in real time — the same glTF PBR + skeletal animation pipeline SceneView runs on Android, WebGL2, and desktop.</p>
       </div>
 
       <div class="source3d-grid">
-        <div style="position:relative;min-height:420px;border-radius:var(--radius);border:1px solid var(--line-strong);background:radial-gradient(circle at 50% 45%, rgba(56,189,248,0.12), rgba(9,11,16,0.96) 72%);overflow:hidden;box-shadow:var(--shadow-lg);">
+        <div id="dragon-3d-wrap" style="position:relative;min-height:420px;border-radius:var(--radius);border:1px solid var(--line-strong);background:radial-gradient(circle at 50% 48%, rgba(56,189,248,0.14), rgba(11,15,24,0.98) 72%);overflow:hidden;box-shadow:var(--shadow-lg);">
+          <img id="dragon-3d-fallback" src="/arcamera/animated-dragon-thumb.webp" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:36px;mix-blend-mode:lighten;opacity:0.45;transition:opacity 0.5s ease;pointer-events:none;">
           <model-viewer
             id="dragon-3d-source"
             src="https://sceneview.github.io/web-demo/models/animated_dragon.glb"
-            poster="https://sceneview.github.io/web-demo/thumbs/animated_dragon.webp"
             alt="Interactive animated 3D dragon GLB model — drag to orbit"
             camera-controls
             auto-rotate
             autoplay
+            camera-orbit="35deg 75deg 105%"
             shadow-intensity="1"
             shadow-softness="0.9"
             environment-image="neutral"
-            exposure="1.05"
+            exposure="1.15"
             touch-action="pan-y"
-            style="width:100%;height:100%;min-height:420px;display:block;background:transparent;--poster-color:transparent;"
+            style="position:relative;z-index:1;width:100%;height:100%;min-height:420px;display:block;background:transparent;--poster-color:transparent;"
           ></model-viewer>
-          <div style="position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(9,11,16,0.78);border:1px solid rgba(255,255,255,0.16);font:600 0.76rem/1 var(--mono);color:#E2E8F0;backdrop-filter:blur(10px);pointer-events:none;">
+          <div style="position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(9,11,16,0.78);border:1px solid rgba(255,255,255,0.16);font:600 0.76rem/1 var(--mono);color:#E2E8F0;backdrop-filter:blur(10px);pointer-events:none;">
             <span style="width:7px;height:7px;border-radius:50%;background:var(--cyan);"></span>
             <span>animated_dragon.glb · Drag to orbit</span>
           </div>
@@ -666,7 +667,7 @@
         <article class="step-card" style="display:flex;flex-direction:column;justify-content:center;gap:12px;">
           <span class="step-num">3D → AR → VIDEO</span>
           <h3>Why real geometry beats pure text-to-video</h3>
-          <p>Start with an actual rigged <code>.glb</code> mesh (drag on the left to inspect every wing, claw, and scale in 360°). Anchor it at true 1:1 physical size on your floor with <strong>SceneView</strong> so perspective and cast shadows stay physically locked — then animate on top of reality.</p>
+          <p>Start with an actual rigged <code>.glb</code> mesh (drag on the left to inspect every wing, claw, and animation frame in 360°). Anchor any model at true 1:1 physical size on your floor with <strong>SceneView</strong> so perspective and cast shadows stay physically locked — then animate on top of reality.</p>
           <p style="font-size:0.82rem;color:var(--faint);margin-top:4px;">3D Model: <a href="https://sceneview.github.io/web-demo/">Animated Dragon</a> by LasquetiSpice (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>).</p>
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
             <a class="pill-link primary" href="https://sceneview.github.io/web-demo/">Open Full WebGL2 Demo →</a>
@@ -825,6 +826,11 @@
     }
 
     var copyBtn = document.getElementById('copy-code');
+    var mv = document.getElementById('dragon-3d-source');
+    var fb = document.getElementById('dragon-3d-fallback');
+    if (mv && fb) {
+      mv.addEventListener('load', function () { fb.style.opacity = '0'; });
+    }
     var codeEl = document.getElementById('sv-code');
     if (copyBtn && codeEl) {
       copyBtn.addEventListener('click', function () {

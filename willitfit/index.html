@@ -123,17 +123,41 @@
 <body>
   <div class="wrap">
     <header>
-      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
-      <div class="unit-toggle" role="group" aria-label="Units">
-        <button type="button" id="u-cm" aria-pressed="true">cm</button>
-        <button type="button" id="u-in" aria-pressed="false">in</button>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <a href="/" style="font-weight:700;font-size:.9rem;color:var(--muted);text-decoration:none;">← Thomas Gorisse</a>
+        <span style="color:var(--muted);opacity:.45">/</span>
+        <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <a href="/arcamera/dragon/" style="font-size:.82rem;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:999px;background:var(--card);border:1px solid var(--outline);">AR Dragon</a>
+        <a href="https://sceneview.github.io/" style="font-size:.82rem;font-weight:600;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:999px;background:var(--card);border:1px solid var(--outline);">SceneView</a>
+        <div class="unit-toggle" role="group" aria-label="Units">
+          <button type="button" id="u-cm" aria-pressed="true">cm</button>
+          <button type="button" id="u-in" aria-pressed="false">in</button>
+        </div>
       </div>
     </header>
 
     <h1>Will your furniture actually fit through?</h1>
-    <p class="sub">Check instantly whether a sofa, bed, fridge, or wardrobe clears a doorway, a 90° hallway corner, an elevator, or a car boot — before moving day. Everything runs locally in your browser.</p>
+    <p class="sub">Check instantly whether a sofa, bed, fridge, or wardrobe clears a doorway, a 90° hallway corner, an elevator, or a car boot — before moving day. Everything runs locally in your browser, or simulate it live in real 3D on Android.</p>
 
-    <div class="grid">
+    <section class="panel" style="margin-bottom:20px;display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:center;">
+      <div style="position:relative;border-radius:20px;overflow:hidden;background:#0a0d12;border:1px solid var(--outline);aspect-ratio:9/15.5;max-height:420px;max-width:248px;margin:0 auto;width:100%;box-shadow:0 20px 50px rgba(0,0,0,0.38);">
+        <video src="/willitfit/willitfit-3d-demo.mp4" poster="/willitfit/og-willitfit.png" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <div style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:rgba(15,23,42,0.82);border:1px solid rgba(255,255,255,0.18);color:#86efac;font:700 0.72rem/1 system-ui,sans-serif;backdrop-filter:blur(8px);">● Real 3D Filament · On-Device</div>
+      </div>
+      <div>
+        <span style="display:inline-block;margin-bottom:10px;padding:5px 11px;border-radius:999px;background:var(--ok-bg);color:var(--ok);font-size:.78rem;font-weight:700;">Live 3D Simulation + AR Tape Measure</span>
+        <h2 style="margin:0 0 8px;font-size:1.45rem;line-height:1.18;letter-spacing:-0.02em">Watch it tilt, turn &amp; clear your doorway in real 3D</h2>
+        <p style="margin:0 0 14px;color:var(--muted);font-size:.95rem">Built on open-source <strong>SceneView</strong> and Google Filament: measure any door, hallway, lift, or car boot offline, rotate the 3D scene around your furniture, and get an instant YES / NO verdict before you carry it.</p>
+        <div class="ctas">
+          <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_hero%26utm_medium%3Dvideo_demo%26utm_campaign%3Dreal_3d">Get Will It Fit on Google Play (Free)</a>
+          <a class="btn btn--secondary" href="#calculator">Use the Instant Browser Calculator ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid" id="calculator">
       <section class="panel" aria-label="Dimensions">
         <p class="section-label">1. Pick a preset or enter object size</p>
         <div class="chips" id="presets"></div>

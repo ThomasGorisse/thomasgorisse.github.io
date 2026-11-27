@@ -35,8 +35,8 @@
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0e1117; --surface: #161b24; --card: #1e2532; --text: #edf2f8; --muted: #9aa7bd;
-        --outline: #2b3446; --primary: #7eb3ff; --primary-ink: #071936; --accent: #38bdf8;
+        --bg: #090b10; --surface: #111520; --card: #171d2c; --text: #f4f7fb; --muted: #99a7bc;
+        --outline: rgba(255,255,255,0.10); --primary: #fb923c; --primary-ink: #090b10; --accent: #38bdf8;
       }
     }
     *, *::before, *::after { box-sizing: border-box; }
@@ -50,7 +50,7 @@
     .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
     @media (min-width: 820px) { .grid { grid-template-columns: 1.1fr .9fr; align-items: start; } }
     .panel { background: var(--surface); border: 1px solid var(--outline); border-radius: 20px; padding: 18px; }
-    .drop { border: 2px dashed var(--outline); background: var(--card); border-radius: 16px; padding: 24px 16px; text-align: center; cursor: pointer; transition: border-color .15s; }
+    .drop { display: block; border: 2px dashed var(--outline); background: var(--card); border-radius: 16px; padding: 24px 16px; text-align: center; cursor: pointer; transition: border-color .15s; }
     .drop:hover, .drop.drag { border-color: var(--primary); }
     .drop strong { display: block; font-size: 1rem; margin-bottom: 4px; }
     .drop span { font-size: .85rem; color: var(--muted); }
@@ -83,26 +83,36 @@
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <a class="brand" href="/arcamera/">3D AR Viewer</a>
-      <span class="badge">100% local · no file upload</span>
+    <header style="flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <a class="brand" href="/">← Thomas Gorisse</a>
+        <span style="color:var(--muted);opacity:.45">/</span>
+        <a class="brand" href="/arcamera/">3D AR Viewer</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <a class="badge" href="/arcamera/dragon/" style="text-decoration:none;">Living AR Dragon</a>
+        <a class="badge" href="/willitfit/" style="text-decoration:none;">Will It Fit</a>
+        <a class="badge" href="https://sceneview.github.io/" style="text-decoration:none;">SceneView</a>
+        <span class="badge">100% local · no upload</span>
+      </div>
     </header>
 
     <h1>Check any STL, OBJ, or GLB at real size — and bring it to life in AR</h1>
     <p class="sub">Drop a 3D file to inspect its exact bounding box, volume, and PLA print weight locally in your browser — or place animated 3D models at true 1:1 scale on your living room floor with 3D AR Viewer.</p>
 
-    <section class="panel" style="margin-bottom:18px;display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:center">
-      <div style="border-radius:16px;overflow:hidden;background:#0a0d12;border:1px solid var(--outline);max-height:360px;display:flex;justify-content:center">
-        <video src="/arcamera/dragon-hero.mp4" autoplay muted loop playsinline style="width:100%;max-height:360px;object-fit:cover;display:block"></video>
+    <section class="panel" style="margin-bottom:18px;display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:center;background:radial-gradient(500px 300px at 15% 10%, rgba(251,146,60,0.08), transparent 70%), var(--surface);">
+      <div style="position:relative;border-radius:20px;overflow:hidden;background:#070a0f;border:1px solid var(--outline);aspect-ratio:9/15;max-height:420px;max-width:255px;margin:0 auto;width:100%;box-shadow:0 20px 50px rgba(0,0,0,0.45);">
+        <video src="/arcamera/dragon-hero.mp4" poster="/arcamera/dragon-poster.jpg" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;object-position:center 36%;transform:scale(1.16);transform-origin:48% 8%;display:block;"></video>
+        <div style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:rgba(9,11,16,0.78);border:1px solid rgba(255,255,255,0.16);color:#f1f5f9;font:600 0.72rem/1 var(--mono);backdrop-filter:blur(8px);">● ARCore + Filament · 1:1</div>
       </div>
       <div>
-        <span class="badge" style="display:inline-block;margin-bottom:10px">Real room · ARCore + Filament</span>
-        <h2 style="margin:0 0 8px;font-size:1.35rem;line-height:1.2">From static 3D model to living creature on your floor</h2>
-        <p style="margin:0 0 14px;color:var(--muted);font-size:.94rem">Place any 3D model at true 1:1 scale with real room lighting and ground shadows using open-source SceneView — on Android and iOS.</p>
+        <span class="badge" style="display:inline-block;margin-bottom:10px">Spatial AR × 3D Geometry · SceneView</span>
+        <h2 style="margin:0 0 8px;font-size:1.45rem;line-height:1.18;letter-spacing:-0.02em">From static 3D mesh to living creature on your floor</h2>
+        <p style="margin:0 0 14px;color:var(--muted);font-size:.95rem">Anchor any 3D model at true 1:1 scale with real room lighting and cast ground shadows using open-source SceneView — or spin the interactive animated 3D source dragon in your browser.</p>
         <div class="ctas">
-          <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_dragon%26utm_medium%3Dhero%26utm_campaign%3Ddragon_showcase">Try 3D AR Viewer on Android</a>
-          <a class="btn btn--secondary" href="https://apps.apple.com/app/id6790808866">Get 3D AR Viewer on iOS</a>
-          <a class="btn btn--secondary" href="/arcamera/dragon/">Watch full dragon showcase with sound →</a>
+          <a class="btn btn--primary" href="/arcamera/dragon/">Watch AR Dragon + Interactive 3D Mesh →</a>
+          <a class="btn btn--secondary" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_dragon%26utm_medium%3Dhero%26utm_campaign%3Ddragon_showcase">Get 3D AR Viewer on Google Play</a>
+          <a class="btn btn--secondary" href="https://apps.apple.com/us/app/3d-ar-viewer-ai-model-maker/id6790808866">Get 3D AR Viewer on iOS (App Store)</a>
         </div>
       </div>
     </section>
