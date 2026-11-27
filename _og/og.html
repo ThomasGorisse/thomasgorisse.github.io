@@ -1,55 +1,337 @@
 <!doctype html>
-<!-- Source of /og.png (1200x630). Jekyll does not publish folders starting with "_".
-     Re-render: serve the repo root, open /_og/og.html at 1200x630, screenshot. -->
+<!-- Source of /og-2026-11.png and /og.png (1200x630). Jekyll skips underscore folders. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <style>
-  * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1200px; height: 630px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
-    position: relative; overflow: hidden;
-    background: #0e0d0c; color: #f3f0ec;
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    padding: 72px 80px;
+    position: relative;
+    background: #090B10;
+    color: #F8FAFC;
+    font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 54px 64px;
+    -webkit-font-smoothing: antialiased;
   }
-  .glow {
-    position: absolute; right: -40px; top: 70px; width: 560px; height: 520px; border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(251,146,60,.18), transparent);
+
+  /* Subtle studio grid & dual ambient spatial glows */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 45%, transparent 100%);
   }
-  .chair { position: absolute; right: 36px; top: 90px; width: 440px; height: 440px; object-fit: contain; }
-  .who { display: flex; align-items: center; gap: 18px; }
-  .who img { width: 68px; height: 68px; border-radius: 50%; }
-  .name { font-size: 30px; font-weight: 650; letter-spacing: -.01em; }
-  .role { font-size: 21px; color: #a79f97; margin-top: 4px; }
+  .glow-amber {
+    position: absolute;
+    left: -90px;
+    top: -120px;
+    width: 620px;
+    height: 540px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(245, 158, 11, 0.16), transparent 72%);
+  }
+  .glow-cyan {
+    position: absolute;
+    right: -40px;
+    bottom: -90px;
+    width: 680px;
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(34, 211, 238, 0.18), rgba(16, 185, 129, 0.08) 45%, transparent 74%);
+  }
+
+  /* Left editorial column */
+  .left {
+    position: relative;
+    z-index: 2;
+    width: 616px;
+    height: 522px;
+    display: flex;
+    flex-direction: column;
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .avatar-ring {
+    width: 68px;
+    height: 68px;
+    padding: 2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FB923C, #22D3EE);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+    flex: none;
+  }
+  .avatar-ring img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #090B10;
+  }
+  .name {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #F8FAFC;
+    line-height: 1.15;
+  }
+  .role {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 19px;
+    font-weight: 500;
+    color: #94A3B8;
+  }
+  .role b {
+    color: #E2E8F0;
+    font-weight: 600;
+  }
+  .apache {
+    font-size: 14px;
+    font-weight: 600;
+    color: #34D399;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(52, 211, 153, 0.28);
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+
   h1 {
-    margin-top: 60px; max-width: 620px;
-    font-size: 58px; line-height: 1.06; font-weight: 700; letter-spacing: -.035em;
+    margin-top: 44px;
+    font-size: 52px;
+    line-height: 1.07;
+    font-weight: 800;
+    letter-spacing: -0.034em;
+    color: #F8FAFC;
+    max-width: 600px;
   }
-  h1 span { color: #8f877f; }
-  .foot {
-    position: absolute; left: 80px; right: 80px; bottom: 64px;
-    display: flex; justify-content: space-between; align-items: baseline;
-    font-size: 21px; color: #a79f97;
+  h1 .hl {
+    background: linear-gradient(95deg, #FBBF24 0%, #FB923C 42%, #38BDF8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    white-space: nowrap;
   }
-  .foot b { color: #fb923c; font-weight: 600; }
-  .url { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 19px; }
+  .sub {
+    margin-top: 22px;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #94A3B8;
+    max-width: 550px;
+  }
+
+  .pills {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #E2E8F0;
+    white-space: nowrap;
+  }
+  .pill .dot {
+    width: 6.5px;
+    height: 6.5px;
+    border-radius: 50%;
+  }
+  .dot-cyan { background: #38BDF8; }
+  .dot-emerald { background: #34D399; }
+  .dot-amber { background: #FB923C; }
+  .pill-url {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    color: #94A3B8;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Right visual stage: Dragon AR phone + Will It Fit 3D inset */
+  .stage {
+    position: absolute;
+    right: 44px;
+    top: 44px;
+    width: 420px;
+    height: 542px;
+    z-index: 2;
+  }
+  .dragon-frame {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 306px;
+    height: 542px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #111520;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    box-shadow:
+      0 30px 70px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(56, 189, 248, 0.18);
+  }
+  .dragon-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 48%;
+    transform: scale(1.16);
+    transform-origin: 50% 48%;
+    display: block;
+  }
+  .dragon-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(9,11,16,0.35) 0%, transparent 22%, transparent 72%, rgba(9,11,16,0.72) 100%);
+    pointer-events: none;
+  }
+  .hud-top {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(9, 11, 16, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    font-size: 12px;
+    font-weight: 600;
+    color: #F8FAFC;
+  }
+  .hud-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hud-live i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34D399;
+    display: inline-block;
+  }
+  .hud-scale {
+    color: #FBBF24;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11px;
+  }
+
+  /* Overlapping Will It Fit 3D card */
+  .wif-card {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 196px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #111520;
+    border: 1.5px solid rgba(255, 255, 255, 0.24);
+    box-shadow:
+      0 24px 56px rgba(0, 0, 0, 0.85),
+      0 0 0 1px rgba(251, 146, 60, 0.2);
+    z-index: 4;
+  }
+  .wif-viewport {
+    position: relative;
+    width: 100%;
+    height: 148px;
+    overflow: hidden;
+    background: #1a1714;
+  }
+  .wif-viewport img {
+    position: absolute;
+    width: 530px;
+    height: auto;
+    left: -312px;
+    top: -17px;
+    display: block;
+  }
+  .wif-foot {
+    padding: 9px 12px;
+    background: rgba(13, 17, 26, 0.96);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: #E2E8F0;
+  }
+  .wif-tag {
+    color: #34D399;
+    font-size: 11px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
 </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <img class="chair" src="../assets/sheen-chair.webp" alt="">
-  <div class="who">
-    <img src="../assets/avatar.webp" alt="">
-    <div>
-      <div class="name">Thomas Gorisse</div>
-      <div class="role">Mobile SDKs and the AI agent pipeline behind them</div>
+  <div class="grid-bg"></div>
+  <div class="glow-amber"></div>
+  <div class="glow-cyan"></div>
+
+  <div class="left">
+    <div class="who">
+      <div class="avatar-ring"><img src="../assets/avatar.webp" alt=""></div>
+      <div>
+        <div class="name">Thomas Gorisse</div>
+        <div class="role">
+          <span>Creator of <b>SceneView</b></span>
+          <span class="apache">Apache 2.0</span>
+        </div>
+      </div>
+    </div>
+
+    <h1>Spatial 3D &amp; AR, engineered with <span class="hl">multi-agent AI.</span></h1>
+    <p class="sub">Mobile SDKs and the AI agent pipeline behind them — real-scale 3D &amp; AR built to ship.</p>
+
+    <div class="pills">
+      <span class="pill"><i class="dot dot-cyan"></i>SceneView SDK</span>
+      <span class="pill"><i class="dot dot-emerald"></i>3D AR Viewer</span>
+      <span class="pill"><i class="dot dot-amber"></i>Will It Fit</span>
+      <span class="pill pill-url">thomasgorisse.github.io</span>
     </div>
   </div>
-  <h1>I build mobile SDKs with AI agents, <span>and the agent systems that build them.</span></h1>
-  <div class="foot">
-    <div>Creator of <b>SceneView</b>, open-source 3D &amp; AR</div>
-    <div class="url">thomasgorisse.github.io</div>
+
+  <div class="stage">
+    <div class="dragon-frame">
+      <img src="../arcamera/dragon-poster.jpg" alt="">
+      <div class="hud-top">
+        <span class="hud-live"><i></i>ARCore + Filament</span>
+        <span class="hud-scale">1:1 SCALE</span>
+      </div>
+    </div>
+    <div class="wif-card">
+      <div class="wif-viewport">
+        <img src="../willitfit/og-willitfit.png" alt="">
+      </div>
+      <div class="wif-foot">
+        <span>Will It Fit</span>
+        <span class="wif-tag">REAL 3D</span>
+      </div>
+    </div>
   </div>
 </body>
 </html>

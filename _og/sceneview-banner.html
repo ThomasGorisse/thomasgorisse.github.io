@@ -1,0 +1,154 @@
+<!doctype html>
+<!-- Source of /assets/apps/sceneview-demo-banner.png (1200x630). Jekyll skips underscore folders. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background: #090B10;
+    color: #F8FAFC;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 52px 60px;
+  }
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .glow-blue {
+    position: absolute;
+    right: -40px;
+    top: -60px;
+    width: 680px;
+    height: 680px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(59, 130, 246, 0.24), transparent 72%);
+  }
+  .glow-indigo {
+    position: absolute;
+    left: -80px;
+    bottom: -100px;
+    width: 560px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(99, 102, 241, 0.16), transparent 72%);
+  }
+  .left {
+    position: relative;
+    z-index: 2;
+    width: 610px;
+    height: 526px;
+    display: flex;
+    flex-direction: column;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .top img {
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
+  .top h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .top p {
+    font-size: 18px;
+    color: #94A3B8;
+    margin-top: 3px;
+  }
+  h1 {
+    margin-top: 48px;
+    font-size: 62px;
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  h1 span { color: #60A5FA; }
+  .sub {
+    margin-top: 22px;
+    font-size: 22px;
+    line-height: 1.45;
+    color: #94A3B8;
+    max-width: 540px;
+  }
+  .chips {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+  }
+  .chip {
+    padding: 9px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    background: rgba(59, 130, 246, 0.1);
+    color: #93C5FD;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .url {
+    margin-top: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 20px;
+    color: #94A3B8;
+  }
+  .phone {
+    position: absolute;
+    right: 60px;
+    top: 44px;
+    width: 392px;
+    height: 542px;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    background: #0F1117;
+    box-shadow: 0 28px 64px rgba(0, 0, 0, 0.8);
+    z-index: 2;
+  }
+  .phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0%;
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="glow-blue"></div>
+  <div class="glow-indigo"></div>
+  <div class="left">
+    <div class="top">
+      <img src="../assets/apps/sceneview-demo.png" alt="">
+      <div>
+        <h2>SceneView Demo</h2>
+        <p>Open-Source 3D &amp; AR SDK · Apache 2.0</p>
+      </div>
+    </div>
+    <h1>Live <span>3D &amp; AR</span><br>SDK Samples</h1>
+    <p class="sub">Dozens of interactive Filament PBR &amp; ARCore scenes on Android and iOS — every screen paired with its source code.</p>
+    <div class="chips">
+      <span class="chip">Compose</span>
+      <span class="chip">Filament PBR</span>
+      <span class="chip">ARCore</span>
+    </div>
+    <div class="url">sceneview.github.io</div>
+  </div>
+  <div class="phone">
+    <img src="sceneview-demo-screen.jpg" alt="">
+  </div>
+</body>
+</html>
