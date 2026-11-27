@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-itunes-app" content="app-id=6790808866">
+  <title>3D Model Scale &amp; Miniature Resizer Calculator (1:12, 1:24, 1:35, 1:64, 28mm, 32mm, 75mm)</title>
+  <meta name="description" content="Convert real-world dimensions to exact 1:12, 1:24, 1:35, 1:48, 1:64, 1:72, HO, or N scale in mm, cm, and inches, or calculate exact Bambu Studio, PrusaSlicer, Cura, and Chitubox scale percentages between 15mm, 28mm, 32mm, 54mm, and 75mm miniatures — 100% locally in your browser.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/3d-model-scale-converter/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="3D Model Scale &amp; Miniature Resizer Calculator (1:12, 1:24, 1:35, 1:64, 28mm, 32mm, 75mm)">
+  <meta property="og:description" content="Instant real-world to scale model calculator and miniature slicer % converter with resin/PLA volume multiplier (k³) — 100% local in your browser.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/arcamera/3d-model-scale-converter/">
+  <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "3D Model Scale & Miniature Resizer Calculator",
+    "url": "https://thomasgorisse.github.io/arcamera/3d-model-scale-converter/",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "isAccessibleForFree": true,
+    "description": "100% local browser calculator for converting real-world measurements into scale model dimensions (1:6 to 1:160) and computing exact 3D slicer resize percentages and resin/PLA volume multipliers between 15mm, 28mm, 32mm, 54mm, 75mm, and ratio scales.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What percentage do I type in my slicer to resize a 32mm miniature to 75mm?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Divide the target scale by the source scale and multiply by 100: (75 / 32) x 100 = 234.38%. Type 234.38% uniformly on X, Y, and Z in Bambu Studio, PrusaSlicer, Cura, or Chitubox. Because volume scales with the cube of linear size (k^3), a 75mm print uses about 12.87x more resin or filament than a 32mm print."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the slicer scale percentage to convert 28mm to 32mm miniatures?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To scale a 28mm miniature up to 32mm, set uniform scale to 114.29% (32 / 28 x 100). To scale a 32mm miniature down to 28mm, set uniform scale to 87.50% (28 / 32 x 100)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does resin or PLA filament usage jump so much when I scale a model up?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When you multiply every axis (X, Y, and Z) by a scale factor k, the model volume increases by k cubed (k^3). Doubling a miniature height (200% scale) multiplies its solid material volume by 8x. For resin prints above 150%, hollowing the mesh and adding drain holes saves substantial resin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I preview my scaled 3D print on my real desk or shelf before printing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Open your .stl, .obj, or .glb file in 3D AR Viewer on Android or iOS to place the model at true 1:1 physical size on your desk, tabletop board, or shelf in augmented reality."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#f8f9fc; --surface:#fff; --card:#eef1f7; --text:#12151c; --muted:#525d73; --outline:#d7dde8; --primary:#005bc1; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --accent:#0ea5e9; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1117; --surface:#161b24; --card:#1e2532; --text:#edf2f8; --muted:#9aa7bd; --outline:#2b3446; --primary:#7eb3ff; --primary-ink:#071936; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --accent:#38bdf8; } }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; -webkit-font-smoothing:antialiased; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { font-weight:800; text-decoration:none; color:inherit; }
+    .badge { font-size:.78rem; font-weight:600; color:var(--muted); background:var(--card); border:1px solid var(--outline); padding:5px 10px; border-radius:999px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; letter-spacing:-.02em; margin:0 0 8px; }
+    h2 { font-size:1.15rem; margin:0 0 10px; letter-spacing:-.01em; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:70ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .tabs { display:inline-flex; flex-wrap:wrap; gap:4px; background:var(--card); border:1px solid var(--outline); border-radius:14px; padding:4px; margin-bottom:16px; width:100%; }
+    .tab { flex:1 1 220px; border:0; background:transparent; color:var(--muted); font:inherit; font-size:.92rem; font-weight:700; padding:10px 14px; border-radius:10px; cursor:pointer; text-align:center; }
+    .tab[aria-selected="true"] { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+    .presets-label { font-size:.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; display:block; }
+    .presets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.84rem; font-weight:600; padding:7px 12px; border-radius:999px; cursor:pointer; }
+    .chip:hover { border-color:var(--primary); }
+    .chip[aria-pressed="true"] { border-color:var(--primary); color:var(--primary); background:var(--surface); }
+    .controls { display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(175px, 1fr)); margin:14px 0; }
+    label.ctrl { display:flex; flex-direction:column; gap:5px; font-size:.82rem; font-weight:700; color:var(--muted); }
+    select, input[type=number] { font:inherit; font-size:.95rem; font-weight:600; padding:10px 12px; border-radius:12px; border:1px solid var(--outline); background:var(--card); color:var(--text); width:100%; }
+    .row-inline { display:flex; gap:8px; align-items:stretch; }
+    .row-inline input[type=number] { flex:1 1 auto; min-width:0; }
+    .row-inline select { flex:0 0 88px; }
+    .swap-row { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:4px 0 8px; }
+    .mini-btn { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.82rem; font-weight:700; padding:7px 12px; border-radius:999px; cursor:pointer; }
+    .mini-btn:hover { border-color:var(--primary); color:var(--primary); }
+    .kpis { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); margin:16px 0; }
+    .kpi { background:var(--card); border:1px solid var(--outline); border-radius:14px; padding:12px; }
+    .kpi--accent { border-color:var(--primary); }
+    .kpi small { display:block; font-size:.75rem; color:var(--muted); font-weight:600; margin-bottom:2px; }
+    .kpi b { font-size:1.22rem; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; display:block; }
+    .kpi .hint { font-size:.76rem; color:var(--muted); margin-top:3px; display:block; }
+    .verdict { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0; }
+    .pill { display:inline-block; padding:5px 11px; border-radius:999px; font-size:.82rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .visual { background:var(--card); border:1px solid var(--outline); border-radius:14px; padding:12px; margin:14px 0; }
+    .visual svg { width:100%; height:104px; display:block; }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); font-size:.94rem; }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:.88rem; }
+    th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--outline); }
+    th { font-size:.76rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+    td.mono { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight:600; }
+    details { border-top:1px solid var(--outline); padding:10px 0; }
+    details:first-of-type { border-top:0; }
+    summary { font-weight:700; cursor:pointer; }
+    details p { margin:8px 0 0; color:var(--muted); font-size:.92rem; }
+    .hidden { display:none; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/arcamera/">← 3D AR Viewer</a>
+      <span class="badge">100% local in browser · zero upload</span>
+    </header>
+
+    <h1>3D Model Scale &amp; Miniature Resizer Calculator</h1>
+    <p class="sub">Convert any real-world measurement into exact <code>1:12</code>, <code>1:24</code>, <code>1:35</code>, <code>1:64</code>, HO, or N scale dimensions, or calculate exact Bambu Studio, PrusaSlicer, Cura, and Chitubox resize percentages between <code>15mm</code>, <code>28mm</code>, <code>32mm</code>, <code>54mm</code>, and <code>75mm</code> miniatures — including the resin/PLA volume multiplier (k³).</p>
+
+    <div class="panel">
+      <div class="tabs" role="tablist" aria-label="Scale calculator modes">
+        <button class="tab" type="button" role="tab" id="tab-real" aria-selected="true" aria-controls="pane-real">Mode 1: Real-World → Model Scale</button>
+        <button class="tab" type="button" role="tab" id="tab-mini" aria-selected="false" aria-controls="pane-mini">Mode 2: Miniature &amp; Slicer % Converter</button>
+      </div>
+
+      <span class="presets-label">Quick Presets</span>
+      <div class="presets">
+        <button class="chip" type="button" data-preset="human" aria-pressed="true">Human 180 cm (1:12)</button>
+        <button class="chip" type="button" data-preset="car" aria-pressed="false">Car 450 cm (1:24)</button>
+        <button class="chip" type="button" data-preset="door" aria-pressed="false">Door 204 cm (1:12)</button>
+        <button class="chip" type="button" data-preset="tank" aria-pressed="false">Tank 650 cm (1:35)</button>
+        <button class="chip" type="button" data-preset="hero" aria-pressed="false">Tabletop Hero 32mm → 75mm</button>
+      </div>
+
+      <!-- MODE 1 -->
+      <div id="pane-real" role="tabpanel" aria-labelledby="tab-real">
+        <div class="controls">
+          <label class="ctrl">Real-world size
+            <div class="row-inline">
+              <input type="number" id="real-val" value="180" min="0.01" step="any" inputmode="decimal">
+              <select id="real-unit" aria-label="Real-world unit">
+                <option value="cm" selected>cm</option>
+                <option value="m">m</option>
+                <option value="in">in</option>
+                <option value="ft">ft</option>
+              </select>
+            </div>
+          </label>
+          <label class="ctrl">Target model scale
+            <select id="real-scale">
+              <option value="6">1:6 (Action Figure / 12")</option>
+              <option value="12" selected>1:12 (Dollhouse / 6" Figure)</option>
+              <option value="18">1:18 (Diecast / 3.75" Figure)</option>
+              <option value="24">1:24 (Car Kit / 75mm Display)</option>
+              <option value="35">1:35 (Armor &amp; Diorama)</option>
+              <option value="48">1:48 (Aviation / O Scale)</option>
+              <option value="64">1:64 (Diecast / 28mm S Scale)</option>
+              <option value="72">1:72 (Aircraft &amp; Wargaming)</option>
+              <option value="87">1:87 (HO Scale Railway)</option>
+              <option value="100">1:100 (Architectural / 15mm)</option>
+              <option value="160">1:160 (N Scale Railway)</option>
+              <option value="custom">Custom 1:X</option>
+            </select>
+          </label>
+          <label class="ctrl" id="custom-wrap">Custom ratio (1 : X)
+            <input type="number" id="custom-ratio" value="50" min="0.1" step="any" inputmode="decimal" disabled>
+          </label>
+        </div>
+
+        <div class="kpis" aria-live="polite">
+          <div class="kpi kpi--accent"><small>Model size (mm)</small><b id="out-mm">150.0 mm</b><span class="hint">Type directly in CAD / slicer</span></div>
+          <div class="kpi"><small>Model size (cm)</small><b id="out-cm">15.00 cm</b><span class="hint">Metric ruler check</span></div>
+          <div class="kpi"><small>Model size (inches)</small><b id="out-in">5.91 in</b><span class="hint">Imperial ruler check</span></div>
+          <div class="kpi"><small>Scale factor</small><b id="out-factor">8.333%</b><span class="hint" id="out-ratio-note">1 : 12 ratio</span></div>
+        </div>
+
+        <div class="verdict" id="real-verdict"></div>
+
+        <div class="visual">
+          <svg id="real-svg" viewBox="0 0 360 104" role="img" aria-label="Visual scale comparison against a 122 mm soda can"></svg>
+        </div>
+      </div>
+
+      <!-- MODE 2 -->
+      <div id="pane-mini" class="hidden" role="tabpanel" aria-labelledby="tab-mini">
+        <div class="controls">
+          <label class="ctrl">Current model scale (From)
+            <select id="from-scale">
+              <option value="mm:15">15mm (Tabletop / ~1:120)</option>
+              <option value="mm:28">28mm (Heroic / ~1:64)</option>
+              <option value="mm:32" selected>32mm (Modern Tabletop / ~1:56)</option>
+              <option value="mm:54">54mm (Collector / ~1:33)</option>
+              <option value="mm:75">75mm (Painter Display / 1:24)</option>
+              <option value="ratio:10">1:10 (Large Statue / 180mm)</option>
+              <option value="ratio:12">1:12 (Action Figure / 150mm)</option>
+              <option value="ratio:24">1:24 (Display / 75mm)</option>
+              <option value="ratio:35">1:35 (Armor / 51.4mm)</option>
+              <option value="ratio:48">1:48 (Aviation / 37.5mm)</option>
+              <option value="ratio:64">1:64 (Diecast / 28.1mm)</option>
+              <option value="ratio:72">1:72 (Small Armor / 25.0mm)</option>
+            </select>
+          </label>
+          <label class="ctrl">Desired print scale (To)
+            <select id="to-scale">
+              <option value="mm:15">15mm (Tabletop / ~1:120)</option>
+              <option value="mm:28">28mm (Heroic / ~1:64)</option>
+              <option value="mm:32">32mm (Modern Tabletop / ~1:56)</option>
+              <option value="mm:54">54mm (Collector / ~1:33)</option>
+              <option value="mm:75" selected>75mm (Painter Display / 1:24)</option>
+              <option value="ratio:10">1:10 (Large Statue / 180mm)</option>
+              <option value="ratio:12">1:12 (Action Figure / 150mm)</option>
+              <option value="ratio:24">1:24 (Display / 75mm)</option>
+              <option value="ratio:35">1:35 (Armor / 51.4mm)</option>
+              <option value="ratio:48">1:48 (Aviation / 37.5mm)</option>
+              <option value="ratio:64">1:64 (Diecast / 28.1mm)</option>
+              <option value="ratio:72">1:72 (Small Armor / 25.0mm)</option>
+            </select>
+          </label>
+          <label class="ctrl">Optional current height (mm)
+            <input type="number" id="orig-mm" value="32" min="1" step="any" inputmode="decimal">
+          </label>
+        </div>
+
+        <div class="swap-row">
+          <button class="mini-btn" type="button" id="swap-btn">⇄ Swap From / To</button>
+          <button class="mini-btn" type="button" id="copy-btn">Copy Slicer %</button>
+        </div>
+
+        <div class="kpis" aria-live="polite">
+          <div class="kpi kpi--accent"><small>Slicer Scale % (X / Y / Z)</small><b id="slicer-pct">234.38%</b><span class="hint">Bambu Studio · Prusa · Cura · Chitubox</span></div>
+          <div class="kpi"><small>Resin / PLA Volume (k³)</small><b id="vol-mult">12.87×</b><span class="hint" id="area-mult">Linear: 2.344× · Surface: 5.49×</span></div>
+          <div class="kpi"><small>New printed height</small><b id="new-height">75.0 mm</b><span class="hint" id="new-height-in">2.95 in (from 32.0 mm)</span></div>
+          <div class="kpi"><small>Effective target ratio</small><b id="eff-ratio">1 : 24</b><span class="hint">Based on 180 cm reference figure</span></div>
+        </div>
+
+        <div class="verdict" id="mini-verdict"></div>
+
+        <div class="visual">
+          <svg id="mini-svg" viewBox="0 0 360 104" role="img" aria-label="Before and after miniature scale visual comparison"></svg>
+        </div>
+      </div>
+
+      <div class="ctas">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dscale_converter%26utm_campaign%3D3d_makers">Preview 1:1 on your desk in AR (Android)</a>
+        <a class="btn btn--sec" href="https://apps.apple.com/app/id6790808866">Preview 1:1 in AR (iOS App Store)</a>
+        <a class="btn btn--sec" href="/arcamera/stl-filament-calculator/">STL Filament Weight Calculator</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Popular Scale Model &amp; Miniature Reference Chart</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Scale</th>
+              <th>180 cm Human Height</th>
+              <th>450 cm Car Length</th>
+              <th>Common Hobby Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">1:6</td><td class="mono">300.0 mm (11.81 in)</td><td class="mono">750.0 mm</td><td>12" collector figures, large resin statues</td></tr>
+            <tr><td class="mono">1:12</td><td class="mono">150.0 mm (5.91 in)</td><td class="mono">375.0 mm</td><td>Dollhouses, 6" action figures, tabletop props</td></tr>
+            <tr><td class="mono">1:24 / 75mm</td><td class="mono">75.0 mm (2.95 in)</td><td class="mono">187.5 mm</td><td>Model car kits, display painting busts &amp; heroes</td></tr>
+            <tr><td class="mono">1:35 / 54mm</td><td class="mono">51.4 – 54.0 mm</td><td class="mono">128.6 mm</td><td>Military armor, dioramas, collector miniatures</td></tr>
+            <tr><td class="mono">32mm (~1:56)</td><td class="mono">32.0 mm (1.26 in)</td><td class="mono">80.0 mm</td><td>Modern tabletop RPG &amp; skirmish miniatures</td></tr>
+            <tr><td class="mono">1:64 / 28mm</td><td class="mono">28.0 – 28.1 mm</td><td class="mono">70.3 mm</td><td>Classic wargaming, diecast cars, S scale</td></tr>
+            <tr><td class="mono">1:72</td><td class="mono">25.0 mm (0.98 in)</td><td class="mono">62.5 mm</td><td>Scale aircraft, historical tabletop armies</td></tr>
+            <tr><td class="mono">1:87 (HO)</td><td class="mono">20.7 mm (0.81 in)</td><td class="mono">51.7 mm</td><td>HO scale model railroads &amp; architectural terrain</td></tr>
+            <tr><td class="mono">1:160 (N)</td><td class="mono">11.3 mm (0.44 in)</td><td class="mono">28.1 mm</td><td>N scale compact model railway layouts</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Frequently Asked Questions</h2>
+      <details open>
+        <summary>What percentage do I type into Bambu Studio, PrusaSlicer, Cura, or Chitubox to resize 32mm to 75mm?</summary>
+        <p>Enter <strong>234.38%</strong> uniformly across X, Y, and Z. Because volume grows with the cube of linear scale (k³), resin or filament consumption increases by roughly <strong>12.87×</strong>, so consider hollowing resin prints with 2–2.5 mm walls and drain holes.</p>
+      </details>
+      <details>
+        <summary>How do millimeter miniature scales (28mm, 32mm, 75mm) map to ratio scales (1:24, 1:35, 1:64)?</summary>
+        <p>Using a standard 180 cm (1,800 mm) adult reference figure, <code>75mm</code> equals exact <code>1:24</code> scale, <code>54mm</code> sits near <code>1:33–1:35</code>, <code>32mm</code> corresponds to <code>~1:56</code>, <code>28mm</code> aligns with <code>~1:64</code>, and <code>15mm</code> sits around <code>1:100–1:120</code>. Millimeter-to-millimeter conversions (e.g. 28mm to 32mm = 114.29%) and ratio-to-ratio conversions (e.g. 1:35 to 1:24 = 145.83%) are exact.</p>
+      </details>
+      <details>
+        <summary>How can I verify the physical size before spending hours printing?</summary>
+        <p>Check your mesh dimensions and polygon budget in our <a href="/arcamera/glb-obj-stl-viewer/">local GLB/STL/OBJ AR readiness checker</a>, then open the same file in <strong>3D AR Viewer</strong> on Android or iOS (powered by open-source SceneView, which has more than 1,300 stars on GitHub) to preview it at true 1:1 scale on your desk.</p>
+      </details>
+    </div>
+
+    <footer>
+      <a href="/arcamera/">3D AR Viewer Home</a>
+      <a href="/arcamera/stl-filament-calculator/">STL Volume &amp; Filament Calculator</a>
+      <a href="/arcamera/glb-obj-stl-viewer/">GLB / STL / OBJ AR Readiness Checker</a>
+      <a href="/arcamera/dragon/">Living AR Dragon Showcase</a>
+      <a href="https://github.com/sceneview/sceneview">Built with SceneView (Apache 2.0)</a>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var REF_HUMAN_MM = 1800;
+    var activeMode = 'real';
+
+    var tabReal = document.getElementById('tab-real');
+    var tabMini = document.getElementById('tab-mini');
+    var paneReal = document.getElementById('pane-real');
+    var paneMini = document.getElementById('pane-mini');
+
+    var realVal = document.getElementById('real-val');
+    var realUnit = document.getElementById('real-unit');
+    var realScale = document.getElementById('real-scale');
+    var customRatio = document.getElementById('custom-ratio');
+
+    var fromScale = document.getElementById('from-scale');
+    var toScale = document.getElementById('to-scale');
+    var origMm = document.getElementById('orig-mm');
+    var copyBtn = document.getElementById('copy-btn');
+
+    function setMode(mode) {
+      activeMode = mode;
+      var isReal = mode === 'real';
+      tabReal.setAttribute('aria-selected', String(isReal));
+      tabMini.setAttribute('aria-selected', String(!isReal));
+      paneReal.classList.toggle('hidden', !isReal);
+      paneMini.classList.toggle('hidden', isReal);
+    }
+
+    function toMm(val, unit) {
+      if (unit === 'cm') return val * 10;
+      if (unit === 'm') return val * 1000;
+      if (unit === 'in') return val * 25.4;
+      if (unit === 'ft') return val * 304.8;
+      return val;
+    }
+
+    function fmtNum(n, dec) {
+      if (!isFinite(n)) return '—';
+      if (Math.abs(n) >= 1000) return n.toLocaleString(undefined, { maximumFractionDigits: dec });
+      return n.toFixed(dec);
+    }
+
+    function parseScaleValue(str) {
+      var parts = str.split(':');
+      var kind = parts[0];
+      var num = parseFloat(parts[1]);
+      if (kind === 'mm') {
+        return { kind: 'mm', heightMm: num, ratio: REF_HUMAN_MM / num, label: num + 'mm' };
+      }
+      return { kind: 'ratio', heightMm: REF_HUMAN_MM / num, ratio: num, label: '1:' + num };
+    }
+
+    function updateReal() {
+      var isCustom = realScale.value === 'custom';
+      customRatio.disabled = !isCustom;
+      var raw = Math.max(0.001, parseFloat(realVal.value) || 0);
+      var denom = isCustom ? Math.max(0.1, parseFloat(customRatio.value) || 1) : parseFloat(realScale.value);
+      var realMm = toMm(raw, realUnit.value);
+      var modelMm = realMm / denom;
+      var modelCm = modelMm / 10;
+      var modelIn = modelMm / 25.4;
+      var pct = (100 / denom);
+
+      document.getElementById('out-mm').textContent = fmtNum(modelMm, modelMm < 10 ? 2 : 1) + ' mm';
+      document.getElementById('out-cm').textContent = fmtNum(modelCm, 2) + ' cm';
+      document.getElementById('out-in').textContent = fmtNum(modelIn, 2) + ' in';
+      document.getElementById('out-factor').textContent = fmtNum(pct, pct < 1 ? 3 : 2) + '%';
+      document.getElementById('out-ratio-note').textContent = '1 : ' + (Number.isInteger(denom) ? denom : denom.toFixed(1)) + ' scale';
+
+      var verdictEl = document.getElementById('real-verdict');
+      if (modelMm <= 180) {
+        verdictEl.innerHTML = '<span class="pill pill--ok">Fits Bambu A1 Mini (180 mm) &amp; standard resin plates</span>';
+      } else if (modelMm <= 256) {
+        verdictEl.innerHTML = '<span class="pill pill--ok">Fits 220–256 mm FDM plates (P1S / X1C / Prusa MK4)</span>';
+      } else {
+        verdictEl.innerHTML = '<span class="pill pill--warn">Exceeds 256 mm single plate — split parts or scale down</span>';
+      }
+
+      var refMm = 122;
+      var maxMm = Math.max(modelMm, refMm, 1);
+      var refH = Math.max(12, (refMm / maxMm) * 68);
+      var modH = Math.max(12, (modelMm / maxMm) * 68);
+      var modW = Math.min(110, Math.max(22, modH * 0.65));
+      document.getElementById('real-svg').innerHTML =
+        '<line x1="18" y1="84" x2="342" y2="84" stroke="currentColor" stroke-opacity=".25" stroke-width="2"/>' +
+        '<rect x="74" y="' + (84 - refH).toFixed(1) + '" width="34" height="' + refH.toFixed(1) + '" rx="5" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-opacity=".45"/>' +
+        '<text x="91" y="98" text-anchor="middle" fill="currentColor" font-size="10" opacity=".72">Soda can (122 mm)</text>' +
+        '<rect x="' + (248 - modW / 2).toFixed(1) + '" y="' + (84 - modH).toFixed(1) + '" width="' + modW.toFixed(1) + '" height="' + modH.toFixed(1) + '" rx="5" fill="rgba(14,165,233,.24)" stroke="#0ea5e9" stroke-width="2"/>' +
+        '<text x="248" y="98" text-anchor="middle" fill="currentColor" font-size="10" opacity=".9">Scaled model (' + fmtNum(modelMm, modelMm < 10 ? 1 : 0) + ' mm)</text>';
+    }
+
+    function updateMini() {
+      var src = parseScaleValue(fromScale.value);
+      var dst = parseScaleValue(toScale.value);
+      var k = dst.heightMm / src.heightMm;
+      var pct = k * 100;
+      var areaMult = k * k;
+      var volMult = k * k * k;
+      var curH = Math.max(0.1, parseFloat(origMm.value) || src.heightMm);
+      var newH = curH * k;
+
+      document.getElementById('slicer-pct').textContent = fmtNum(pct, 2) + '%';
+      document.getElementById('vol-mult').textContent = (volMult < 0.1 ? volMult.toFixed(3) : fmtNum(volMult, 2)) + '×';
+      document.getElementById('area-mult').textContent = 'Linear: ' + k.toFixed(3) + '× · Surface: ' + areaMult.toFixed(2) + '×';
+      document.getElementById('new-height').textContent = fmtNum(newH, 1) + ' mm';
+      document.getElementById('new-height-in').textContent = fmtNum(newH / 25.4, 2) + ' in (from ' + fmtNum(curH, 1) + ' mm)';
+      document.getElementById('eff-ratio').textContent = '1 : ' + (Math.abs(dst.ratio - Math.round(dst.ratio)) < 0.05 ? Math.round(dst.ratio) : dst.ratio.toFixed(1));
+
+      var mv = document.getElementById('mini-verdict');
+      if (Math.abs(pct - 100) < 0.5) {
+        mv.innerHTML = '<span class="pill pill--ok">Same scale (100%) — no rescaling required</span>';
+      } else if (pct > 150) {
+        mv.innerHTML = '<span class="pill pill--warn">Large upscale (' + volMult.toFixed(1) + '× volume) — hollow resin prints (2 mm walls + drain holes) &amp; re-check supports</span>';
+      } else if (pct < 65) {
+        mv.innerHTML = '<span class="pill pill--warn">Strong downscale — inspect thin weapons, spears &amp; pre-supported tips before printing</span>';
+      } else {
+        mv.innerHTML = '<span class="pill pill--ok">Clean resize range — enter ' + fmtNum(pct, 2) + '% uniformly on X, Y, Z in your slicer</span>';
+      }
+
+      var maxH = Math.max(curH, newH, 1);
+      var h1 = Math.max(12, (curH / maxH) * 68);
+      var h2 = Math.max(12, (newH / maxH) * 68);
+      var w1 = Math.min(72, Math.max(18, h1 * 0.48));
+      var w2 = Math.min(92, Math.max(18, h2 * 0.48));
+      document.getElementById('mini-svg').innerHTML =
+        '<line x1="18" y1="84" x2="342" y2="84" stroke="currentColor" stroke-opacity=".25" stroke-width="2"/>' +
+        '<rect x="' + (102 - w1 / 2).toFixed(1) + '" y="' + (84 - h1).toFixed(1) + '" width="' + w1.toFixed(1) + '" height="' + h1.toFixed(1) + '" rx="5" fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-opacity=".45"/>' +
+        '<text x="102" y="98" text-anchor="middle" fill="currentColor" font-size="10" opacity=".72">From ' + src.label + ' (' + fmtNum(curH, 0) + ' mm)</text>' +
+        '<text x="180" y="54" text-anchor="middle" fill="currentColor" font-size="12" font-weight="700" opacity=".8">→ ' + fmtNum(pct, 1) + '%</text>' +
+        '<rect x="' + (258 - w2 / 2).toFixed(1) + '" y="' + (84 - h2).toFixed(1) + '" width="' + w2.toFixed(1) + '" height="' + h2.toFixed(1) + '" rx="5" fill="rgba(14,165,233,.24)" stroke="#0ea5e9" stroke-width="2"/>' +
+        '<text x="258" y="98" text-anchor="middle" fill="currentColor" font-size="10" opacity=".9">To ' + dst.label + ' (' + fmtNum(newH, 0) + ' mm)</text>';
+    }
+
+    function clearPresetHighlight() {
+      document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+    }
+
+    var PRESETS = {
+      human: function () { setMode('real'); realVal.value = 180; realUnit.value = 'cm'; realScale.value = '12'; updateReal(); },
+      car:   function () { setMode('real'); realVal.value = 450; realUnit.value = 'cm'; realScale.value = '24'; updateReal(); },
+      door:  function () { setMode('real'); realVal.value = 204; realUnit.value = 'cm'; realScale.value = '12'; updateReal(); },
+      tank:  function () { setMode('real'); realVal.value = 650; realUnit.value = 'cm'; realScale.value = '35'; updateReal(); },
+      hero:  function () { setMode('mini'); fromScale.value = 'mm:32'; toScale.value = 'mm:75'; origMm.value = 32; updateMini(); }
+    };
+
+    tabReal.onclick = function () { setMode('real'); updateReal(); };
+    tabMini.onclick = function () { setMode('mini'); updateMini(); };
+
+    document.querySelectorAll('.chip').forEach(function (btn) {
+      btn.onclick = function () {
+        var key = btn.dataset.preset;
+        if (PRESETS[key]) PRESETS[key]();
+        document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', String(c === btn)); });
+      };
+    });
+
+    [realVal, realUnit, realScale, customRatio].forEach(function (el) {
+      el.addEventListener('input', function () { clearPresetHighlight(); updateReal(); });
+      el.addEventListener('change', function () { clearPresetHighlight(); updateReal(); });
+    });
+
+    fromScale.addEventListener('change', function () {
+      clearPresetHighlight();
+      var src = parseScaleValue(fromScale.value);
+      origMm.value = Number(src.heightMm.toFixed(1));
+      updateMini();
+    });
+    toScale.addEventListener('change', function () { clearPresetHighlight(); updateMini(); });
+    origMm.addEventListener('input', function () { clearPresetHighlight(); updateMini(); });
+
+    document.getElementById('swap-btn').onclick = function () {
+      clearPresetHighlight();
+      var tmp = fromScale.value;
+      fromScale.value = toScale.value;
+      toScale.value = tmp;
+      var src = parseScaleValue(fromScale.value);
+      origMm.value = Number(src.heightMm.toFixed(1));
+      updateMini();
+    };
+
+    copyBtn.onclick = function () {
+      var txt = document.getElementById('slicer-pct').textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(function () {
+          copyBtn.textContent = 'Copied ' + txt;
+          setTimeout(function () { copyBtn.textContent = 'Copy Slicer %'; }, 1600);
+        });
+      }
+    };
+
+    updateReal();
+    updateMini();
+  })();
+  </script>
+</body>
+</html>

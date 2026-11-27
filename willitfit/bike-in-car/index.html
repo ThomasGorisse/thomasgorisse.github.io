@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will a Bicycle or E-Bike Fit in My Car Trunk? — Instant Fit Table &amp; Calculator</title>
+  <meta name="description" content="Heading to the trail or picking up a bike? Check instantly whether a road bike, gravel bike, 29er MTB, city Dutch bike, e-bike, or folding bike fits in 9 popular cars with both wheels on or front wheel removed.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/bike-in-car/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Will a Bicycle or E-Bike Fit in My Car Trunk?">
+  <meta property="og:description" content="Instant car boot fit matrix for road bikes, gravel bikes, 29er mountain bikes, city bikes, e-bikes, and folding bikes — toggle Both Wheels On vs Front Wheel Removed.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/bike-in-car/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Will a Bicycle or E-Bike Fit in My Car Trunk? — Instant Boot Fit Checker",
+    "url": "https://thomasgorisse.github.io/willitfit/bike-in-car/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web, Android",
+    "description": "Check whether a 700c road bike, gravel bike, 29er mountain bike, city bike, e-bike, or folding bike fits inside popular hatchbacks, SUVs, and compact vans with both wheels on or the front wheel removed.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will an adult bicycle fit inside a hatchback or compact SUV with both wheels on?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A 700c road or gravel bike (about 170 to 174 cm long) fits flat with both wheels on in most compact SUVs (Peugeot 3008, RAV4, CR-V, BMW X3, Tesla Model Y) when rear seats are folded. In a compact hatchback like a VW Golf or Honda Civic, you typically need to slide the front passenger seat forward or pop off the front wheel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much length does removing the front wheel save?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Removing the front wheel shortens most road, gravel, and 29er mountain bikes by about 34 to 38 cm (13 to 15 inches), allowing almost any adult bike to fit flat inside a VW Golf, Honda Civic, or subcompact hatchback with the rear seats folded."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an e-bike fit inside a regular car trunk?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A commuter or trekking e-bike measures roughly 190 x 110 cm with both wheels on, which usually requires a large SUV, estate car, or compact van unless the front wheel is removed. Removing the battery first also cuts 3 to 4 kg of weight when lifting it into the boot."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#faf7f2; --surface:#fff; --card:#f2ede6; --text:#1c1b1a; --muted:#545f5f; --outline:#d5d0c8; --primary:#f2641f; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --no:#b3261e; --no-bg:#fce8e6; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1415; --surface:#161d1e; --card:#1d2526; --text:#e6ecec; --muted:#a2b0b0; --outline:#2e3a3b; --primary:#ff7a38; --primary-ink:#1b0b00; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --no:#f28b82; --no-bg:#351514; } }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color:inherit; }
+    .brand img { width:34px; height:34px; border-radius:9px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:66ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.86rem; font-weight:600; padding:8px 13px; border-radius:999px; cursor:pointer; }
+    .chip[aria-pressed="true"] { background:var(--primary); color:var(--primary-ink); border-color:var(--primary); }
+    .mode-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:14px; }
+    .seg { display:inline-flex; background:var(--card); border:1px solid var(--outline); border-radius:999px; padding:3px; }
+    .seg button { border:0; background:transparent; color:var(--muted); font:inherit; font-size:.82rem; font-weight:700; padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .seg button[aria-pressed="true"] { background:var(--surface); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.12); }
+    .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--outline); }
+    th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+    .pill { display:inline-block; padding:3px 9px; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .pill--no { background:var(--no-bg); color:var(--no); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      <a class="btn btn--sec" style="min-height:38px;font-size:.85rem" href="/willitfit/?space=boot&amp;preset=bike">Custom dimensions calculator →</a>
+    </header>
+
+    <h1>Will a bicycle or e-bike fit in my car trunk?</h1>
+    <p class="sub">Pick your bike type below and toggle whether you leave both wheels on or pop the front wheel off for an instant cargo verdict across 9 common cars with rear seats folded.</p>
+
+    <div class="panel">
+      <strong>1. Pick bicycle type (medium/large frame):</strong>
+      <div class="chips" id="sizes"></div>
+      <div class="mode-row">
+        <strong style="font-size:.88rem">2. Wheel setup:</strong>
+        <div class="seg" role="group" aria-label="Wheel setup">
+          <button type="button" data-mode="both" aria-pressed="true">Both Wheels On</button>
+          <button type="button" data-mode="frontoff" aria-pressed="false">Front Wheel Removed</button>
+        </div>
+      </div>
+      <div id="b-dim" style="font-size:.9rem;color:var(--muted);margin-bottom:14px"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Car (rear seats folded)</th><th>Typical cargo (L × W × H)</th><th>Verdict</th><th>Action</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0"><strong>Loading tips:</strong> Always lay your bike <strong>drive-side (chain &amp; derailleur) facing up</strong> so you never bend the derailleur hanger. Turn the front handlebar parallel to the floor, slip a plastic pad spacer into hydraulic disc calipers when the front wheel is off, and remove an e-bike battery before lifting.</p>
+      <div class="ctas">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dbike_in_car%26utm_campaign%3Dparking_lot">Measure my exact boot in Android AR</a>
+        <a class="btn btn--sec" href="/willitfit/?space=boot&amp;preset=bike">Open full boot &amp; doorway calculator</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/willitfit/">Main Calculator</a>
+      <a href="/willitfit/stroller-in-car/">Stroller in Car</a>
+      <a href="/willitfit/mattress-in-car/">Mattress in Car</a>
+      <a href="/willitfit/tv-in-car/">TV Box in Car</a>
+      <a href="/willitfit/ikea-in-car/">IKEA Box in Car</a>
+      <a href="/willitfit/fridge-in-car/">Fridge in Car</a>
+      <a href="/arcamera/">3D AR Viewer</a>
+      <a href="/willitfit/privacy/">Privacy</a>
+    </footer>
+  </div>
+  <script>
+  (function () {
+    var BIKES = [
+      { id: 'road', label: 'Road Bike (700c)', both: { l: 170, h: 98, w: 46 }, frontoff: { l: 136, h: 94, w: 46 } },
+      { id: 'gravel', label: 'Gravel Bike', both: { l: 174, h: 100, w: 50 }, frontoff: { l: 140, h: 95, w: 50 } },
+      { id: 'mtb29', label: '29er Mountain Bike', both: { l: 192, h: 106, w: 78 }, frontoff: { l: 154, h: 100, w: 78 } },
+      { id: 'city', label: 'City / Dutch Bike', both: { l: 185, h: 110, w: 66 }, frontoff: { l: 152, h: 104, w: 66 } },
+      { id: 'ebike', label: 'E-Bike (Commuter)', both: { l: 190, h: 110, w: 68 }, frontoff: { l: 156, h: 105, w: 68 } },
+      { id: 'folding', label: 'Folding Bike (Folded)', both: { l: 65, h: 60, w: 32 }, frontoff: { l: 65, h: 60, w: 32 }, folded: true }
+    ];
+    var CARS = [
+      { id: 'clio', name: 'Renault Clio / Subcompact', l: 142, w: 98, h: 70, ow: 96, oh: 67 },
+      { id: 'golf', name: 'VW Golf / Compact Hatch', l: 158, w: 100, h: 74, ow: 102, oh: 71 },
+      { id: 'civic', name: 'Honda Civic Hatchback', l: 165, w: 102, h: 72, ow: 104, oh: 69 },
+      { id: 'p3008', name: 'Peugeot 3008 / Compact SUV', l: 172, w: 105, h: 80, ow: 106, oh: 76 },
+      { id: 'x3', name: 'BMW X3 / Mid SUV', l: 178, w: 109, h: 80, ow: 110, oh: 77 },
+      { id: 'rav4', name: 'Toyota RAV4', l: 180, w: 108, h: 84, ow: 110, oh: 79 },
+      { id: 'crv', name: 'Honda CR-V', l: 184, w: 107, h: 86, ow: 112, oh: 82 },
+      { id: 'modely', name: 'Tesla Model Y', l: 192, w: 105, h: 78, ow: 109, oh: 74 },
+      { id: 'kangoo', name: 'Compact Van / Kangoo', l: 188, w: 119, h: 115, ow: 120, oh: 112 }
+    ];
+    var selected = BIKES[2];
+    var mode = 'both';
+
+    function render() {
+      var sizesEl = document.getElementById('sizes');
+      sizesEl.innerHTML = BIKES.map(function (b) {
+        return '<button type="button" class="chip" data-id="' + b.id + '" aria-pressed="' + String(b.id === selected.id) + '">' + b.label + '</button>';
+      }).join('');
+      sizesEl.querySelectorAll('button').forEach(function (btn) {
+        btn.onclick = function () { selected = BIKES.find(function (b) { return b.id === btn.dataset.id; }); render(); };
+      });
+
+      var d = selected[mode];
+      var note = selected.folded
+        ? ' (already folded — fits even with rear seats up)'
+        : (mode === 'both' ? ' (both wheels on)' : ' (front wheel removed)');
+      document.getElementById('b-dim').textContent =
+        'Bike envelope (Length × Height × Bar width): ' + d.l + ' × ' + d.h + ' × ' + d.w + ' cm (' +
+        Math.round(d.l / 2.54) + ' × ' + Math.round(d.h / 2.54) + ' × ' + Math.round(d.w / 2.54) + ' in)' + note;
+
+      document.getElementById('rows').innerHTML = CARS.map(function (c) {
+        var effW = Math.min(c.w, c.ow);
+        var effH = Math.min(c.h, c.oh);
+        var flatThickness = Math.min(d.w, 55);
+        var uprightOk = d.l <= c.l && d.h <= effH && d.w <= effW;
+        var flatOk = d.l <= c.l && d.h <= effW && flatThickness <= effH;
+        var slideOk = d.l <= c.l + 15 && d.h <= effW + 5 && flatThickness <= effH;
+        var badge;
+
+        if (selected.folded) {
+          badge = '<span class="pill pill--ok">Fits easily (even seats up)</span>';
+        } else if (uprightOk) {
+          badge = '<span class="pill pill--ok">Fits upright or flat</span>';
+        } else if (flatOk) {
+          badge = '<span class="pill pill--ok">Fits flat inside</span>';
+        } else if (slideOk) {
+          badge = '<span class="pill pill--warn">Tight · slide front seat / angle bar</span>';
+        } else {
+          badge = mode === 'both'
+            ? '<span class="pill pill--no">Remove front wheel or use rack</span>'
+            : '<span class="pill pill--no">Too long/tall — use rack or van</span>';
+        }
+        return '<tr><td><strong>' + c.name + '</strong></td><td>' + c.l + ' × ' + c.w + ' × ' + c.h + ' cm</td><td>' + badge + '</td><td><a href="/willitfit/?space=boot&amp;preset=bike&amp;car=' + c.id + '">Adjust</a></td></tr>';
+      }).join('');
+    }
+
+    document.querySelectorAll('[data-mode]').forEach(function (btn) {
+      btn.onclick = function () {
+        mode = btn.dataset.mode;
+        document.querySelectorAll('[data-mode]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === btn)); });
+        render();
+      };
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>

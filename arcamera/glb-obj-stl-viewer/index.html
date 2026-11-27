@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-itunes-app" content="app-id=6790808866">
+  <title>Free Local GLB, STL &amp; OBJ Polycount, Size &amp; Mobile AR Readiness Checker — Zero Upload</title>
+  <meta name="description" content="Drop any .glb, .stl (binary or ASCII), or .obj 3D model locally in your browser — zero file upload — to inspect exact bounding box dimensions (mm, cm, in), triangle count, file size in MB, rotating 3D wireframe, and instant Android &amp; iOS mobile AR readiness verdict.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/arcamera/glb-obj-stl-viewer/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Local GLB, STL &amp; OBJ Polycount, Size &amp; Mobile AR Readiness Checker">
+  <meta property="og:description" content="100% client-side 3D mesh inspector for GLB, STL, and OBJ files: exact dimensions, triangle count, MB footprint, rotating wireframe, and mobile AR frame-rate readiness check.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/arcamera/glb-obj-stl-viewer/">
+  <meta name="theme-color" content="#f8f9fc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Local GLB, STL & OBJ Polycount, Size & Mobile AR Readiness Checker",
+    "url": "https://thomasgorisse.github.io/arcamera/glb-obj-stl-viewer/",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web, Android, iOS",
+    "isAccessibleForFree": true,
+    "description": "100% client-side GLB, STL, and OBJ 3D model inspector that measures exact dimensions in mm, cm, and inches, counts triangles, checks file size in MB, renders an interactive rotating wireframe, and evaluates Android & iOS mobile AR performance readiness without uploading files.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many triangles can a 3D model have for smooth 60 fps mobile AR on Android and iOS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Keeping a GLB, STL, or OBJ mesh under 50,000 triangles and under 15 MB generally delivers smooth 60 fps AR tracking and rendering on modern Android and iOS phones. Models between 50,000 and 150,000 triangles still run on flagship devices but benefit from decimation for older phones. Above 150,000 triangles or 30 MB, decimate the mesh and compress textures before loading on mobile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my GLB, STL, or OBJ files uploaded to a server when I inspect them here?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Parsing happens 100% inside your browser using JavaScript FileReader and DataView in local memory. Your 3D assets never leave your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do STL and GLB files appear at different scales?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The glTF / GLB specification defines 1 unit as 1 meter, whereas most 3D printing slicers export STL files in millimeters (1 unit = 1 mm) and OBJ files vary by CAD tool. Use the unit toggle (mm, cm, m, in) to match your export tool and verify true real-world dimensions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I view my checked GLB, STL, or OBJ model at true 1:1 size in my room?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the file directly in 3D AR Viewer on Android or iOS to place it on your floor, desk, or shelf at true 1:1 scale with real room lighting and ground shadows."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#f8f9fc; --surface:#fff; --card:#eef1f7; --text:#12151c; --muted:#525d73; --outline:#d7dde8; --primary:#005bc1; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --bad:#b3261e; --bad-bg:#fce8e6; --accent:#0ea5e9; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1117; --surface:#161b24; --card:#1e2532; --text:#edf2f8; --muted:#9aa7bd; --outline:#2b3446; --primary:#7eb3ff; --primary-ink:#071936; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --bad:#f28b82; --bad-bg:#3c1618; --accent:#38bdf8; } }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; -webkit-font-smoothing:antialiased; }
+    .wrap { max-width:980px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { font-weight:800; text-decoration:none; color:inherit; }
+    .badge { font-size:.78rem; font-weight:600; color:var(--muted); background:var(--card); border:1px solid var(--outline); padding:5px 10px; border-radius:999px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; letter-spacing:-.02em; margin:0 0 8px; }
+    h2 { font-size:1.15rem; margin:0 0 10px; letter-spacing:-.01em; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:72ch; }
+    .grid { display:grid; gap:18px; grid-template-columns:1fr; margin-bottom:18px; }
+    @media (min-width: 840px) { .grid { grid-template-columns:1.05fr .95fr; align-items:start; } }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .grid .panel { margin-bottom:0; }
+    .drop { display:block; border:2px dashed var(--outline); background:var(--card); border-radius:16px; padding:22px 16px; text-align:center; cursor:pointer; transition:border-color .15s; }
+    .drop:hover, .drop.drag { border-color:var(--primary); }
+    .samples { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.82rem; font-weight:600; padding:7px 11px; border-radius:999px; cursor:pointer; }
+    .chip:hover { border-color:var(--primary); }
+    .chip[aria-pressed="true"] { border-color:var(--primary); color:var(--primary); background:var(--surface); }
+    .canvas-wrap { position:relative; }
+    canvas { width:100%; height:300px; display:block; background:var(--card); border:1px solid var(--outline); border-radius:16px; cursor:grab; touch-action:none; }
+    canvas:active { cursor:grabbing; }
+    .canvas-bar { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; font-size:.8rem; color:var(--muted); flex-wrap:wrap; }
+    .mini-btn { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.78rem; font-weight:700; padding:5px 10px; border-radius:999px; cursor:pointer; }
+    .mini-btn:hover { border-color:var(--primary); color:var(--primary); }
+    .unit-row { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .seg { display:inline-flex; background:var(--card); border:1px solid var(--outline); border-radius:999px; padding:3px; }
+    .seg button { border:0; background:transparent; color:var(--muted); font:inherit; font-size:.82rem; font-weight:700; padding:5px 11px; border-radius:999px; cursor:pointer; }
+    .seg button[aria-pressed="true"] { background:var(--surface); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.12); }
+    .verdict-box { border-radius:14px; padding:13px 14px; margin-bottom:14px; border:1px solid var(--outline); }
+    .verdict-box--ok { background:var(--ok-bg); color:var(--ok); border-color:transparent; }
+    .verdict-box--warn { background:var(--warn-bg); color:var(--warn); border-color:transparent; }
+    .verdict-box--bad { background:var(--bad-bg); color:var(--bad); border-color:transparent; }
+    .verdict-box strong { display:block; font-size:.98rem; margin-bottom:3px; }
+    .verdict-box span { display:block; font-size:.84rem; opacity:.92; }
+    .kpis { display:grid; gap:10px; grid-template-columns:repeat(2, 1fr); margin-bottom:12px; }
+    .kpi { background:var(--card); border:1px solid var(--outline); border-radius:14px; padding:11px 12px; }
+    .kpi small { display:block; font-size:.74rem; color:var(--muted); font-weight:600; margin-bottom:2px; }
+    .kpi b { font-size:1.05rem; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; display:block; }
+    .kpi .sub-val { font-size:.76rem; color:var(--muted); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; display:block; margin-top:2px; }
+    .dims { display:grid; gap:10px; grid-template-columns:repeat(3, 1fr); margin-bottom:14px; }
+    .meta-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+    .pill { display:inline-block; padding:4px 10px; border-radius:999px; font-size:.78rem; font-weight:700; background:var(--card); color:var(--muted); border:1px solid var(--outline); }
+    .ctas { display:grid; gap:10px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 18px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); text-align:center; font-size:.94rem; }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .thresholds { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); margin-top:10px; }
+    .tcard { border-radius:14px; padding:12px; }
+    .tcard b { display:block; font-size:.9rem; margin-bottom:3px; }
+    .tcard p { margin:0; font-size:.84rem; }
+    details { border-top:1px solid var(--outline); padding:10px 0; }
+    details:first-of-type { border-top:0; }
+    summary { font-weight:700; cursor:pointer; }
+    details p { margin:8px 0 0; color:var(--muted); font-size:.92rem; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/arcamera/">← 3D AR Viewer</a>
+      <span class="badge">100% local in browser · zero upload</span>
+    </header>
+
+    <h1>GLB, STL &amp; OBJ Polycount, Size &amp; Mobile AR Readiness Checker</h1>
+    <p class="sub">Drop any <code>.glb</code>, binary/ASCII <code>.stl</code>, or <code>.obj</code> file directly in browser memory to inspect exact real-world dimensions, triangle count, file size in MB, rotating 3D wireframe, and whether it will run at smooth 60 fps in mobile AR on Android and iOS.</p>
+
+    <div class="grid">
+      <section class="panel">
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept=".glb,.stl,.obj" hidden>
+          <strong style="display:block;font-size:1.02rem;margin-bottom:4px">Drop a .GLB, .STL, or .OBJ file here (or tap to pick)</strong>
+          <span style="font-size:.85rem;color:var(--muted)" id="drop-note">Parsed locally in memory · files never leave your device</span>
+        </label>
+
+        <div class="samples" role="group" aria-label="Sample 3D models">
+          <button class="chip" type="button" data-sample="chair" aria-pressed="true">AR-Ready Chair (GLB · 18.4k)</button>
+          <button class="chip" type="button" data-sample="bust" aria-pressed="false">Detailed Bust (STL · 92.5k)</button>
+          <button class="chip" type="button" data-sample="scan" aria-pressed="false">Raw 3D Scan (OBJ · 284k)</button>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="cv" width="640" height="400" aria-label="Interactive rotating 3D wireframe preview"></canvas>
+          <div class="canvas-bar">
+            <span>Drag to orbit · wireframe preview</span>
+            <div style="display:flex;gap:6px">
+              <button class="mini-btn" type="button" id="spin-btn">Pause Spin</button>
+              <button class="mini-btn" type="button" id="reset-btn">Reset View</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-live="polite">
+        <div class="unit-row">
+          <strong id="model-name" style="word-break:break-word">AR-Ready Lounge Chair (sample.glb)</strong>
+          <div class="seg" role="group" aria-label="Source file units">
+            <button type="button" data-u="mm" aria-pressed="false">mm</button>
+            <button type="button" data-u="cm" aria-pressed="false">cm</button>
+            <button type="button" data-u="m" aria-pressed="true">m</button>
+            <button type="button" data-u="in" aria-pressed="false">in</button>
+          </div>
+        </div>
+
+        <div class="verdict-box verdict-box--ok" id="verdict-box">
+          <strong id="verdict-title">Smooth 60 fps on Android &amp; iOS AR</strong>
+          <span id="verdict-tip">Under 50,000 triangles and 15 MB — ideal for instant mobile AR placement.</span>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><small>Triangle / Polygon count</small><b id="kpi-tris">18,400 tris</b><span class="sub-val" id="kpi-tris-note">Target: &lt; 50,000</span></div>
+          <div class="kpi"><small>File size</small><b id="kpi-mb">2.40 MB</b><span class="sub-val" id="kpi-mb-note">Target: &lt; 15 MB</span></div>
+        </div>
+
+        <div class="dims">
+          <div class="kpi"><small>Width (X)</small><b id="dim-x">740 mm</b><span class="sub-val" id="dim-x-alt">74.0 cm · 29.1 in</span></div>
+          <div class="kpi"><small>Height (Y)</small><b id="dim-y">820 mm</b><span class="sub-val" id="dim-y-alt">82.0 cm · 32.3 in</span></div>
+          <div class="kpi"><small>Depth (Z)</small><b id="dim-z">680 mm</b><span class="sub-val" id="dim-z-alt">68.0 cm · 26.8 in</span></div>
+        </div>
+
+        <div class="meta-tags" id="meta-tags">
+          <span class="pill">Format: GLB</span>
+          <span class="pill">Units: meters (m)</span>
+        </div>
+
+        <div class="ctas">
+          <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.arcamera&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dar_readiness%26utm_campaign%3D3d_makers">Open 1:1 in 3D AR Viewer (Android)</a>
+          <a class="btn btn--sec" href="https://apps.apple.com/app/id6790808866">Open 1:1 in 3D AR Viewer (iOS App Store)</a>
+          <a class="btn btn--sec" href="/arcamera/stl-filament-calculator/">Check STL Filament Weight &amp; Print Bed</a>
+        </div>
+      </section>
+    </div>
+
+    <div class="panel">
+      <h2>Mobile AR Performance Guidelines (Android ARCore &amp; iOS ARKit)</h2>
+      <div class="thresholds">
+        <div class="tcard verdict-box--ok">
+          <b>Green · &lt; 50,000 tris &amp; &lt; 15 MB</b>
+          <p>Smooth 60 fps on Android &amp; iOS AR. Fast load times, crisp real-time lighting, and low thermal load on mid-range phones.</p>
+        </div>
+        <div class="tcard verdict-box--warn">
+          <b>Amber · 50k–150k tris (or 15–30 MB)</b>
+          <p>Decimate for older phones. Runs well on recent flagships, but reducing polycount or resizing 4K textures to 2K improves stability.</p>
+        </div>
+        <div class="tcard verdict-box--bad">
+          <b>Red · &gt; 150,000 tris (or &gt; 30 MB)</b>
+          <p>Too heavy for mobile AR — optimize mesh first. Use Blender Decimate modifier, bake normal maps, or export compressed GLB.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Frequently Asked Questions</h2>
+      <details open>
+        <summary>How many triangles should a GLB, STL, or OBJ have for smooth mobile AR?</summary>
+        <p>Aim for <strong>under 50,000 triangles</strong> and <strong>under 15 MB</strong> for consistent 60 fps tracking on both Android and iOS. For raw 3D scans or high-poly sculpts above 150,000 triangles, apply a Decimate modifier in Blender (target ratio 0.15–0.30) before loading on a phone.</p>
+      </details>
+      <details>
+        <summary>Why does my STL or OBJ show huge or tiny measurements?</summary>
+        <p>GLB uses meters by specification, while most 3D printing STL files use millimeters and OBJ files depend on the exporting software. Tap the <code>mm</code>, <code>cm</code>, <code>m</code>, or <code>in</code> unit toggle above the dimensions to match your CAD or slicer export unit immediately.</p>
+      </details>
+      <details>
+        <summary>How can I test my 3D file in real augmented reality?</summary>
+        <p>Once your mesh passes the readiness check, open it in <strong>3D AR Viewer</strong> on Android or iOS — built with open-source SceneView (more than 1,300 stars on GitHub and over 500 public repositories declaring it as a dependency). Need to rescale a miniature first? Try our <a href="/arcamera/3d-model-scale-converter/">3D Model Scale &amp; Miniature Resizer Calculator</a>.</p>
+      </details>
+    </div>
+
+    <footer>
+      <a href="/arcamera/">3D AR Viewer Home</a>
+      <a href="/arcamera/stl-filament-calculator/">STL Volume &amp; Filament Calculator</a>
+      <a href="/arcamera/3d-model-scale-converter/">3D Model Scale &amp; Miniature Converter</a>
+      <a href="/arcamera/dragon/">Living AR Dragon Showcase</a>
+      <a href="https://github.com/sceneview/sceneview">Built with SceneView (Apache 2.0)</a>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    var fileUnit = 'm';
+    var current = null;
+    var yaw = 0.62, pitch = 0.32, dragging = false, autoSpin = true, lx = 0, ly = 0;
+
+    function boundsOf(edges) {
+      var min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+      for (var i = 0; i < edges.length; i++) {
+        for (var j = 0; j < 2; j++) {
+          var p = edges[i][j];
+          if (p[0] < min[0]) min[0] = p[0]; if (p[0] > max[0]) max[0] = p[0];
+          if (p[1] < min[1]) min[1] = p[1]; if (p[1] > max[1]) max[1] = p[1];
+          if (p[2] < min[2]) min[2] = p[2]; if (p[2] > max[2]) max[2] = p[2];
+        }
+      }
+      if (!isFinite(min[0])) return { min: [-0.5, 0, -0.5], max: [0.5, 1, 0.5] };
+      return { min: min, max: max };
+    }
+
+    function addBoxEdges(edges, cx, cy, cz, sx, sy, sz) {
+      var hx = sx / 2, hy = sy / 2, hz = sz / 2;
+      var v = [
+        [cx - hx, cy - hy, cz - hz], [cx + hx, cy - hy, cz - hz], [cx + hx, cy - hy, cz + hz], [cx - hx, cy - hy, cz + hz],
+        [cx - hx, cy + hy, cz - hz], [cx + hx, cy + hy, cz - hz], [cx + hx, cy + hy, cz + hz], [cx - hx, cy + hy, cz + hz]
+      ];
+      var idx = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+      for (var i = 0; i < idx.length; i++) edges.push([v[idx[i][0]], v[idx[i][1]]]);
+    }
+
+    function makeChairSample() {
+      var edges = [];
+      addBoxEdges(edges, 0, 0.42, 0, 0.74, 0.08, 0.68);
+      addBoxEdges(edges, 0, 0.62, -0.30, 0.74, 0.40, 0.08);
+      addBoxEdges(edges, -0.34, 0.52, 0.02, 0.06, 0.16, 0.60);
+      addBoxEdges(edges, 0.34, 0.52, 0.02, 0.06, 0.16, 0.60);
+      addBoxEdges(edges, -0.32, 0.19, -0.29, 0.05, 0.38, 0.05);
+      addBoxEdges(edges, 0.32, 0.19, -0.29, 0.05, 0.38, 0.05);
+      addBoxEdges(edges, -0.32, 0.19, 0.29, 0.05, 0.38, 0.05);
+      addBoxEdges(edges, 0.32, 0.19, 0.29, 0.05, 0.38, 0.05);
+      return {
+        name: 'AR-Ready Lounge Chair (sample.glb)',
+        format: 'GLB (binary glTF 2.0)',
+        defaultUnit: 'm',
+        rawMin: [-0.37, 0, -0.34],
+        rawMax: [0.37, 0.82, 0.34],
+        tris: 18400,
+        bytes: Math.round(2.40 * 1024 * 1024),
+        notes: ['PBR materials: 2', 'Textures: 2K WebP/PNG'],
+        edges: edges
+      };
+    }
+
+    function makeBustSample() {
+      var edges = [];
+      var rings = [
+        { y: 0, rx: 52, rz: 46 }, { y: 26, rx: 48, rz: 42 }, { y: 58, rx: 64, rz: 50 },
+        { y: 92, rx: 32, rz: 30 }, { y: 128, rx: 46, rz: 54 }, { y: 162, rx: 38, rz: 44 }, { y: 185, rx: 16, rz: 18 }
+      ];
+      var segs = 14, prev = null;
+      for (var r = 0; r < rings.length; r++) {
+        var ring = [];
+        for (var s = 0; s < segs; s++) {
+          var a = (s / segs) * Math.PI * 2;
+          ring.push([Math.cos(a) * rings[r].rx, rings[r].y, Math.sin(a) * rings[r].rz]);
+        }
+        for (var k = 0; k < segs; k++) {
+          edges.push([ring[k], ring[(k + 1) % segs]]);
+          if (prev) edges.push([prev[k], ring[k]]);
+        }
+        prev = ring;
+      }
+      var b = boundsOf(edges);
+      return {
+        name: 'Detailed Dragon Bust (sample.stl)',
+        format: 'STL (Binary)',
+        defaultUnit: 'mm',
+        rawMin: b.min,
+        rawMax: b.max,
+        tris: 92500,
+        bytes: Math.round(8.60 * 1024 * 1024),
+        notes: ['High-detail sculpt', 'Watertight mesh'],
+        edges: edges
+      };
+    }
+
+    function makeScanSample() {
+      var edges = [];
+      var uSteps = 26, vSteps = 10, R = 0.28, r0 = 0.11;
+      var grid = [];
+      for (var i = 0; i < uSteps; i++) {
+        var u = (i / uSteps) * Math.PI * 2;
+        var row = [];
+        for (var j = 0; j < vSteps; j++) {
+          var v = (j / vSteps) * Math.PI * 2;
+          var rad = R + r0 * Math.cos(v);
+          var x = rad * Math.cos(u);
+          var y = r0 * Math.sin(v) + 0.18 + 0.03 * Math.sin(u * 3);
+          var z = rad * Math.sin(u);
+          row.push([x, y, z]);
+        }
+        grid.push(row);
+      }
+      for (var a = 0; a < uSteps; a++) {
+        for (var b = 0; b < vSteps; b++) {
+          edges.push([grid[a][b], grid[(a + 1) % uSteps][b]]);
+          edges.push([grid[a][b], grid[a][(b + 1) % vSteps]]);
+        }
+      }
+      var bnd = boundsOf(edges);
+      return {
+        name: 'Raw 3D Photogrammetry Scan (sample.obj)',
+        format: 'OBJ (Wavefront)',
+        defaultUnit: 'm',
+        rawMin: bnd.min,
+        rawMax: bnd.max,
+        tris: 284000,
+        bytes: Math.round(31.2 * 1024 * 1024),
+        notes: ['Unoptimized scan', 'Needs decimation'],
+        edges: edges
+      };
+    }
+
+    var SAMPLES = {
+      chair: makeChairSample(),
+      bust: makeBustSample(),
+      scan: makeScanSample()
+    };
+
+    function parseSTL(buf, name) {
+      var dv = new DataView(buf);
+      var isBinary = buf.byteLength >= 84 && (84 + dv.getUint32(80, true) * 50 === buf.byteLength);
+      var min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+      var edges = [], tris = 0;
+      function pushV(x, y, z) {
+        if (x < min[0]) min[0] = x; if (x > max[0]) max[0] = x;
+        if (y < min[1]) min[1] = y; if (y > max[1]) max[1] = y;
+        if (z < min[2]) min[2] = z; if (z > max[2]) max[2] = z;
+      }
+      if (isBinary) {
+        tris = dv.getUint32(80, true);
+        var step = Math.max(1, Math.floor(tris / 550));
+        for (var i = 0; i < tris; i++) {
+          var o = 84 + i * 50 + 12;
+          var a = [dv.getFloat32(o, true), dv.getFloat32(o + 8, true), dv.getFloat32(o + 4, true)];
+          var b = [dv.getFloat32(o + 12, true), dv.getFloat32(o + 20, true), dv.getFloat32(o + 16, true)];
+          var c = [dv.getFloat32(o + 24, true), dv.getFloat32(o + 32, true), dv.getFloat32(o + 28, true)];
+          pushV(a[0], a[1], a[2]); pushV(b[0], b[1], b[2]); pushV(c[0], c[1], c[2]);
+          if (i % step === 0) edges.push([a, b], [b, c], [c, a]);
+        }
+      } else {
+        var text = new TextDecoder().decode(buf);
+        var re = /vertex\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)\s+([-+0-9.eE]+)/g, m, tri = [];
+        var rawTris = [];
+        while ((m = re.exec(text)) !== null) {
+          var v = [parseFloat(m[1]), parseFloat(m[3]), parseFloat(m[2])];
+          if (!v.every(isFinite)) continue;
+          pushV(v[0], v[1], v[2]);
+          tri.push(v);
+          if (tri.length === 3) {
+            tris++;
+            if (rawTris.length < 3000) rawTris.push(tri);
+            tri = [];
+          }
+        }
+        var aStep = Math.max(1, Math.floor(rawTris.length / 550));
+        for (var t = 0; t < rawTris.length; t += aStep) {
+          var tr = rawTris[t];
+          edges.push([tr[0], tr[1]], [tr[1], tr[2]], [tr[2], tr[0]]);
+        }
+      }
+      if (!isFinite(min[0])) throw new Error('No triangles found in STL file.');
+      return {
+        name: name,
+        format: isBinary ? 'STL (Binary)' : 'STL (ASCII)',
+        defaultUnit: 'mm',
+        rawMin: min,
+        rawMax: max,
+        tris: tris,
+        bytes: buf.byteLength,
+        notes: ['Wireframe sampled: ' + edges.length.toLocaleString() + ' edges'],
+        edges: edges
+      };
+    }
+
+    function parseOBJ(buf, name) {
+      var text = new TextDecoder().decode(buf);
+      var verts = [], min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+      var faceLines = [], tris = 0, lines = text.split(/\r?\n/);
+      for (var li = 0; li < lines.length; li++) {
+        var line = lines[li].trim();
+        if (line.length < 3) continue;
+        if (line[0] === 'v' && (line[1] === ' ' || line[1] === '\t')) {
+          var p = line.split(/\s+/);
+          var v = [parseFloat(p[1]), parseFloat(p[2]), parseFloat(p[3])];
+          if (v.every(isFinite)) {
+            verts.push(v);
+            if (v[0] < min[0]) min[0] = v[0]; if (v[0] > max[0]) max[0] = v[0];
+            if (v[1] < min[1]) min[1] = v[1]; if (v[1] > max[1]) max[1] = v[1];
+            if (v[2] < min[2]) min[2] = v[2]; if (v[2] > max[2]) max[2] = v[2];
+          }
+        } else if (line[0] === 'f' && (line[1] === ' ' || line[1] === '\t')) {
+          var tokens = line.split(/\s+/).slice(1);
+          if (tokens.length >= 3) {
+            tris += (tokens.length - 2);
+            faceLines.push(tokens);
+          }
+        }
+      }
+      if (!verts.length || !isFinite(min[0])) throw new Error('No vertices found in OBJ file.');
+      var edges = [];
+      var step = Math.max(1, Math.floor(faceLines.length / 550));
+      for (var fi = 0; fi < faceLines.length; fi += step) {
+        var f = faceLines[fi];
+        var ids = [];
+        for (var k = 0; k < f.length; k++) {
+          var rawIdx = parseInt(f[k].split('/')[0], 10);
+          var idx = rawIdx < 0 ? verts.length + rawIdx : rawIdx - 1;
+          if (idx >= 0 && idx < verts.length) ids.push(idx);
+        }
+        for (var e = 0; e < ids.length; e++) {
+          edges.push([verts[ids[e]], verts[ids[(e + 1) % ids.length]]]);
+        }
+      }
+      var maxSpan = Math.max(max[0] - min[0], max[1] - min[1], max[2] - min[2]);
+      var guessUnit = maxSpan <= 10 ? 'm' : maxSpan <= 100 ? 'cm' : 'mm';
+      return {
+        name: name,
+        format: 'OBJ (Wavefront)',
+        defaultUnit: guessUnit,
+        rawMin: min,
+        rawMax: max,
+        tris: tris,
+        bytes: buf.byteLength,
+        notes: ['Vertices: ' + verts.length.toLocaleString()],
+        edges: edges
+      };
+    }
+
+    function parseGLB(buf, name) {
+      var dv = new DataView(buf);
+      if (buf.byteLength < 20 || dv.getUint32(0, true) !== 0x46546C67) {
+        throw new Error('Not a valid binary .glb (glTF 2.0) file.');
+      }
+      var jsonLen = dv.getUint32(12, true);
+      var jsonType = dv.getUint32(16, true);
+      if (jsonType !== 0x4E4F534A) throw new Error('Missing glTF JSON chunk.');
+      var json = JSON.parse(new TextDecoder().decode(new Uint8Array(buf, 20, jsonLen)));
+
+      var binOffset = 20 + jsonLen;
+      var hasBin = false, binStart = 0;
+      if (binOffset + 8 <= buf.byteLength) {
+        var binType = dv.getUint32(binOffset + 4, true);
+        if (binType === 0x004E4942) {
+          hasBin = true;
+          binStart = binOffset + 8;
+        }
+      }
+
+      var min = [Infinity, Infinity, Infinity], max = [-Infinity, -Infinity, -Infinity];
+      var tris = 0, edges = [];
+      var accessors = json.accessors || [];
+      var views = json.bufferViews || [];
+      var hasDraco = Array.isArray(json.extensionsUsed) && json.extensionsUsed.indexOf('KHR_draco_mesh_compression') !== -1;
+
+      function readPos(acc, idx) {
+        if (!hasBin || !acc || acc.componentType !== 5126 || acc.type !== 'VEC3' || acc.bufferView == null) return null;
+        var bv = views[acc.bufferView];
+        if (!bv) return null;
+        var stride = bv.byteStride || 12;
+        var off = binStart + (bv.byteOffset || 0) + (acc.byteOffset || 0) + idx * stride;
+        if (off + 12 > buf.byteLength) return null;
+        return [dv.getFloat32(off, true), dv.getFloat32(off + 4, true), dv.getFloat32(off + 8, true)];
+      }
+
+      function readIndex(acc, idx) {
+        if (!hasBin || !acc || acc.bufferView == null) return null;
+        var bv = views[acc.bufferView];
+        if (!bv) return null;
+        var base = binStart + (bv.byteOffset || 0) + (acc.byteOffset || 0);
+        if (acc.componentType === 5123) return dv.getUint16(base + idx * 2, true);
+        if (acc.componentType === 5125) return dv.getUint32(base + idx * 4, true);
+        if (acc.componentType === 5121) return dv.getUint8(base + idx);
+        return null;
+      }
+
+      (json.meshes || []).forEach(function (mesh) {
+        (mesh.primitives || []).forEach(function (prim) {
+          var posAcc = prim.attributes && prim.attributes.POSITION != null ? accessors[prim.attributes.POSITION] : null;
+          if (posAcc && posAcc.min && posAcc.max) {
+            for (var k = 0; k < 3; k++) {
+              if (posAcc.min[k] < min[k]) min[k] = posAcc.min[k];
+              if (posAcc.max[k] > max[k]) max[k] = posAcc.max[k];
+            }
+          }
+          var idxAcc = prim.indices != null ? accessors[prim.indices] : null;
+          var primTris = idxAcc && idxAcc.count ? Math.floor(idxAcc.count / 3) : (posAcc && posAcc.count ? Math.floor(posAcc.count / 3) : 0);
+          tris += primTris;
+
+          if (!hasDraco && hasBin && posAcc && primTris > 0 && edges.length < 1800) {
+            var budget = Math.max(80, Math.floor(1800 / Math.max(1, (json.meshes || []).length)));
+            var step = Math.max(1, Math.floor(primTris / (budget / 3)));
+            for (var t = 0; t < primTris; t += step) {
+              var i0 = idxAcc ? readIndex(idxAcc, t * 3) : t * 3;
+              var i1 = idxAcc ? readIndex(idxAcc, t * 3 + 1) : t * 3 + 1;
+              var i2 = idxAcc ? readIndex(idxAcc, t * 3 + 2) : t * 3 + 2;
+              if (i0 == null || i1 == null || i2 == null) break;
+              var a = readPos(posAcc, i0), b = readPos(posAcc, i1), c = readPos(posAcc, i2);
+              if (a && b && c) edges.push([a, b], [b, c], [c, a]);
+            }
+          }
+        });
+      });
+
+      if (!isFinite(min[0])) { min = [-0.5, 0, -0.5]; max = [0.5, 1, 0.5]; }
+      if (edges.length === 0) {
+        addBoxEdges(edges, (min[0] + max[0]) / 2, (min[1] + max[1]) / 2, (min[2] + max[2]) / 2, max[0] - min[0], max[1] - min[1], max[2] - min[2]);
+      }
+
+      var notes = [];
+      if (json.materials && json.materials.length) notes.push('Materials: ' + json.materials.length);
+      if (json.images && json.images.length) notes.push('Textures: ' + json.images.length);
+      if (json.animations && json.animations.length) notes.push('Animations: ' + json.animations.length);
+      if (hasDraco) notes.push('Draco compressed (box preview)');
+
+      return {
+        name: name,
+        format: 'GLB (binary glTF 2.0)',
+        defaultUnit: 'm',
+        rawMin: min,
+        rawMax: max,
+        tris: tris,
+        bytes: buf.byteLength,
+        notes: notes,
+        edges: edges
+      };
+    }
+
+    function toMm(v) {
+      if (fileUnit === 'mm') return v;
+      if (fileUnit === 'cm') return v * 10;
+      if (fileUnit === 'in') return v * 25.4;
+      return v * 1000;
+    }
+
+    function fmtMm(mm) {
+      return mm < 10 ? mm.toFixed(1) + ' mm' : Math.round(mm).toLocaleString() + ' mm';
+    }
+
+    function fmtAlt(mm) {
+      var cm = (mm / 10).toFixed(mm < 100 ? 1 : 0);
+      var inch = (mm / 25.4).toFixed(1);
+      return cm + ' cm · ' + inch + ' in';
+    }
+
+    function updateUI() {
+      if (!current) return;
+      document.getElementById('model-name').textContent = current.name;
+      document.querySelectorAll('[data-u]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.u === fileUnit));
+      });
+
+      var dx = Math.abs(toMm(current.rawMax[0] - current.rawMin[0]));
+      var dy = Math.abs(toMm(current.rawMax[1] - current.rawMin[1]));
+      var dz = Math.abs(toMm(current.rawMax[2] - current.rawMin[2]));
+
+      document.getElementById('dim-x').textContent = fmtMm(dx);
+      document.getElementById('dim-y').textContent = fmtMm(dy);
+      document.getElementById('dim-z').textContent = fmtMm(dz);
+      document.getElementById('dim-x-alt').textContent = fmtAlt(dx);
+      document.getElementById('dim-y-alt').textContent = fmtAlt(dy);
+      document.getElementById('dim-z-alt').textContent = fmtAlt(dz);
+
+      var mb = current.bytes / (1024 * 1024);
+      document.getElementById('kpi-tris').textContent = current.tris.toLocaleString() + ' tris';
+      document.getElementById('kpi-mb').textContent = mb < 0.1 ? (current.bytes / 1024).toFixed(1) + ' KB' : mb.toFixed(2) + ' MB';
+
+      var vbox = document.getElementById('verdict-box');
+      var vtitle = document.getElementById('verdict-title');
+      var vtip = document.getElementById('verdict-tip');
+      vbox.className = 'verdict-box';
+
+      if (current.tris > 150000 || mb > 30) {
+        vbox.classList.add('verdict-box--bad');
+        vtitle.textContent = 'Too heavy for mobile AR — optimize mesh first';
+        var ratio = current.tris > 0 ? Math.max(0.05, Math.min(0.9, 45000 / current.tris)) : 0.2;
+        vtip.textContent = 'Exceeds mobile AR budget (>150k tris or >30 MB). Decimate to ~' + Math.round(ratio * 100) + '% in Blender (target <50k tris) and cap textures at 2K.';
+        document.getElementById('kpi-tris-note').textContent = current.tris > 150000 ? 'Above 150k ceiling' : 'Within 150k';
+        document.getElementById('kpi-mb-note').textContent = mb > 30 ? 'Above 30 MB ceiling' : 'Under 30 MB';
+      } else if (current.tris >= 50000 || mb >= 15) {
+        vbox.classList.add('verdict-box--warn');
+        vtitle.textContent = 'Decimate for older phones';
+        vtip.textContent = '50k–150k triangles or 15–30 MB. Smooth on recent flagships; decimate below 50k tris for rock-solid 60 fps on all Android & iOS phones.';
+        document.getElementById('kpi-tris-note').textContent = current.tris >= 50000 ? '50k–150k caution zone' : 'Under 50k target';
+        document.getElementById('kpi-mb-note').textContent = mb >= 15 ? '15–30 MB caution zone' : 'Under 15 MB target';
+      } else {
+        vbox.classList.add('verdict-box--ok');
+        vtitle.textContent = 'Smooth 60 fps on Android & iOS AR';
+        vtip.textContent = 'Under 50,000 triangles and 15 MB — ready for instant 1:1 AR placement with real room lighting.';
+        document.getElementById('kpi-tris-note').textContent = 'Within < 50k budget';
+        document.getElementById('kpi-mb-note').textContent = 'Within < 15 MB budget';
+      }
+
+      var tags = ['Format: ' + current.format, 'Units: ' + fileUnit].concat(current.notes || []);
+      document.getElementById('meta-tags').innerHTML = tags.map(function (t) {
+        return '<span class="pill">' + t + '</span>';
+      }).join('');
+    }
+
+    function draw3D() {
+      if (!current) return;
+      var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+      var w = cv.width, h = cv.height;
+      ctx.clearRect(0, 0, w, h);
+      var cx = (current.rawMin[0] + current.rawMax[0]) / 2;
+      var cy = (current.rawMin[1] + current.rawMax[1]) / 2;
+      var cz = (current.rawMin[2] + current.rawMax[2]) / 2;
+      var span = Math.max(
+        current.rawMax[0] - current.rawMin[0],
+        current.rawMax[1] - current.rawMin[1],
+        current.rawMax[2] - current.rawMin[2],
+        1e-5
+      );
+      var sc = Math.min(w, h) * 0.58 / span;
+      var cyaw = Math.cos(yaw), syaw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+
+      function proj(p) {
+        var x = p[0] - cx, y = p[1] - cy, z = p[2] - cz;
+        var x1 = x * cyaw - z * syaw;
+        var z1 = x * syaw + z * cyaw;
+        var y2 = y * cp - z1 * sp;
+        return [w / 2 + x1 * sc, h / 2 - y2 * sc];
+      }
+
+      var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      ctx.strokeStyle = isDark ? '#7eb3ff' : '#005bc1';
+      ctx.lineWidth = current.edges.length > 800 ? 0.9 : 1.35;
+      ctx.beginPath();
+      for (var i = 0; i < current.edges.length; i++) {
+        var a = proj(current.edges[i][0]);
+        var b = proj(current.edges[i][1]);
+        ctx.moveTo(a[0], a[1]);
+        ctx.lineTo(b[0], b[1]);
+      }
+      ctx.stroke();
+    }
+
+    function tick() {
+      if (autoSpin && !dragging && current) {
+        yaw += 0.006;
+        draw3D();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function loadSample(key) {
+      current = SAMPLES[key];
+      fileUnit = current.defaultUnit;
+      document.querySelectorAll('.chip').forEach(function (c) {
+        c.setAttribute('aria-pressed', String(c.dataset.sample === key));
+      });
+      document.getElementById('drop-note').textContent = 'Sample active · drop your own .glb, .stl, or .obj file anytime';
+      updateUI();
+      draw3D();
+    }
+
+    function handleFile(f) {
+      if (!f) return;
+      var ext = f.name.split('.').pop().toLowerCase();
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          if (ext === 'stl') current = parseSTL(reader.result, f.name);
+          else if (ext === 'obj') current = parseOBJ(reader.result, f.name);
+          else if (ext === 'glb') current = parseGLB(reader.result, f.name);
+          else { alert('Unsupported file type. Please drop a .glb, .stl, or .obj file.'); return; }
+          fileUnit = current.defaultUnit;
+          document.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+          document.getElementById('drop-note').textContent = 'Loaded locally: ' + f.name;
+          updateUI();
+          draw3D();
+        } catch (err) {
+          alert('Could not parse 3D file: ' + err.message);
+        }
+      };
+      reader.readAsArrayBuffer(f);
+    }
+
+    var drop = document.getElementById('drop'), inp = document.getElementById('file');
+    inp.onchange = function (e) { handleFile(e.target.files[0]); };
+    drop.ondragover = function (e) { e.preventDefault(); drop.classList.add('drag'); };
+    drop.ondragleave = function () { drop.classList.remove('drag'); };
+    drop.ondrop = function (e) { e.preventDefault(); drop.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); };
+
+    document.querySelectorAll('.chip').forEach(function (c) {
+      c.onclick = function () { loadSample(c.dataset.sample); };
+    });
+    document.querySelectorAll('[data-u]').forEach(function (b) {
+      b.onclick = function () { fileUnit = b.dataset.u; updateUI(); };
+    });
+
+    var spinBtn = document.getElementById('spin-btn');
+    spinBtn.onclick = function () {
+      autoSpin = !autoSpin;
+      spinBtn.textContent = autoSpin ? 'Pause Spin' : 'Auto Spin';
+    };
+    document.getElementById('reset-btn').onclick = function () {
+      yaw = 0.62; pitch = 0.32; draw3D();
+    };
+
+    var cv = document.getElementById('cv');
+    cv.onpointerdown = function (e) { dragging = true; lx = e.clientX; ly = e.clientY; cv.setPointerCapture(e.pointerId); };
+    cv.onpointermove = function (e) {
+      if (!dragging) return;
+      yaw += (e.clientX - lx) * 0.01;
+      pitch = Math.max(-1.3, Math.min(1.3, pitch + (e.clientY - ly) * 0.01));
+      lx = e.clientX; ly = e.clientY;
+      draw3D();
+    };
+    cv.onpointerup = function () { dragging = false; };
+    cv.onpointercancel = function () { dragging = false; };
+
+    loadSample('chair');
+    requestAnimationFrame(tick);
+  })();
+  </script>
+</body>
+</html>

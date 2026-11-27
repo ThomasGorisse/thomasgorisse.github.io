@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will a Washing Machine or Dryer Fit in My Car? — Instant Fit Table &amp; Calculator</title>
+  <meta name="description" content="Moving a washer or dryer? Check instantly whether a 45 cm slim, 60×60×85 cm EU washer, heat-pump dryer, 40 cm top-loader, or US large washing machine fits in 9 popular cars — upright or on its back with transit bolts.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/washer-in-car/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Will a Washing Machine or Dryer Fit in My Car?">
+  <meta property="og:description" content="Instant car cargo fit table for EU and US washing machines and heat-pump dryers across 9 popular cars, with upright vs on-back and transit-bolt safety guidance.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/washer-in-car/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Will a Washing Machine or Dryer Fit in My Car? — Instant Boot Fit Checker",
+    "url": "https://thomasgorisse.github.io/willitfit/washer-in-car/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web, Android",
+    "description": "Check whether a slim 45 cm washer, standard EU 60x60x85 cm washer, heat-pump dryer, 40 cm top-loader, or US large washing machine fits inside popular hatchbacks, SUVs, and compact vans.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will a standard 60 x 60 x 85 cm washing machine fit in a hatchback or SUV?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An 85 cm tall washing machine is too tall to clear the rear hatch opening upright in standard hatchbacks and SUVs (openings are typically 67 to 82 cm). However, with rear seats folded, a 60 x 60 x 85 cm washer fits lying on its back in almost any hatchback or SUV as long as transit bolts are installed and all water is drained first."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I really need transit bolts to move a washing machine in my car?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Front-load washing machines suspend a heavy drum and concrete counterweights on springs. Moving one without shipping transit bolts — especially lying down — can permanently bend the suspension or crack the outer tub over a single road bump."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can a heat-pump tumble dryer be transported lying flat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If a heat-pump dryer must travel on its back, empty the condensate tank and drain any residual water first, and leave it standing upright for 2 to 4 hours after unloading so compressor oil settles before switching it on."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#faf7f2; --surface:#fff; --card:#f2ede6; --text:#1c1b1a; --muted:#545f5f; --outline:#d5d0c8; --primary:#f2641f; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --no:#b3261e; --no-bg:#fce8e6; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1415; --surface:#161d1e; --card:#1d2526; --text:#e6ecec; --muted:#a2b0b0; --outline:#2e3a3b; --primary:#ff7a38; --primary-ink:#1b0b00; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --no:#f28b82; --no-bg:#351514; } }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color:inherit; }
+    .brand img { width:34px; height:34px; border-radius:9px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:66ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.86rem; font-weight:600; padding:8px 13px; border-radius:999px; cursor:pointer; }
+    .chip[aria-pressed="true"] { background:var(--primary); color:var(--primary-ink); border-color:var(--primary); }
+    .mode-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:14px; }
+    .seg { display:inline-flex; background:var(--card); border:1px solid var(--outline); border-radius:999px; padding:3px; }
+    .seg button { border:0; background:transparent; color:var(--muted); font:inherit; font-size:.82rem; font-weight:700; padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .seg button[aria-pressed="true"] { background:var(--surface); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.12); }
+    .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--outline); }
+    th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+    .pill { display:inline-block; padding:3px 9px; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .pill--no { background:var(--no-bg); color:var(--no); }
+    .notice { background:var(--warn-bg); color:var(--warn); border-radius:12px; padding:12px 14px; font-size:.86rem; margin-top:14px; }
+    .notice strong { color:inherit; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      <a class="btn btn--sec" style="min-height:38px;font-size:.85rem" href="/willitfit/?space=boot&amp;preset=washer">Custom dimensions calculator →</a>
+    </header>
+
+    <h1>Will a washing machine or dryer fit in my car?</h1>
+    <p class="sub">Pick your washer or dryer size and transport position below for an instant cargo verdict across 9 popular cars with rear seats folded. Moving it into your laundry room too? Check the <a href="/willitfit/will-a-washing-machine-fit-through-the-door/" style="color:inherit;font-weight:600">washing-machine-through-doorway checker</a>.</p>
+
+    <div class="panel">
+      <strong>1. Pick washing machine or dryer type:</strong>
+      <div class="chips" id="sizes"></div>
+      <div class="mode-row">
+        <strong style="font-size:.88rem">2. Transport orientation:</strong>
+        <div class="seg" role="group" aria-label="Transport orientation">
+          <button type="button" data-mode="upright" aria-pressed="false">Upright (safest)</button>
+          <button type="button" data-mode="back" aria-pressed="true">On Its Back (transit bolts required)</button>
+        </div>
+      </div>
+      <div id="w-dim" style="font-size:.9rem;color:var(--muted);margin-bottom:14px"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Car (rear seats folded)</th><th>Typical cargo (L × W × H)</th><th>Verdict</th><th>Action</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="notice">
+        <strong>Mandatory transit-bolt &amp; drain warning:</strong> Always install the rear <strong>transit (shipping) bolts</strong> before moving a front-load washing machine — without them, the suspended drum and concrete counterweight can damage the tub even on a short drive. Drain all remaining water from the pump filter before laying it on its back (never on the glass front door). For heat-pump dryers laid flat, wait 2–4 hours upright before powering on.
+      </div>
+      <div class="ctas">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dwasher_in_car%26utm_campaign%3Dparking_lot">Measure my exact boot in Android AR</a>
+        <a class="btn btn--sec" href="/willitfit/?space=boot&amp;preset=washer">Open full boot &amp; doorway calculator</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/willitfit/">Main Calculator</a>
+      <a href="/willitfit/will-a-washing-machine-fit-through-the-door/">Washer Through Door</a>
+      <a href="/willitfit/fridge-in-car/">Fridge in Car</a>
+      <a href="/willitfit/mattress-in-car/">Mattress in Car</a>
+      <a href="/willitfit/tv-in-car/">TV Box in Car</a>
+      <a href="/willitfit/ikea-in-car/">IKEA Box in Car</a>
+      <a href="/arcamera/">3D AR Viewer</a>
+      <a href="/willitfit/privacy/">Privacy</a>
+    </footer>
+  </div>
+  <script>
+  (function () {
+    var WASHERS = [
+      { id: 'slim45', label: 'Slim 45 cm Front-Loader', w: 60, d: 45, h: 85, bolts: true },
+      { id: 'eu60', label: 'Standard EU Washer (60×60×85)', w: 60, d: 60, h: 85, bolts: true },
+      { id: 'dryer', label: 'Heat-Pump Dryer (60×64×85)', w: 60, d: 64, h: 85, bolts: false },
+      { id: 'topload40', label: 'Top-Loader (40 cm wide)', w: 40, d: 60, h: 90, bolts: true },
+      { id: 'uslarge', label: 'US Large Washer (69×76×99)', w: 69, d: 76, h: 99, bolts: true }
+    ];
+    var CARS = [
+      { id: 'clio', name: 'Renault Clio / Subcompact', l: 142, w: 98, h: 70, ow: 96, oh: 67 },
+      { id: 'golf', name: 'VW Golf / Compact Hatch', l: 158, w: 100, h: 74, ow: 102, oh: 71 },
+      { id: 'civic', name: 'Honda Civic Hatchback', l: 165, w: 102, h: 72, ow: 104, oh: 69 },
+      { id: 'p3008', name: 'Peugeot 3008 / Compact SUV', l: 172, w: 105, h: 80, ow: 106, oh: 76 },
+      { id: 'x3', name: 'BMW X3 / Mid SUV', l: 178, w: 109, h: 80, ow: 110, oh: 77 },
+      { id: 'rav4', name: 'Toyota RAV4', l: 180, w: 108, h: 84, ow: 110, oh: 79 },
+      { id: 'crv', name: 'Honda CR-V', l: 184, w: 107, h: 86, ow: 112, oh: 82 },
+      { id: 'modely', name: 'Tesla Model Y', l: 192, w: 105, h: 78, ow: 109, oh: 74 },
+      { id: 'kangoo', name: 'Compact Van / Kangoo', l: 188, w: 119, h: 115, ow: 120, oh: 112 }
+    ];
+    var selected = WASHERS[1];
+    var mode = 'back';
+
+    function render() {
+      var sizesEl = document.getElementById('sizes');
+      sizesEl.innerHTML = WASHERS.map(function (w) {
+        return '<button type="button" class="chip" data-id="' + w.id + '" aria-pressed="' + String(w.id === selected.id) + '">' + w.label + '</button>';
+      }).join('');
+      sizesEl.querySelectorAll('button').forEach(function (b) {
+        b.onclick = function () { selected = WASHERS.find(function (w) { return w.id === b.dataset.id; }); render(); };
+      });
+
+      document.getElementById('w-dim').textContent =
+        'Typical unboxed size (W × D × H): ' + selected.w + ' × ' + selected.d + ' × ' + selected.h + ' cm (' +
+        Math.round(selected.w / 2.54) + ' × ' + Math.round(selected.d / 2.54) + ' × ' + Math.round(selected.h / 2.54) + ' in) — add 4–6 cm for door protrusion, hoses, or carton.';
+
+      document.getElementById('rows').innerHTML = CARS.map(function (c) {
+        var effW = Math.min(c.w, c.ow);
+        var effH = Math.min(c.h, c.oh);
+        var badge;
+
+        if (mode === 'upright') {
+          var baseFits = (selected.w <= effW && selected.d <= c.l) || (selected.d <= effW && selected.w <= c.l);
+          var uprightOk = selected.h <= effH && baseFits;
+          var hatchBlocked = !uprightOk && selected.h <= c.h && selected.h > c.oh && baseFits;
+          badge = uprightOk ? '<span class="pill pill--ok">Fits upright</span>'
+                : hatchBlocked ? '<span class="pill pill--no">Blocked by hatch opening · lay on back</span>'
+                : '<span class="pill pill--no">Too tall upright — lay on back or van</span>';
+        } else {
+          var lengthOk = (selected.h <= c.l && selected.w <= effW) || (selected.h <= effW && selected.w <= c.l);
+          var heightMargin = effH - selected.d;
+          var suffix = selected.bolts ? ' · bolts required' : ' · let compressor settle';
+          if (lengthOk && heightMargin >= 4) {
+            badge = '<span class="pill pill--ok">Fits on back' + suffix + '</span>';
+          } else if (lengthOk && heightMargin >= 0) {
+            badge = '<span class="pill pill--warn">Very tight hatch (' + heightMargin + ' cm)' + suffix + '</span>';
+          } else {
+            badge = '<span class="pill pill--no">Too deep for tailgate opening — needs SUV/van</span>';
+          }
+        }
+        return '<tr><td><strong>' + c.name + '</strong></td><td>' + c.l + ' × ' + c.w + ' × ' + c.h + ' cm</td><td>' + badge + '</td><td><a href="/willitfit/?space=boot&amp;preset=washer&amp;car=' + c.id + '">Adjust</a></td></tr>';
+      }).join('');
+    }
+
+    document.querySelectorAll('[data-mode]').forEach(function (btn) {
+      btn.onclick = function () {
+        mode = btn.dataset.mode;
+        document.querySelectorAll('[data-mode]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === btn)); });
+        render();
+      };
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>

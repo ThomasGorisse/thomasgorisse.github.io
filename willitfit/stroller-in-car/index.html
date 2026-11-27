@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will a Stroller or Pushchair Fit in My Car Boot? — Instant Fit Table &amp; Calculator</title>
+  <meta name="description" content="Checking if a folded stroller fits behind the back seats? Compare Cabin Compact (YOYO), Cybex Libelle, Bugaboo Butterfly, UPPAbaby Vista, all-terrain joggers, and double side-by-side pushchairs across 9 cars — rear seats up or folded.">
+  <link rel="canonical" href="https://thomasgorisse.github.io/willitfit/stroller-in-car/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Will a Stroller or Pushchair Fit in My Car Boot?">
+  <meta property="og:description" content="Instant car boot fit table for 6 folded stroller classes across 9 popular cars — with Rear Seats Up (normal boot) vs Rear Seats Folded.">
+  <meta property="og:url" content="https://thomasgorisse.github.io/willitfit/stroller-in-car/">
+  <meta property="og:image" content="https://thomasgorisse.github.io/willitfit/icon-192.png">
+  <link rel="icon" href="/willitfit/icon-192.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Will a Stroller or Pushchair Fit in My Car Boot? — Instant Boot Fit Checker",
+    "url": "https://thomasgorisse.github.io/willitfit/stroller-in-car/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web, Android",
+    "description": "Check whether a cabin compact YOYO, Cybex Libelle, Bugaboo Butterfly, UPPAbaby Vista, all-terrain jogger, or double side-by-side stroller fits in 9 popular cars with rear seats up or folded.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will a full-size stroller like an UPPAbaby Vista fit in a hatchback boot with rear seats up?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A folded full-size reversible stroller measures roughly 84 x 65 x 44 cm. It fits sideways in a VW Golf or Honda Civic boot with the rear seats up, though it fills most of the floor in a subcompact like a Renault Clio. Removing the toddler seat or popping off the rear wheels frees up extra space for bags."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will a double side-by-side stroller fit in a normal car boot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A folded side-by-side twin pushchair (roughly 86 x 76 x 40 cm) is too deep for subcompact boots like a Renault Clio with the rear seats up and is a very tight squeeze in a VW Golf. Compact and mid-size SUVs (Peugeot 3008, RAV4, CR-V, BMW X3, Tesla Model Y) fit most side-by-side doubles flat behind the rear seats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which stroller size leaves room for groceries and luggage in a small car?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cabin-approved compact strollers (such as YOYO at 52 x 44 x 18 cm, Cybex Libelle at 48 x 32 x 20 cm, or Bugaboo Butterfly at 54 x 45 x 23 cm) occupy less than a quarter of a hatchback boot, leaving plenty of space for suitcases and weekly shopping."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg:#faf7f2; --surface:#fff; --card:#f2ede6; --text:#1c1b1a; --muted:#545f5f; --outline:#d5d0c8; --primary:#f2641f; --primary-ink:#fff; --ok:#137333; --ok-bg:#e6f4ea; --warn:#9a5b00; --warn-bg:#fef3dc; --no:#b3261e; --no-bg:#fce8e6; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#0e1415; --surface:#161d1e; --card:#1d2526; --text:#e6ecec; --muted:#a2b0b0; --outline:#2e3a3b; --primary:#ff7a38; --primary-ink:#1b0b00; --ok:#81c995; --ok-bg:#112a1a; --warn:#f6c467; --warn-bg:#2e220a; --no:#f28b82; --no-bg:#351514; } }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+    .wrap { max-width:920px; margin:0 auto; padding:20px 16px 56px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; gap:12px; flex-wrap:wrap; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color:inherit; }
+    .brand img { width:34px; height:34px; border-radius:9px; }
+    h1 { font-size:clamp(1.6rem, 4vw, 2.25rem); line-height:1.15; margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 20px; max-width:66ch; }
+    .panel { background:var(--surface); border:1px solid var(--outline); border-radius:18px; padding:18px; margin-bottom:18px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px; }
+    .chip { border:1px solid var(--outline); background:var(--card); color:var(--text); font:inherit; font-size:.86rem; font-weight:600; padding:8px 13px; border-radius:999px; cursor:pointer; }
+    .chip[aria-pressed="true"] { background:var(--primary); color:var(--primary-ink); border-color:var(--primary); }
+    .mode-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:14px; }
+    .seg { display:inline-flex; background:var(--card); border:1px solid var(--outline); border-radius:999px; padding:3px; }
+    .seg button { border:0; background:transparent; color:var(--muted); font:inherit; font-size:.82rem; font-weight:700; padding:6px 12px; border-radius:999px; cursor:pointer; }
+    .seg button[aria-pressed="true"] { background:var(--surface); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.12); }
+    .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    table { width:100%; border-collapse:collapse; font-size:.92rem; }
+    th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--outline); }
+    th { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+    .pill { display:inline-block; padding:3px 9px; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .pill--ok { background:var(--ok-bg); color:var(--ok); }
+    .pill--warn { background:var(--warn-bg); color:var(--warn); }
+    .pill--no { background:var(--no-bg); color:var(--no); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 20px; border-radius:999px; font-weight:700; text-decoration:none; background:var(--primary); color:var(--primary-ink); }
+    .btn--sec { background:var(--card); color:var(--text); border:1px solid var(--outline); }
+    .ctas { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--outline); display:flex; flex-wrap:wrap; gap:16px; font-size:.85rem; color:var(--muted); }
+    footer a { color:inherit; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/willitfit/"><img src="/willitfit/icon-192.png" alt="">Will It Fit</a>
+      <a class="btn btn--sec" style="min-height:38px;font-size:.85rem" href="/willitfit/?space=boot">Custom dimensions calculator →</a>
+    </header>
+
+    <h1>Will a stroller or pushchair fit in my car boot?</h1>
+    <p class="sub">Pick your folded stroller size below and toggle between normal daily driving (rear seats up for a car seat) and seats folded to check 9 popular cars instantly.</p>
+
+    <div class="panel">
+      <strong>1. Pick folded stroller / pushchair size:</strong>
+      <div class="chips" id="sizes"></div>
+      <div class="mode-row">
+        <strong style="font-size:.88rem">2. Boot setup:</strong>
+        <div class="seg" role="group" aria-label="Boot setup">
+          <button type="button" data-seats="up" aria-pressed="true">Rear Seats Up (Normal Boot)</button>
+          <button type="button" data-seats="folded" aria-pressed="false">Seats Folded</button>
+        </div>
+      </div>
+      <div id="s-dim" style="font-size:.9rem;color:var(--muted);margin-bottom:14px"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th id="car-col">Car (rear seats up)</th><th>Typical boot (D × W × H)</th><th>Verdict</th><th>Action</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0"><strong>Parent boot tip:</strong> Rear-seats-up height above assumes the parcel shelf is in place — removing the parcel shelf adds 12–18 cm of vertical clearance. For full-size joggers and reversible prams, popping off the quick-release rear wheels shaves 8–12 cm off folded length and thickness.</p>
+      <div class="ctas">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.gorisse.thomas.willitfit&amp;referrer=utm_source%3Dweb_seo%26utm_medium%3Dstroller_in_car%26utm_campaign%3Dparking_lot">Measure my exact boot in Android AR</a>
+        <a class="btn btn--sec" href="/willitfit/?space=boot">Open full boot &amp; doorway calculator</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="/willitfit/">Main Calculator</a>
+      <a href="/willitfit/bike-in-car/">Bike in Car</a>
+      <a href="/willitfit/mattress-in-car/">Mattress in Car</a>
+      <a href="/willitfit/tv-in-car/">TV Box in Car</a>
+      <a href="/willitfit/ikea-in-car/">IKEA Box in Car</a>
+      <a href="/willitfit/fridge-in-car/">Fridge in Car</a>
+      <a href="/arcamera/">3D AR Viewer</a>
+      <a href="/willitfit/privacy/">Privacy</a>
+    </footer>
+  </div>
+  <script>
+  (function () {
+    var STROLLERS = [
+      { id: 'yoyo', label: 'Cabin Compact (YOYO)', l: 52, w: 44, h: 18 },
+      { id: 'libelle', label: 'Travel Compact (Cybex Libelle)', l: 48, w: 32, h: 20 },
+      { id: 'butterfly', label: 'Everyday Mid-Size (Bugaboo Butterfly-style)', l: 54, w: 45, h: 23 },
+      { id: 'vista', label: 'Full-Size Reversible (UPPAbaby Vista-style)', l: 84, w: 65, h: 44 },
+      { id: 'jogger', label: 'All-Terrain Jogger (3-Wheel)', l: 90, w: 65, h: 42 },
+      { id: 'double', label: 'Double Side-by-Side', l: 86, w: 76, h: 40 }
+    ];
+    var CARS = [
+      { id: 'clio', name: 'Renault Clio / Subcompact', l: 142, w: 98, h: 70, ow: 96, oh: 67, ul: 68, uw: 98, uh: 54 },
+      { id: 'golf', name: 'VW Golf / Compact Hatch', l: 158, w: 100, h: 74, ow: 102, oh: 71, ul: 78, uw: 100, uh: 56 },
+      { id: 'civic', name: 'Honda Civic Hatchback', l: 165, w: 102, h: 72, ow: 104, oh: 69, ul: 86, uw: 102, uh: 52 },
+      { id: 'p3008', name: 'Peugeot 3008 / Compact SUV', l: 172, w: 105, h: 80, ow: 106, oh: 76, ul: 88, uw: 105, uh: 60 },
+      { id: 'x3', name: 'BMW X3 / Mid SUV', l: 178, w: 109, h: 80, ow: 110, oh: 77, ul: 94, uw: 109, uh: 62 },
+      { id: 'rav4', name: 'Toyota RAV4', l: 180, w: 108, h: 84, ow: 110, oh: 79, ul: 98, uw: 108, uh: 64 },
+      { id: 'crv', name: 'Honda CR-V', l: 184, w: 107, h: 86, ow: 112, oh: 82, ul: 100, uw: 107, uh: 66 },
+      { id: 'modely', name: 'Tesla Model Y', l: 192, w: 105, h: 78, ow: 109, oh: 74, ul: 106, uw: 105, uh: 60 },
+      { id: 'kangoo', name: 'Compact Van / Kangoo', l: 188, w: 119, h: 115, ow: 120, oh: 112, ul: 102, uw: 119, uh: 95 }
+    ];
+    var selected = STROLLERS[3];
+    var seats = 'up';
+
+    function bestFit(st, bl, bw, bh) {
+      var perms = [
+        [st.l, st.w, st.h, 'lengthwise'],
+        [st.w, st.l, st.h, 'sideways'],
+        [st.l, st.h, st.w, 'on its side'],
+        [st.h, st.l, st.w, 'upright sideways'],
+        [st.w, st.h, st.l, 'upright'],
+        [st.h, st.w, st.l, 'upright']
+      ];
+      var best = null;
+      perms.forEach(function (p) {
+        var m = Math.min(bl - p[0], bw - p[1], bh - p[2]);
+        if (m >= 0 && (!best || m > best.margin)) {
+          best = { margin: m, mode: p[3], floorRatio: (p[0] * p[1]) / (bl * bw) };
+        }
+      });
+      return best;
+    }
+
+    function render() {
+      var sizesEl = document.getElementById('sizes');
+      sizesEl.innerHTML = STROLLERS.map(function (s) {
+        return '<button type="button" class="chip" data-id="' + s.id + '" aria-pressed="' + String(s.id === selected.id) + '">' + s.label + '</button>';
+      }).join('');
+      sizesEl.querySelectorAll('button').forEach(function (btn) {
+        btn.onclick = function () { selected = STROLLERS.find(function (s) { return s.id === btn.dataset.id; }); render(); };
+      });
+
+      document.getElementById('car-col').textContent = seats === 'up' ? 'Car (rear seats up)' : 'Car (rear seats folded)';
+      document.getElementById('s-dim').textContent =
+        'Typical folded size (L × W × H): ' + selected.l + ' × ' + selected.w + ' × ' + selected.h + ' cm (' +
+        Math.round(selected.l / 2.54) + ' × ' + Math.round(selected.w / 2.54) + ' × ' + Math.round(selected.h / 2.54) + ' in)';
+
+      document.getElementById('rows').innerHTML = CARS.map(function (c) {
+        var bl = seats === 'up' ? c.ul : c.l;
+        var bw = seats === 'up' ? Math.min(c.uw, c.ow) : Math.min(c.w, c.ow);
+        var bh = seats === 'up' ? Math.min(c.uh, c.oh) : Math.min(c.h, c.oh);
+        var fit = bestFit(selected, bl, bw, bh);
+        var noShelfFit = seats === 'up' && !fit ? bestFit(selected, c.ul, bw, Math.min(c.h, c.oh)) : null;
+        var badge;
+
+        if (fit) {
+          if (fit.margin < 5) {
+            badge = '<span class="pill pill--warn">Tight · fits ' + fit.mode + ' (' + fit.margin + ' cm)</span>';
+          } else if (fit.floorRatio < 0.45) {
+            badge = '<span class="pill pill--ok">Fits easily + luggage space</span>';
+          } else {
+            badge = '<span class="pill pill--ok">Fits ' + fit.mode + ' in boot</span>';
+          }
+        } else if (noShelfFit) {
+          badge = '<span class="pill pill--warn">Fits only with parcel shelf removed</span>';
+        } else {
+          badge = '<span class="pill pill--no">Won\'t fit — fold a seat or pop wheels</span>';
+        }
+
+        var dimStr = bl + ' × ' + (seats === 'up' ? c.uw : c.w) + ' × ' + (seats === 'up' ? c.uh : c.h) + ' cm';
+        return '<tr><td><strong>' + c.name + '</strong></td><td>' + dimStr + '</td><td>' + badge + '</td><td><a href="/willitfit/?space=boot&amp;car=' + c.id + '">Adjust</a></td></tr>';
+      }).join('');
+    }
+
+    document.querySelectorAll('[data-seats]').forEach(function (btn) {
+      btn.onclick = function () {
+        seats = btn.dataset.seats;
+        document.querySelectorAll('[data-seats]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === btn)); });
+        render();
+      };
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>
